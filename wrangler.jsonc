@@ -7,7 +7,7 @@
   // Do NOT set `main` here: the Worker entry doesn't exist until after the
   // build, and the adapter injects it into the generated config for you.
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "albayan-website",
+  "name": "al-bayan-website",
   "compatibility_date": "2026-10-17",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
