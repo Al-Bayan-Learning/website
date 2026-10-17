@@ -152,3 +152,7 @@ vite.config.ts.timestamp-*
 .wrangler/
 .dev.vars
 .dev.vars.*
+
+# macOS / local browser-test output
+.DS_Store
+.playwright-mcp/
