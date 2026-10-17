@@ -1,14 +1,24 @@
 import site from '../data/site.json';
 
 /**
+ * Build-time branch name, injected by `vite.define` in astro.config.mjs from
+ * the WORKERS_CI_BRANCH env var. It must be baked into the bundle rather than
+ * read from `process.env` at runtime, because the coming-soon rewrite runs in
+ * middleware that executes in the Cloudflare prerender/Worker runtime, where
+ * `process.env` is not the Workers Builds CI environment.
+ */
+declare const __WORKERS_CI_BRANCH__: string;
+
+/**
  * The branch this build is running on.
  *
- * Cloudflare Pages exposes the current branch via the CF_PAGES_BRANCH build
- * variable. Locally (astro dev / astro build) it is unset, so we report
- * "local", which is treated like a preview branch (full site).
+ * Cloudflare Workers Builds exposes the current branch via the
+ * WORKERS_CI_BRANCH build variable. Locally (astro dev / astro build) it is
+ * unset, so we report "local", which is treated like a preview branch (full
+ * site).
  */
 export function getBranch(): string {
-  return process.env.CF_PAGES_BRANCH ?? 'local';
+  return __WORKERS_CI_BRANCH__ || 'local';
 }
 
 /** True when this build is the production (main) branch build on Cloudflare. */

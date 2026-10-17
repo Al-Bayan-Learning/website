@@ -1,16 +1,32 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import site from './src/data/site.json' with { type: 'json' };
 
-// Static build. Server code (forms, payments) lives in Cloudflare Pages
-// Functions under /functions, not in the Astro output.
+// The build branch comes from Cloudflare Workers Builds' WORKERS_CI_BRANCH env
+// var, which exists in the Node build process but NOT in the Cloudflare
+// prerender/Worker runtime (where process.env is not the CI environment). Bake
+// it into the bundle at build time via `vite.define` so the coming-soon gate in
+// src/lib/launch.ts can read it wherever the middleware runs.
+const workersCiBranch = process.env.WORKERS_CI_BRANCH ?? '';
+
+// Static-first build deployed to Cloudflare Workers with static assets.
+// Pages are prerendered to static HTML by default and served straight from the
+// assets store. Server code (forms now, payments later) is written as Astro
+// routes/endpoints that opt out of prerendering (`export const prerender =
+// false`); the Cloudflare adapter bundles those into the Worker. There is no
+// /functions folder.
 export default defineConfig({
   site: site.url,
   output: 'static',
+  adapter: cloudflare(),
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __WORKERS_CI_BRANCH__: JSON.stringify(workersCiBranch),
+    },
   },
 });
