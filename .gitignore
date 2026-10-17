@@ -147,3 +147,12 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Cloudflare Workers / Wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*
+
+# macOS / local browser-test output
+.DS_Store
+.playwright-mcp/

@@ -18,7 +18,7 @@ const testimonials = comingSoon
 
 {
   comingSoon ? (
-    <Layout>
+    <Layout fullTitle={`${site.name} – coming soon`} description={site.description}>
       <ComingSoon />
     </Layout>
   ) : (

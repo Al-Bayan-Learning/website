@@ -1,14 +1,16 @@
 {
-  "name": "Al-Bayan School",
+  "name": "Al-Bayan Learning Initiative Foundation",
   "shortName": "Al-Bayan",
   "tagline": "Nurturing knowledge, character, and community.",
-  "url": "https://albayanlearning.org",
+  "description": "A not-for-profit school started by students and alumni of LUMS, giving children from pre-school to middle school a quality education at a reasonable cost.",
+  "url": "https://albayanlearning.pk",
   "launchMode": "coming-soon",
   "registrationNumber": "REG-0000000",
   "contact": {
-    "email": "info@albayanlearning.org",
+    "email": "info@albayanlearning.pk",
     "phone": "+1 (000) 000-0000",
-    "address": "Address line, City, Country"
+    "address": "Address line, City, Country",
+    "city": "Lahore, Pakistan"
   },
   "social": {
     "facebook": "https://facebook.com/albayanlearning",

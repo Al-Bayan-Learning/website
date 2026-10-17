@@ -4,12 +4,14 @@ import site from '../data/site.json';
 
 interface Props {
   title?: string;
+  /** Replaces the whole <title> (it is not suffixed with the site name). */
+  fullTitle?: string;
   description?: string;
 }
 
-const { title, description = site.tagline } = Astro.props;
+const { title, fullTitle, description = site.tagline } = Astro.props;
 // Page title always derives the school name from site.json — never hard-coded.
-const pageTitle = title ? `${title} · ${site.name}` : site.name;
+const pageTitle = fullTitle ?? (title ? `${title} · ${site.name}` : site.name);
 ---
 
 <!doctype html>
@@ -17,7 +19,9 @@ const pageTitle = title ? `${title} · ${site.name}` : site.name;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/logo-placeholder.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
   </head>

@@ -1,35 +1,60 @@
 ---
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
 import site from '../data/site.json';
+
+const year = new Date().getFullYear();
 ---
 
-<main class="flex min-h-screen flex-col items-center justify-center gap-8 px-6 py-16 text-center">
-  <img
-    src="/logo-placeholder.svg"
-    alt={`${site.name} logo`}
-    width="96"
-    height="96"
-    class="h-24 w-24"
-  />
+<div class="flex min-h-screen flex-col bg-white font-poppins leading-[normal] text-navy subpixel-antialiased">
+  <div aria-hidden="true" class="h-1.5 bg-linear-to-r from-purple to-cyan"></div>
 
-  <div class="space-y-3">
-    <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-      {site.name}
-    </h1>
-    <p class="text-lg text-slate-600">{site.tagline}</p>
-  </div>
+  <main class="flex grow flex-col items-center justify-center px-6 pt-14 pb-10">
+    <div class="flex w-full max-w-[760px] flex-col items-center gap-7 text-center">
+      <img
+        src="/images/albayan-logo.png"
+        alt="Al-Bayan logo: an open book and quill, with the tagline تعلیم ہے بیانِ زندگی"
+        width="420"
+        height="479"
+        class="block h-auto w-[clamp(110px,14vw,140px)]"
+      />
 
-  <div class="space-y-2">
-    <p class="text-sm font-medium uppercase tracking-wide text-teal-700">
-      Our new website is coming soon
-    </p>
-    <p class="text-slate-600">
-      In the meantime, reach us at
-      <a
-        href={`mailto:${site.contact.email}`}
-        class="font-medium text-teal-700 underline underline-offset-4 hover:text-teal-800"
-      >
-        {site.contact.email}
-      </a>
-    </p>
-  </div>
-</main>
+      <div class="flex flex-col items-center gap-3">
+        <p
+          class="inline-flex items-center gap-2.5 rounded-full bg-cyan px-[22px] py-2.5 text-[clamp(15px,1.6vw,18px)] font-semibold tracking-wider text-navy uppercase"
+        >
+          <span aria-hidden="true" class="inline-block size-2.5 rounded-full bg-navy"></span>
+          New website coming soon
+        </p>
+        <h1
+          class="text-[clamp(24px,3vw,32px)] leading-[1.2] font-semibold text-purple min-[700px]:whitespace-nowrap"
+        >
+          {site.name}
+        </h1>
+        <p class="max-w-[560px] text-[clamp(16px,2vw,18px)] leading-[1.6] text-ink-soft">
+          {site.description}
+        </p>
+      </div>
+
+      <div class="flex w-full flex-col items-center gap-4 rounded-2xl bg-lavender p-6">
+        <p class="text-base leading-normal text-navy">
+          Our new website is on its way. For admissions, visits or to support us, email us:
+        </p>
+        <a
+          href={`mailto:${site.contact.email}`}
+          class="text-[15px] font-medium text-purple underline hover:text-purple-deep"
+        >
+          {site.contact.email}
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer
+    class="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-lavender-line px-6 py-5 text-[13px] text-ink-muted"
+  >
+    <span>© {year} {site.name}</span>
+    <span>{site.contact.city}</span>
+  </footer>
+</div>
