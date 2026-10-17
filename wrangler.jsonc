@@ -1,0 +1,21 @@
+{
+  // Source Wrangler config for Cloudflare Workers (static assets + Worker).
+  // `astro build` reads this and writes the real deploy config to
+  // `dist/server/wrangler.json` (adding `main: entry.mjs` for the Worker and
+  // pointing assets at `dist/client`). Deploy with that generated config:
+  //   npx wrangler deploy -c dist/server/wrangler.json
+  // Do NOT set `main` here: the Worker entry doesn't exist until after the
+  // build, and the adapter injects it into the generated config for you.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "al-bayan-website",
+  "compatibility_date": "2026-10-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    // Astro build output. The adapter splits output into dist/client (static
+    // assets, served here) and dist/server (the Worker).
+    "directory": "./dist/client",
+    "binding": "ASSETS"
+  },
+  // Generate a workers.dev-style preview URL for every non-production build.
+  "preview_urls": true
+}
