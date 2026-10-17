@@ -22,6 +22,12 @@ export default defineConfig({
   site: site.url,
   output: 'static',
   adapter: cloudflare(),
+  // The Cloudflare adapter enables Astro sessions by default and injects a
+  // SESSION KV binding with no namespace id, relying on auto-provisioning.
+  // Preview deploys can't auto-provision it, so the deploy fails (error
+  // 10021). Nothing uses sessions yet; when something does, create a KV
+  // namespace and add it to wrangler.jsonc, then remove this line.
+  session: false,
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
