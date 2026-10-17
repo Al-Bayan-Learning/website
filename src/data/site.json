@@ -1,0 +1,19 @@
+{
+  "name": "Al-Bayan School",
+  "shortName": "Al-Bayan",
+  "tagline": "Nurturing knowledge, character, and community.",
+  "url": "https://albayanlearning.org",
+  "launchMode": "coming-soon",
+  "registrationNumber": "REG-0000000",
+  "contact": {
+    "email": "info@albayanlearning.org",
+    "phone": "+1 (000) 000-0000",
+    "address": "Address line, City, Country"
+  },
+  "social": {
+    "facebook": "https://facebook.com/albayanlearning",
+    "instagram": "https://instagram.com/albayanlearning",
+    "twitter": "https://twitter.com/albayanlearning",
+    "youtube": "https://youtube.com/@albayanlearning"
+  }
+}

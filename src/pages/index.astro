@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ComingSoon from '../components/ComingSoon.astro';
+import site from '../data/site.json';
+import { isComingSoon } from '../lib/launch';
+import { getCollection } from 'astro:content';
+
+const comingSoon = isComingSoon();
+
+// Only load full-site content when we are showing the full site.
+const programs = comingSoon
+  ? []
+  : (await getCollection('programs')).sort((a, b) => a.data.order - b.data.order);
+const testimonials = comingSoon
+  ? []
+  : (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+---
+
+{
+  comingSoon ? (
+    <Layout>
+      <ComingSoon />
+    </Layout>
+  ) : (
+    <Layout title="Home">
+      <header class="border-b border-slate-200">
+        <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+          <a href="/" class="flex items-center gap-3 font-semibold text-slate-900">
+            <img src="/logo-placeholder.svg" alt={`${site.name} logo`} width="36" height="36" class="h-9 w-9" />
+            {site.name}
+          </a>
+          <a href="/programs" class="text-sm font-medium text-teal-700 hover:text-teal-800">
+            Programs
+          </a>
+        </nav>
+      </header>
+
+      <main class="mx-auto max-w-5xl space-y-20 px-6 py-16">
+        <section class="space-y-4 text-center">
+          <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            {site.name}
+          </h1>
+          <p class="mx-auto max-w-2xl text-lg text-slate-600">{site.tagline}</p>
+        </section>
+
+        <section class="space-y-8">
+          <h2 class="text-2xl font-semibold text-slate-900">Our Programs</h2>
+          <ul class="grid gap-6 sm:grid-cols-2">
+            {programs.map((program) => (
+              <li class="rounded-xl border border-slate-200 p-6">
+                <p class="text-sm font-medium text-teal-700">{program.data.ageGroup}</p>
+                <h3 class="mt-1 text-lg font-semibold text-slate-900">{program.data.title}</h3>
+                <p class="mt-2 text-slate-600">{program.data.summary}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="space-y-8">
+          <h2 class="text-2xl font-semibold text-slate-900">What Families Say</h2>
+          <ul class="space-y-6">
+            {testimonials.map((testimonial) => (
+              <li class="rounded-xl bg-slate-50 p-6">
+                <blockquote class="text-lg text-slate-700">“{testimonial.data.quote}”</blockquote>
+                <p class="mt-3 text-sm font-medium text-slate-500">
+                  {testimonial.data.name} · {testimonial.data.relation}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>
+
+      <footer class="border-t border-slate-200">
+        <div class="mx-auto max-w-5xl px-6 py-8 text-sm text-slate-500">
+          <p>{site.name} · {site.contact.email}</p>
+          <p class="mt-1">Registration: {site.registrationNumber}</p>
+        </div>
+      </footer>
+    </Layout>
+  )
+}
