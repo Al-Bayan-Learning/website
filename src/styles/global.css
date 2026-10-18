@@ -1,20 +1,164 @@
+/* Self-hosted fonts (docs/design-system.md → Type). Browsers only download a
+   face when a page uses it, so loading every weight here costs nothing extra. */
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/poppins/800.css";
+@import "@fontsource/bebas-neue/400.css";
+
 @import "tailwindcss";
 
+/* Design tokens from docs/design-system.md. Use these names, not raw hex. */
 @theme {
-  /* Brand colours */
   --color-purple: #6552A1;
-  --color-cyan: #05C5DA;
+  --color-purple-dark: #4A3B7E;
+  --color-purple-soft: #7E6DB8;
+  --color-cyan: #05C5DA; /* never as text on white (2.1:1) */
+  --color-cyan-light: #9BEAF2;
+  --color-blue-mid: #3F8FB8;
   --color-navy: #242038;
   --color-gold: #FCC05E;
   --color-green: #C2D6A0;
+  --color-surface: #F6F5FB;
+  --color-placeholder: #E6F9FB;
+  --color-ink-2: #3B3654;
+  --color-muted: #5A5670;
+  --color-on-navy: #D9D6E6;
+  --color-on-navy-muted: #B9B5CC;
+  --color-on-purple: #F1EEFA;
+  --color-on-purple-muted: #E6E1F5; /* breadcrumbs on purple */
+  --color-border: #ECEAF4; /* card borders */
+  --color-border-chip: #DDD8EE;
+  --color-border-input: #CFCADF;
+  --color-navy-line: #3A3550; /* dividers on navy */
+  --color-error: #B42318;
 
-  /* Supporting tints and text shades from the approved coming-soon design */
-  --color-purple-deep: #4A3B7E;
-  --color-ink-soft: #3B3654;
-  --color-ink-muted: #5A5670;
-  --color-lavender: #F6F5FB;
-  --color-lavender-line: #ECEAF4;
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-display: "Bebas Neue", "Poppins", sans-serif;
 
-  /* Self-hosted via @fontsource/poppins */
-  --font-poppins: "Poppins", system-ui, sans-serif;
+  --text-h1: clamp(38px, 5.4vw, 66px);
+  --text-h1--line-height: 1.05;
+  --text-h2: clamp(28px, 3.4vw, 42px);
+  --text-h2--line-height: 1.15;
+  --text-eyebrow: 22px;
+  --text-eyebrow--line-height: 1.2;
+  --text-stat: 64px;
+  --text-stat--line-height: 1;
+
+  --radius-card: 24px;
+  --radius-icon: 16px;
+  --radius-input: 12px;
+
+  /* Below 900px the header switches to the hamburger menu. */
+  --breakpoint-nav: 56.25rem;
+}
+
+@layer base {
+  body {
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--color-purple);
+  }
+  a:hover {
+    color: var(--color-purple-dark);
+  }
+
+  /* Focus rings: purple on light backgrounds, white inside dark bands. */
+  :focus-visible {
+    outline: 3px solid var(--color-purple);
+    outline-offset: 3px;
+  }
+  .band-dark :focus-visible {
+    outline-color: #fff;
+  }
+}
+
+/* Page content width: 1200px max, 24px gutter (16px under 480px). */
+@utility container-site {
+  inline-size: 100%;
+  max-inline-size: 1200px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  @media (width < 480px) {
+    padding-inline: 16px;
+  }
+}
+
+/* Bebas eyebrow label above headings. */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--text-eyebrow);
+  line-height: var(--text-eyebrow--line-height);
+  letter-spacing: 0.08em;
+}
+
+/* Article body for news stories (max 720px column). */
+@utility prose-article {
+  color: var(--color-ink-2);
+  font-size: 17px;
+  line-height: 1.75;
+  & > * + * {
+    margin-block-start: 1.1em;
+  }
+  & h2 {
+    color: var(--color-navy);
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-block-start: 1.8em;
+  }
+  & h3 {
+    color: var(--color-navy);
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-block-start: 1.6em;
+  }
+  & ul,
+  & ol {
+    padding-inline-start: 1.4em;
+  }
+  & ul {
+    list-style: disc;
+  }
+  & ol {
+    list-style: decimal;
+  }
+  & a {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  & strong {
+    color: var(--color-navy);
+  }
+  & blockquote {
+    border-inline-start: 4px solid var(--color-gold);
+    padding-inline-start: 20px;
+    color: var(--color-navy);
+    font-size: 19px;
+    font-weight: 600;
+  }
+  & img {
+    border-radius: var(--radius-card);
+    inline-size: 100%;
+    block-size: auto;
+  }
+  & figcaption {
+    margin-block-start: 8px;
+    color: var(--color-muted);
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

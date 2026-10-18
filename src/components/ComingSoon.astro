@@ -1,13 +1,10 @@
 ---
-import '@fontsource/poppins/400.css';
-import '@fontsource/poppins/500.css';
-import '@fontsource/poppins/600.css';
 import site from '../data/site.json';
 
 const year = new Date().getFullYear();
 ---
 
-<div class="flex min-h-screen flex-col bg-white font-poppins leading-[normal] text-navy subpixel-antialiased">
+<div class="flex min-h-screen flex-col bg-white font-sans leading-[normal] text-navy subpixel-antialiased">
   <div aria-hidden="true" class="h-1.5 bg-linear-to-r from-purple to-cyan"></div>
 
   <main class="flex grow flex-col items-center justify-center px-6 pt-14 pb-10">
@@ -32,18 +29,18 @@ const year = new Date().getFullYear();
         >
           {site.name}
         </h1>
-        <p class="max-w-[560px] text-[clamp(16px,2vw,18px)] leading-[1.6] text-ink-soft">
+        <p class="max-w-[560px] text-[clamp(16px,2vw,18px)] leading-[1.6] text-ink-2">
           {site.description}
         </p>
       </div>
 
-      <div class="flex w-full flex-col items-center gap-4 rounded-2xl bg-lavender p-6">
+      <div class="flex w-full flex-col items-center gap-4 rounded-2xl bg-surface p-6">
         <p class="text-base leading-normal text-navy">
           Our new website is on its way. For admissions, visits or to support us, email us:
         </p>
         <a
           href={`mailto:${site.contact.email}`}
-          class="text-[15px] font-medium text-purple underline hover:text-purple-deep"
+          class="text-[15px] font-medium text-purple underline hover:text-purple-dark"
         >
           {site.contact.email}
         </a>
@@ -52,7 +49,7 @@ const year = new Date().getFullYear();
   </main>
 
   <footer
-    class="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-lavender-line px-6 py-5 text-[13px] text-ink-muted"
+    class="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-border px-6 py-5 text-[13px] text-muted"
   >
     <span>© {year} {site.name}</span>
     <span>{site.contact.city}</span>
