@@ -1,0 +1,38 @@
+---
+/**
+ * Thin loading bar for page-to-page navigation. It only appears if the next
+ * page takes longer than 150ms, so fast navigations never show it. Each page
+ * is a normal full load; this just gives feedback on slow connections.
+ */
+---
+
+<div aria-hidden="true" class="nav-progress" data-nav-progress></div>
+
+<script>
+  const root = document.documentElement;
+
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element | null)?.closest?.('a');
+    if (
+      !link ||
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      (link.target && link.target !== '_self') ||
+      link.hasAttribute('download') ||
+      link.origin !== location.origin ||
+      // Same-page anchors (#volunteer) don't load a new page.
+      (link.pathname === location.pathname && link.search === location.search)
+    ) {
+      return;
+    }
+    root.classList.add('is-navigating');
+  });
+
+  // Coming back via the back button restores the page from cache with the
+  // class still set, so clear it whenever a page is shown.
+  window.addEventListener('pageshow', () => root.classList.remove('is-navigating'));
+</script>
