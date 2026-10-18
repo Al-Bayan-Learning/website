@@ -23,9 +23,10 @@ const trail = [{ label: 'Home', href: '/' }, ...breadcrumbs];
 
 <section class="band-dark relative bg-purple text-white">
   <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
-    <div class="absolute -end-24 -top-36 size-[300px] rounded-full bg-blue-mid opacity-55"></div>
-    <div class="absolute -start-16 bottom-16 size-[140px] rounded-full bg-purple-soft"></div>
-    <div class="absolute start-[55%] top-14 size-[18px] rounded-full bg-green"></div>
+    <!-- Placed so no text sits on a circle (text over them fails AA contrast). -->
+    <div class="absolute -end-20 -top-24 size-[180px] rounded-full bg-blue-mid opacity-55 md:-end-24 md:-top-36 md:size-[300px]"></div>
+    <div class="absolute -start-16 -bottom-[50px] size-[140px] rounded-full bg-purple-soft"></div>
+    <div class="absolute start-[55%] top-6 size-[18px] rounded-full bg-green"></div>
   </div>
 
   <div class="container-site relative flex flex-wrap items-center gap-10 pt-12 pb-[96px] md:pt-16 md:pb-[110px]">

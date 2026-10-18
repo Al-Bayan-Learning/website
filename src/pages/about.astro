@@ -11,12 +11,9 @@ import site from '../data/site.json';
 import { getCollection } from 'astro:content';
 
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
-const groups = [
-  { key: 'founder', label: 'Founders' },
-  { key: 'board', label: 'Board' },
-  { key: 'admin', label: 'Administration' },
-  { key: 'teacher', label: 'Teachers' },
-] as const;
+// Founders, then board, admin and teachers; `order` sorts within a group.
+const groupOrder = ['founder', 'board', 'admin', 'teacher'];
+team.sort((a, b) => groupOrder.indexOf(a.data.group) - groupOrder.indexOf(b.data.group));
 
 const milestones = [
   { year: site.foundedYear, title: '[Milestone, e.g. Al-Bayan School System founded]', text: '[One line on what happened]' },
@@ -80,21 +77,9 @@ const milestones = [
   <section aria-labelledby="team" class="band-dark bg-navy text-white">
     <div class="container-site flex flex-col gap-10 py-14 md:py-22">
       <SectionHeading id="team" eyebrow="Our people" title="Leadership and team" tone="dark" />
-      {
-        groups.map(({ key, label }) => {
-          const people = team.filter((person) => person.data.group === key);
-          return (
-            people.length > 0 && (
-              <div class="flex flex-col gap-5">
-                <h3 class="text-xl font-bold text-gold">{label}</h3>
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
-                  {people.map((person) => <PersonCard entry={person} index={team.indexOf(person)} />)}
-                </div>
-              </div>
-            )
-          );
-        })
-      }
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6">
+        {team.map((person, index) => <PersonCard entry={person} index={index} />)}
+      </div>
       <p class="border-t border-navy-line pt-6 text-sm text-on-navy-muted">
         {site.name} is a registered not-for-profit. Registration number: {site.registrationNo}.
       </p>

@@ -8,13 +8,13 @@ import Placeholder from '../Placeholder.astro';
 interface Props {
   label: string;
   photo?: { src: string; alt: string };
-  border?: 'cyan' | 'gold' | 'green' | 'purple' | 'white';
+  border?: 'cyan' | 'gold' | 'green' | 'purple' | 'white' | 'navy';
   tilt?: string;
   class?: string;
 }
 
 const { label, photo, border = 'cyan', tilt = '-rotate-2', class: className } = Astro.props;
-const borders = { cyan: 'border-cyan', gold: 'border-gold', green: 'border-green', purple: 'border-purple', white: 'border-white' };
+const borders = { cyan: 'border-cyan', gold: 'border-gold', green: 'border-green', purple: 'border-purple', white: 'border-white', navy: 'border-navy' };
 const frame = ['rounded-card border-[5px] motion-safe:transition-transform', borders[border], tilt, className];
 ---
 

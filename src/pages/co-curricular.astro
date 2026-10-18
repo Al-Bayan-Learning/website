@@ -13,7 +13,7 @@ const activities = (await getCollection('activities')).sort((a, b) => order.inde
 const bands = [
   { section: 'band-dark bg-navy text-white', body: 'text-on-navy', muted: 'text-on-navy-muted', card: 'bg-white/5 border-navy-line' },
   { section: 'bg-white text-navy', body: 'text-ink-2', muted: 'text-muted', card: 'bg-surface border-border' },
-  { section: 'bg-green text-navy', body: 'text-navy', muted: 'text-navy', card: 'bg-white/60 border-transparent' },
+  { section: 'bg-green text-navy', body: 'text-navy', muted: 'text-navy', card: 'bg-white/60 border-transparent', frame: 'navy' as const },
 ];
 const titleText = { cyan: 'text-cyan', gold: 'text-gold', green: 'text-green' };
 const titlePill = { cyan: 'bg-cyan', gold: 'bg-gold', green: 'bg-white' };
@@ -41,7 +41,7 @@ const tilts = ['-rotate-2', 'rotate-2', '-rotate-1'];
             <PhotoFrame
               label={`[${name} photo, with consent]`}
               photo={photos?.[0]}
-              border={colour}
+              border={band.frame ?? colour}
               tilt={tilts[i % tilts.length]}
               class:list={['h-[300px] flex-[1_1_360px]', onNavy && 'bg-purple text-white']}
             />

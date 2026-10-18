@@ -7,7 +7,7 @@ const { enabled, text, linkText, href } = site.announcement;
 
 {
   enabled && (
-    <div class="bg-gold px-6 py-2.5 text-center text-sm leading-[1.6] font-semibold text-navy">
+    <aside aria-label="Announcement" class="bg-gold px-6 py-2.5 text-center text-sm leading-[1.6] font-semibold text-navy">
       {text}
       {linkText && href && (
         <>
@@ -15,6 +15,6 @@ const { enabled, text, linkText, href } = site.announcement;
           <a href={href} class="text-navy hover:text-navy">{linkText}</a>
         </>
       )}
-    </div>
+    </aside>
   )
 }

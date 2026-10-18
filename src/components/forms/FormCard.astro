@@ -32,7 +32,7 @@ const { id, title, intro, submitLabel } = Astro.props;
     {intro && <p class="text-ink-2">{intro}</p>}
   </div>
   <p id={`${id}-notice`} class="rounded-input border-[1.5px] border-dashed border-border-input bg-surface px-4 py-3 text-sm text-navy">
-    <strong>[Form not connected yet]</strong> Nothing is sent from this form yet. Please email
+    <strong>[Form not connected yet]</strong> Nothing is sent from this form yet. Please email{' '}
     <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> instead.
   </p>
 
@@ -55,10 +55,7 @@ const { id, title, intro, submitLabel } = Astro.props;
     const invalid = !control.validity.valid;
     control.toggleAttribute('aria-invalid', invalid);
     error.hidden = !invalid;
-    const message = control.validity.typeMismatch
-      ? 'Please check the format.'
-      : (error.dataset.error ?? control.validationMessage);
-    error.querySelector('span')!.textContent = invalid ? message : '';
+    error.querySelector('span')!.textContent = invalid ? (error.dataset.error ?? control.validationMessage) : '';
   };
 
   document.querySelectorAll<HTMLFormElement>('form[data-static-form]').forEach((form) => {
