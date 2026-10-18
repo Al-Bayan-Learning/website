@@ -52,6 +52,34 @@
 
   /* Below 900px the header switches to the hamburger menu. */
   --breakpoint-nav: 56.25rem;
+
+  /* Value pills: side-to-side wiggle on hover/focus; dialog pop-in. */
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-pop: pop 0.2s ease-out;
+  @keyframes wiggle {
+    0%,
+    100% {
+      translate: 0;
+    }
+    20% {
+      translate: -5px 0;
+    }
+    40% {
+      translate: 5px 0;
+    }
+    60% {
+      translate: -3px 0;
+    }
+    80% {
+      translate: 2px 0;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      scale: 0.95;
+    }
+  }
 }
 
 @layer base {

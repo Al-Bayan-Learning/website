@@ -1,24 +1,100 @@
 ---
 /**
- * The five core values as slightly tilted pills (design system → tilted
- * value pills). On a green band the green pill would vanish, so `onGreen`
- * swaps it for white.
+ * The five core values as slightly tilted pills (design system → tilted value
+ * pills). Each pill is a button that opens a dialog with the full description
+ * from src/data/values.json. Pills wiggle side to side on hover and keyboard
+ * focus (skipped for reduced motion). On a green band the green pill would
+ * vanish, so `onGreen` swaps it for white.
  */
+import { values } from '../data/values.json';
+import Icon from './Icon.astro';
+
 interface Props {
   onGreen?: boolean;
+  /** Visual tone of the hint line under the pills. */
+  hintTone?: 'muted' | 'navy';
   class?: string;
 }
 
-const { onGreen = false, class: className } = Astro.props;
-const values = [
-  { label: 'Tolerance', colour: 'bg-purple text-white', tilt: '-rotate-3' },
-  { label: 'Discipline', colour: 'bg-cyan text-navy', tilt: 'rotate-2' },
-  { label: 'Equality', colour: 'bg-gold text-navy', tilt: '-rotate-1' },
-  { label: 'Merit', colour: onGreen ? 'bg-white text-navy' : 'bg-green text-navy', tilt: 'rotate-3' },
-  { label: 'Character Building', colour: 'bg-navy text-white', tilt: '-rotate-2' },
-];
+const { onGreen = false, hintTone = 'muted', class: className } = Astro.props;
+
+const pill: Record<string, string> = {
+  purple: 'bg-purple text-white',
+  cyan: 'bg-cyan text-navy',
+  gold: 'bg-gold text-navy',
+  green: onGreen ? 'bg-white text-navy' : 'bg-green text-navy',
+  navy: 'bg-navy text-white',
+};
+// Dialog header: same colour as the pill, with a matching readable text colour.
+const header: Record<string, string> = {
+  purple: 'band-dark bg-purple text-white',
+  cyan: 'bg-cyan text-navy',
+  gold: 'bg-gold text-navy',
+  green: 'bg-green text-navy',
+  navy: 'band-dark bg-navy text-white',
+};
+const tilts = ['-rotate-3', 'rotate-2', '-rotate-1', 'rotate-3', '-rotate-2'];
 ---
 
-<ul class:list={['flex flex-wrap gap-3', className]} aria-label="Our core values">
-  {values.map(({ label, colour, tilt }) => <li class:list={['rounded-full px-[22px] py-3 font-bold', colour, tilt]}>{label}</li>)}
-</ul>
+<div class:list={['flex flex-col gap-4', className]}>
+  <ul class="flex flex-wrap gap-3" aria-label="Our core values">
+    {
+      values.map((value, i) => (
+        <li class={tilts[i % tilts.length]}>
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            data-value-dialog={`value-${value.id}`}
+            class:list={[
+              'cursor-pointer rounded-full px-[22px] py-3 font-bold shadow-navy/20 motion-safe:transition-[scale,box-shadow] hover:scale-105 hover:shadow-lg motion-safe:hover:animate-wiggle motion-safe:focus-visible:animate-wiggle',
+              pill[value.colour],
+            ]}
+          >
+            {value.name}
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+  <p class:list={['text-sm', hintTone === 'navy' ? 'text-navy' : 'text-muted']}>Tap a value to read what it means to us.</p>
+</div>
+
+{
+  values.map((value) => (
+    <dialog
+      id={`value-${value.id}`}
+      aria-labelledby={`value-${value.id}-title`}
+      class="m-auto w-[min(calc(100vw-32px),480px)] overflow-hidden rounded-card bg-white p-0 text-navy shadow-2xl backdrop:bg-navy/60 motion-safe:open:animate-pop"
+      data-value-modal
+    >
+      <div class:list={['relative px-7 pt-7 pb-6', header[value.colour]]}>
+        <p class="eyebrow">Core value</p>
+        <h2 id={`value-${value.id}-title`} class="pe-12 text-[clamp(26px,4vw,32px)] leading-tight font-extrabold">
+          {value.name}
+        </h2>
+        <form method="dialog">
+          <button type="submit" class="absolute end-3 top-3 inline-flex size-11 cursor-pointer items-center justify-center rounded-full hover:bg-black/10">
+            <span class="sr-only">Close</span>
+            <Icon name="close" />
+          </button>
+        </form>
+      </div>
+      <p class="px-7 pt-6 pb-8 text-lg leading-relaxed text-ink-2">{value.text}</p>
+    </dialog>
+  ))
+}
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-value-dialog]').forEach((button) => {
+    const dialog = document.getElementById(button.dataset.valueDialog!) as HTMLDialogElement | null;
+    button.addEventListener('click', () => dialog?.showModal());
+  });
+
+  // Clicking the dimmed backdrop (outside the card) closes the dialog. Esc
+  // and the close button are handled natively by <dialog>.
+  document.querySelectorAll<HTMLDialogElement>('dialog[data-value-modal]').forEach((dialog) => {
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+</script>
