@@ -1,0 +1,33 @@
+---
+/**
+ * Bebas eyebrow + h2 (design system → SectionHeading), with an optional
+ * right-aligned "All …" link. Colours default to light backgrounds; pass
+ * `tone="dark"` on navy/purple bands.
+ */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  id?: string;
+  tone?: 'light' | 'dark' | 'on-colour';
+  link?: { href: string; label: string };
+  class?: string;
+}
+
+const { eyebrow, title, id, tone = 'light', link, class: className } = Astro.props;
+const eyebrowColour = { light: 'text-purple', dark: 'text-cyan', 'on-colour': 'text-navy' }[tone];
+const titleColour = tone === 'dark' ? 'text-white' : 'text-navy';
+---
+
+<div class:list={['flex flex-wrap items-end justify-between gap-3', className]}>
+  <div class="flex flex-col gap-2">
+    {eyebrow && <p class:list={['eyebrow', eyebrowColour]}>{eyebrow}</p>}
+    <h2 id={id} class:list={['text-h2 font-extrabold', titleColour]}>{title}</h2>
+  </div>
+  {
+    link && (
+      <a href={link.href} class:list={['inline-flex min-h-11 items-center font-bold', tone === 'dark' && 'text-white hover:text-cyan-light']}>
+        {link.label}
+      </a>
+    )
+  }
+</div>

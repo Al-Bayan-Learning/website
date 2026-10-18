@@ -1,0 +1,63 @@
+---
+/**
+ * Labelled form field (design system → Contact and forms). The label sits
+ * above the input; the error line is hidden until FormCard's script shows it.
+ */
+import Icon from '../Icon.astro';
+
+interface Props {
+  form: string;
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'textarea' | 'select';
+  required?: boolean;
+  autocomplete?: string;
+  options?: string[];
+  hint?: string;
+  /** Message shown when the field is invalid. */
+  error?: string;
+  [attr: string]: unknown;
+}
+
+const {
+  form,
+  name,
+  label,
+  type = 'text',
+  required = false,
+  autocomplete,
+  options = [],
+  hint,
+  error = `Please enter your ${label.toLowerCase()}.`,
+  ...rest
+} = Astro.props;
+
+const id = `${form}-${name}`;
+const describedBy = [hint && `${id}-hint`, `${id}-error`].filter(Boolean).join(' ');
+const control =
+  'block min-h-12 w-full rounded-input border-[1.5px] border-border-input bg-white px-4 py-2.5 text-navy aria-invalid:border-error';
+---
+
+<div class="flex flex-col gap-1.5">
+  <label for={id} class="font-semibold text-navy">
+    {label}
+    {!required && <span class="font-normal text-muted"> (optional)</span>}
+  </label>
+  {hint && <p id={`${id}-hint`} class="text-sm text-muted">{hint}</p>}
+  {
+    type === 'textarea' ? (
+      <textarea id={id} name={name} rows="5" required={required} aria-describedby={describedBy} class={control} {...rest} />
+    ) : type === 'select' ? (
+      <select id={id} name={name} required={required} aria-describedby={describedBy} class={control} {...rest}>
+        <option value="">Choose one</option>
+        {options.map((option) => <option>{option}</option>)}
+      </select>
+    ) : (
+      <input id={id} name={name} type={type} required={required} autocomplete={autocomplete} aria-describedby={describedBy} class={control} {...rest} />
+    )
+  }
+  <p id={`${id}-error`} class="flex items-center gap-1.5 text-sm font-semibold text-error" data-error={error} hidden>
+    <Icon name="alert" size={18} />
+    <span></span>
+  </p>
+</div>

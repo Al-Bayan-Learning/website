@@ -1,0 +1,14 @@
+---
+/** Wave at the bottom of a purple hero, filled with the next section's colour. */
+interface Props {
+  /** A Tailwind fill class matching the next section, e.g. "fill-white". */
+  fill?: string;
+  height?: string;
+}
+
+const { fill = 'fill-white', height = 'h-20' } = Astro.props;
+---
+
+<svg aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" class:list={['absolute start-0 -bottom-px block w-full', height]}>
+  <path d="M0 40 C 240 90, 480 0, 720 30 S 1200 80, 1440 20 L1440 80 L0 80 Z" class={fill}></path>
+</svg>

@@ -1,0 +1,59 @@
+---
+/**
+ * News card (design system → Card). `featured` is the big navy card at the
+ * top of the news listing (white text, gold tag, large image).
+ */
+import type { NewsEntry } from '../../lib/content';
+import { categoryInfo, formatDate, dateTime } from '../../lib/content';
+import Placeholder from '../Placeholder.astro';
+import Tag from '../Tag.astro';
+
+interface Props {
+  entry: NewsEntry;
+  featured?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { entry, featured = false, headingLevel: Heading = 'h3' } = Astro.props;
+const { title, date, category, summary, cover } = entry.data;
+const info = categoryInfo(category);
+const href = `/news/${entry.id}`;
+---
+
+{
+  featured ? (
+    <a
+      href={href}
+      class="band-dark group grid overflow-hidden rounded-card bg-navy text-white no-underline hover:text-white md:grid-cols-[1.2fr_1fr]"
+    >
+      {cover ? (
+        <img src={cover.src} alt={cover.alt} class="h-full min-h-[240px] w-full object-cover" loading="lazy" />
+      ) : (
+        <Placeholder label="[Cover image]" class="min-h-[240px] md:min-h-[360px]" />
+      )}
+      <div class="flex flex-col justify-center gap-3 p-7 md:p-10">
+        <Tag colour="gold">Featured · {info.label}</Tag>
+        <Heading class="text-[clamp(24px,2.6vw,32px)] leading-tight font-extrabold group-hover:underline">{title}</Heading>
+        <p class="text-on-navy">{summary}</p>
+        <p class="text-sm text-on-navy-muted">
+          <time datetime={dateTime(date)}>{formatDate(date)}</time>
+        </p>
+      </div>
+    </a>
+  ) : (
+    <a href={href} class="group flex flex-col overflow-hidden rounded-card bg-surface text-navy no-underline hover:text-navy">
+      {cover ? (
+        <img src={cover.src} alt={cover.alt} class="h-[170px] w-full object-cover" loading="lazy" />
+      ) : (
+        <Placeholder label="[Cover image]" class="h-[170px] font-normal text-ink-2" />
+      )}
+      <div class="flex flex-col gap-2 p-[22px]">
+        <Tag colour={info.colour}>{info.label}</Tag>
+        <Heading class="text-[19px] leading-[1.35] font-bold group-hover:underline">{title}</Heading>
+        <p class="text-[13px] text-muted">
+          <time datetime={dateTime(date)}>{formatDate(date)}</time>
+        </p>
+      </div>
+    </a>
+  )
+}

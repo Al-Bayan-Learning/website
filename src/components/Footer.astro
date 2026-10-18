@@ -1,0 +1,46 @@
+---
+/** Navy three-column footer (design system → Footer). */
+import site from '../data/site.json';
+import { footerNav } from '../data/navigation';
+
+const { contact, socials } = site;
+const telHref = `tel:${contact.phoneIntl.replace(/\s/g, '')}`;
+const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
+---
+
+<footer class="band-dark bg-navy text-[15px] text-on-navy">
+  <div class="container-site grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8 pt-16 pb-8">
+    <div class="flex flex-col gap-2.5">
+      <p class="font-display text-[30px] leading-[1.1] text-white">
+        Al-Bayan Learning<br /><span class="text-cyan">Initiative Foundation</span>
+      </p>
+      <p>{site.footerAbout}</p>
+    </div>
+
+    <nav aria-labelledby="footer-explore" class="flex flex-col">
+      <h2 id="footer-explore" class="mb-1 font-bold text-gold">Explore</h2>
+      {footerNav.map(({ label, href }) => <a href={href} class={link}>{label}</a>)}
+    </nav>
+
+    <div class="flex flex-col">
+      <h2 class="mb-1 font-bold text-gold">Contact</h2>
+      <a href={`mailto:${contact.email}`} class={link}>{contact.email}</a>
+      <a href={telHref} class={link}>{contact.phone}</a>
+      <p class="py-2.5">{contact.address}</p>
+      <ul class="flex flex-wrap gap-x-4">
+        {
+          socials.map((social) => (
+            <li>{social.url ? <a href={social.url} class={link}>{social.name}</a> : <span class="inline-flex min-h-11 items-center">{social.placeholder}</span>}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-site">
+    <div class="flex flex-wrap items-center justify-between gap-2 border-t border-navy-line pt-2 pb-5 text-[13px] text-on-navy-muted">
+      <span>© {new Date().getFullYear()} {site.name} · {site.registrationNo}</span>
+      <a href="/privacy" class="inline-flex min-h-11 items-center text-on-navy-muted hover:text-white">Privacy</a>
+    </div>
+  </div>
+</footer>

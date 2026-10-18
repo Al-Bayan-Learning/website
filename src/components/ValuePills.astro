@@ -1,0 +1,24 @@
+---
+/**
+ * The five core values as slightly tilted pills (design system → tilted
+ * value pills). On a green band the green pill would vanish, so `onGreen`
+ * swaps it for white.
+ */
+interface Props {
+  onGreen?: boolean;
+  class?: string;
+}
+
+const { onGreen = false, class: className } = Astro.props;
+const values = [
+  { label: 'Tolerance', colour: 'bg-purple text-white', tilt: '-rotate-3' },
+  { label: 'Discipline', colour: 'bg-cyan text-navy', tilt: 'rotate-2' },
+  { label: 'Equality', colour: 'bg-gold text-navy', tilt: '-rotate-1' },
+  { label: 'Merit', colour: onGreen ? 'bg-white text-navy' : 'bg-green text-navy', tilt: 'rotate-3' },
+  { label: 'Character Building', colour: 'bg-navy text-white', tilt: '-rotate-2' },
+];
+---
+
+<ul class:list={['flex flex-wrap gap-3', className]} aria-label="Our core values">
+  {values.map(({ label, colour, tilt }) => <li class:list={['rounded-full px-[22px] py-3 font-bold', colour, tilt]}>{label}</li>)}
+</ul>

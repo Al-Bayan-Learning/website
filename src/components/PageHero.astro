@@ -1,0 +1,58 @@
+---
+/**
+ * Purple hero for inner pages (design system → PageHero): breadcrumb, Bebas
+ * eyebrow, h1 and intro, with decorative circles and a wave. Use the default
+ * slot for extras under the intro (tags, dates) and `aside` for an optional
+ * small tilted photo.
+ */
+import Wave from './Wave.astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  intro?: string;
+  /** Trail after "Home"; the last item is the current page. */
+  breadcrumbs?: { label: string; href?: string }[];
+  /** Fill class for the wave, matching the next section. */
+  waveFill?: string;
+}
+
+const { title, eyebrow, intro, breadcrumbs = [{ label: title }], waveFill = 'fill-white' } = Astro.props;
+const trail = [{ label: 'Home', href: '/' }, ...breadcrumbs];
+---
+
+<section class="band-dark relative bg-purple text-white">
+  <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
+    <div class="absolute -end-24 -top-36 size-[300px] rounded-full bg-blue-mid opacity-55"></div>
+    <div class="absolute -start-16 bottom-16 size-[140px] rounded-full bg-purple-soft"></div>
+    <div class="absolute start-[55%] top-14 size-[18px] rounded-full bg-green"></div>
+  </div>
+
+  <div class="container-site relative flex flex-wrap items-center gap-10 pt-12 pb-[96px] md:pt-16 md:pb-[110px]">
+    <div class="flex flex-[1_1_440px] flex-col gap-4">
+      <nav aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-x-2 text-sm text-on-purple-muted">
+          {
+            trail.map((item, i) => (
+              <li class="flex items-center gap-2">
+                {i > 0 && <span aria-hidden="true">/</span>}
+                {i < trail.length - 1 && item.href ? (
+                  <a href={item.href} class="text-on-purple-muted hover:text-white">{item.label}</a>
+                ) : (
+                  <span aria-current="page">{item.label}</span>
+                )}
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+      {eyebrow && <p class="eyebrow text-cyan-light">{eyebrow}</p>}
+      <h1 class="text-h1 font-extrabold tracking-[-0.01em]">{title}</h1>
+      {intro && <p class="max-w-[640px] text-[clamp(16px,1.8vw,19px)] text-on-purple">{intro}</p>}
+      <slot />
+    </div>
+    <slot name="aside" />
+  </div>
+
+  <Wave fill={waveFill} height="h-14 md:h-20" />
+</section>

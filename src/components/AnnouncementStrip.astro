@@ -1,0 +1,20 @@
+---
+/** Gold strip above the header; text, link and on/off come from site.json. */
+import site from '../data/site.json';
+
+const { enabled, text, linkText, href } = site.announcement;
+---
+
+{
+  enabled && (
+    <div class="bg-gold px-6 py-2.5 text-center text-sm leading-[1.6] font-semibold text-navy">
+      {text}
+      {linkText && href && (
+        <>
+          {' · '}
+          <a href={href} class="text-navy hover:text-navy">{linkText}</a>
+        </>
+      )}
+    </div>
+  )
+}

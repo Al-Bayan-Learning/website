@@ -1,0 +1,39 @@
+---
+/** Job opening card. Applications go by email to careersEmail in site.json. */
+import type { CollectionEntry } from 'astro:content';
+import site from '../../data/site.json';
+import { formatDate, dateTime } from '../../lib/content';
+import Button from '../Button.astro';
+import Tag from '../Tag.astro';
+
+interface Props {
+  entry: CollectionEntry<'jobs'>;
+}
+
+const { entry } = Astro.props;
+const { title, type, requirements, howToApply, closingDate } = entry.data;
+const types = {
+  'full-time': { label: 'Full-time', colour: 'cyan' },
+  'part-time': { label: 'Part-time', colour: 'gold' },
+  volunteer: { label: 'Volunteer', colour: 'green' },
+} as const;
+const mailto = `mailto:${site.contact.careersEmail}?subject=${encodeURIComponent(`Application: ${title}`)}`;
+---
+
+<article class="flex flex-col gap-4 rounded-card bg-white p-7 text-navy">
+  <Tag colour={types[type].colour}>{types[type].label}</Tag>
+  <h3 class="text-[22px] leading-snug font-bold">{title}</h3>
+  <div>
+    <h4 class="font-semibold">Requirements</h4>
+    <ul class="list-disc ps-5 text-ink-2">
+      {requirements.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+  <p class="text-ink-2">{howToApply}</p>
+  <p class="text-sm text-muted">
+    Closing date: <time datetime={dateTime(closingDate)}>{formatDate(closingDate)}</time>
+  </p>
+  <Button href={mailto} variant="primary" class="mt-auto self-start">
+    Apply by email<span class="sr-only">: {title}</span>
+  </Button>
+</article>

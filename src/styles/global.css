@@ -42,7 +42,7 @@
   --text-h2: clamp(28px, 3.4vw, 42px);
   --text-h2--line-height: 1.15;
   --text-eyebrow: 22px;
-  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--line-height: 1.6;
   --text-stat: 64px;
   --text-stat--line-height: 1;
 
@@ -61,6 +61,8 @@
 
   a {
     color: var(--color-purple);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
   a:hover {
     color: var(--color-purple-dark);
@@ -76,10 +78,10 @@
   }
 }
 
-/* Page content width: 1200px max, 24px gutter (16px under 480px). */
+/* Page content width: 1200px max plus a 24px gutter (16px under 480px). */
 @utility container-site {
   inline-size: 100%;
-  max-inline-size: 1200px;
+  max-inline-size: calc(1200px + 48px);
   margin-inline: auto;
   padding-inline: 24px;
   @media (width < 480px) {

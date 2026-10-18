@@ -1,0 +1,20 @@
+---
+/**
+ * Stand-in for an image that isn't real yet (design system → Placeholder).
+ * `label` must be in [square brackets]; it doubles as the accessible name.
+ */
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className } = Astro.props;
+---
+
+<div
+  role="img"
+  aria-label={label}
+  class:list={['flex items-center justify-center bg-placeholder p-4 text-center font-semibold text-navy', className]}
+>
+  <span aria-hidden="true">{label}</span>
+</div>

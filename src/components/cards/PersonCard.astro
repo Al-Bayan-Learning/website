@@ -1,0 +1,32 @@
+---
+/** Person card: coloured top bar, square photo, name and role. */
+import type { CollectionEntry } from 'astro:content';
+import { paletteCycle } from '../../lib/content';
+import Placeholder from '../Placeholder.astro';
+
+interface Props {
+  entry: CollectionEntry<'team'>;
+  index: number;
+}
+
+const { entry, index } = Astro.props;
+const { name, role, photo, bio } = entry.data;
+const bars = { purple: 'bg-purple', cyan: 'bg-cyan', gold: 'bg-gold', green: 'bg-green', navy: 'bg-navy' };
+const bar = bars[paletteCycle[index % paletteCycle.length]];
+---
+
+<article class="flex flex-col overflow-hidden rounded-card border border-border bg-white">
+  <div aria-hidden="true" class:list={['h-1.5', bar]}></div>
+  {
+    photo ? (
+      <img src={photo.src} alt={photo.alt} class="aspect-square w-full object-cover" loading="lazy" />
+    ) : (
+      <Placeholder label="[Photo, with consent]" class="aspect-square" />
+    )
+  }
+  <div class="flex flex-col gap-1 p-5">
+    <h3 class="font-bold text-navy">{name}</h3>
+    <p class="text-sm text-muted">{role}</p>
+    {bio && <p class="pt-1 text-sm text-ink-2">{bio}</p>}
+  </div>
+</article>

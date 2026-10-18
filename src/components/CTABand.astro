@@ -1,0 +1,33 @@
+---
+/** Navy→purple closing band with two buttons (design system → CTABand). */
+import Button from './Button.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+
+const {
+  title = 'Help us reach more children',
+  text = 'Volunteer your time, join our team, or support the school.',
+  primary = { label: 'Volunteer', href: '/get-involved#volunteer' },
+  secondary = { label: 'Careers', href: '/get-involved#jobs' },
+} = Astro.props;
+---
+
+<section class="band-dark relative overflow-hidden bg-linear-[100deg] from-navy to-purple text-white">
+  <div aria-hidden="true" class="absolute end-[18%] -top-15 size-40 rounded-full bg-cyan"></div>
+  <div aria-hidden="true" class="absolute end-[6%] bottom-6 size-15 rounded-full bg-gold"></div>
+  <div class="container-site relative flex flex-wrap items-center justify-between gap-6 py-14 md:py-18">
+    <div class="flex flex-[1_1_440px] flex-col gap-2">
+      <h2 class="text-h2 font-extrabold">{title}</h2>
+      <p class="text-lg font-medium">{text}</p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <Button href={primary.href} variant="gold">{primary.label}</Button>
+      <Button href={secondary.href} variant="white">{secondary.label}</Button>
+    </div>
+  </div>
+</section>

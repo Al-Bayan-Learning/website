@@ -1,0 +1,18 @@
+---
+/** Impact number tile (design system → StatTile). */
+import type { Palette } from '../lib/content';
+
+interface Props {
+  value: string;
+  label: string;
+  colour: Exclude<Palette, 'purple'>;
+}
+
+const { value, label, colour } = Astro.props;
+const tile = { cyan: 'bg-cyan text-navy', gold: 'bg-gold text-navy', green: 'bg-green text-navy', navy: 'bg-navy text-white' }[colour];
+---
+
+<div class:list={['rounded-card p-7', tile]}>
+  <p class:list={['font-display text-stat uppercase', colour === 'navy' && 'text-cyan']}>{value}</p>
+  <p class="font-semibold">{label}</p>
+</div>

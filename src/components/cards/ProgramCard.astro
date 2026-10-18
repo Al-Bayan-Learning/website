@@ -1,0 +1,33 @@
+---
+/** Program card: coloured icon square, title, purple grade line, text. */
+import type { CollectionEntry } from 'astro:content';
+import Icon from '../Icon.astro';
+
+interface Props {
+  entry: CollectionEntry<'programs'>;
+  index: number;
+  showSubjects?: boolean;
+}
+
+const { entry, index, showSubjects = false } = Astro.props;
+const { name, grades, description, subjects, icon } = entry.data;
+const squares = ['bg-gold text-navy', 'bg-cyan text-navy', 'bg-purple text-white', 'bg-green text-navy'];
+---
+
+<article class="flex flex-col gap-3 rounded-card bg-white p-8">
+  <div class:list={['flex size-14 items-center justify-center rounded-icon', squares[index % squares.length]]}>
+    <Icon name={icon} size={28} />
+  </div>
+  <h3 class="text-[22px] font-bold text-navy">{name}</h3>
+  <p class="font-semibold text-purple">{grades}</p>
+  <p class="text-ink-2">{description}</p>
+  {
+    showSubjects && subjects && (
+      <ul class="flex flex-wrap gap-2 pt-1" aria-label={`${name} subjects`}>
+        {subjects.map((subject) => (
+          <li class="rounded-full border border-border-chip px-3 py-1 text-sm font-semibold text-ink-2">{subject}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>
