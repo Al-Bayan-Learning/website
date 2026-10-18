@@ -1,0 +1,56 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Placeholder from '../components/Placeholder.astro';
+import InfoCard from '../components/blocks/InfoCard.astro';
+import Field from '../components/forms/Field.astro';
+import FormCard from '../components/forms/FormCard.astro';
+import site from '../data/site.json';
+
+const { contact, socials } = site;
+const telHref = `tel:${contact.phoneIntl.replace(/\s/g, '')}`;
+---
+
+<SiteLayout title="Contact" description={`Email, phone and address for ${site.name} in Lahore, and a contact form.`}>
+  <PageHero
+    eyebrow="Contact"
+    title="Get in touch"
+    intro="Questions about admissions, volunteering or anything else? Email, call or send us a message."
+    breadcrumbs={[{ label: 'Contact' }]}
+    waveFill="fill-surface"
+  />
+
+  <section aria-label="Contact details and form" class="bg-surface">
+    <div class="container-site grid items-start gap-10 pt-8 pb-14 lg:grid-cols-[1fr_1.4fr] md:pb-22">
+      <div class="flex flex-col gap-4">
+        <h2 class="sr-only">Contact details</h2>
+        <InfoCard icon="mail" colour="cyan" title="Email">
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </InfoCard>
+        <InfoCard icon="phone" colour="gold" title="Phone">
+          <a href={telHref}>{contact.phone}</a>
+          <span class="block text-sm text-muted">From outside Pakistan: {contact.phoneIntl}</span>
+        </InfoCard>
+        <InfoCard icon="pin" colour="green" title="Campus">
+          {contact.address}<br />{contact.city}
+        </InfoCard>
+        <InfoCard icon="share" colour="purple" title="Social media">
+          <ul class="flex flex-wrap gap-x-4">
+            {socials.map((social) => <li>{social.url ? <a href={social.url}>{social.name}</a> : social.placeholder}</li>)}
+          </ul>
+        </InfoCard>
+        <Placeholder label="[Map: campus location]" class="h-[260px] rounded-card" />
+      </div>
+
+      <FormCard id="contact-form" title="Send us a message" submitLabel="Send message">
+        <Field form="contact-form" name="name" label="Name" required autocomplete="name" />
+        <div class="grid gap-5 sm:grid-cols-2">
+          <Field form="contact-form" name="email" label="Email" type="email" required autocomplete="email" error="Please enter an email address, like name@example.com." />
+          <Field form="contact-form" name="phone" label="Phone" type="tel" autocomplete="tel" />
+        </div>
+        <Field form="contact-form" name="topic" label="Topic" type="select" required options={['Admissions', 'Volunteering', 'Careers', 'Supporting the school', 'Something else']} error="Please choose a topic." />
+        <Field form="contact-form" name="message" label="Message" type="textarea" required error="Please write a message." />
+      </FormCard>
+    </div>
+  </section>
+</SiteLayout>

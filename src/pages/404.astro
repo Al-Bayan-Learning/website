@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Button from '../components/Button.astro';
+import PageHero from '../components/PageHero.astro';
+import { mainNav, getInvolved } from '../data/navigation';
+---
+
+<SiteLayout title="Page not found" noindex>
+  <PageHero
+    eyebrow="404"
+    title="Page not found"
+    intro="Sorry, we couldn't find that page. It may have moved, or the link may be wrong."
+    breadcrumbs={[{ label: 'Page not found' }]}
+  />
+
+  <section aria-labelledby="try" class="container-site flex flex-col items-start gap-6 py-14 md:py-22">
+    <h2 id="try" class="text-h2 font-extrabold">Try one of these</h2>
+    <ul class="flex flex-wrap gap-x-6">
+      {[...mainNav, getInvolved].map(({ label, href }) => <li><a href={href} class="inline-flex min-h-11 items-center font-bold">{label}</a></li>)}
+    </ul>
+    <Button href="/">Back to the homepage</Button>
+  </section>
+</SiteLayout>
