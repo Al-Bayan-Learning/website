@@ -1,21 +1,35 @@
 {
   "name": "Al-Bayan Learning Initiative Foundation",
   "shortName": "Al-Bayan",
-  "tagline": "Nurturing knowledge, character, and community.",
   "description": "A not-for-profit school started by students and alumni of LUMS, giving children from pre-school to middle school a quality education at a reasonable cost.",
+  "footerAbout": "A not-for-profit school in Lahore, started by students and alumni of LUMS.",
   "url": "https://albayanlearning.pk",
   "launchMode": "coming-soon",
-  "registrationNumber": "REG-0000000",
+  "foundedYear": "[Year]",
+  "registrationNo": "[Registration no.]",
   "contact": {
     "email": "info@albayanlearning.pk",
-    "phone": "+1 (000) 000-0000",
-    "address": "Address line, City, Country",
+    "careersEmail": "careers@albayanlearning.pk",
+    "phone": "0325 1257747",
+    "phoneIntl": "+92 325 1257747",
+    "address": "[Campus address, to confirm]",
     "city": "Lahore, Pakistan"
   },
-  "social": {
-    "facebook": "https://facebook.com/albayanlearning",
-    "instagram": "https://instagram.com/albayanlearning",
-    "twitter": "https://twitter.com/albayanlearning",
-    "youtube": "https://youtube.com/@albayanlearning"
-  }
+  "socials": [
+    { "name": "Instagram", "url": "", "placeholder": "[Instagram]" },
+    { "name": "Facebook", "url": "", "placeholder": "[Facebook]" },
+    { "name": "LinkedIn", "url": "", "placeholder": "[LinkedIn]" }
+  ],
+  "announcement": {
+    "enabled": true,
+    "text": "Admissions open for [session]",
+    "linkText": "Find out how to apply",
+    "href": "/admissions"
+  },
+  "stats": [
+    { "value": "[000]", "label": "students learning with us", "colour": "cyan" },
+    { "value": "[00]", "label": "teachers and staff", "colour": "gold" },
+    { "value": "[00]", "label": "years of teaching", "colour": "green" },
+    { "value": "Pre-school–8", "label": "grades on one campus", "colour": "navy" }
+  ]
 }

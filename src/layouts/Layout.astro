@@ -9,7 +9,7 @@ interface Props {
   description?: string;
 }
 
-const { title, fullTitle, description = site.tagline } = Astro.props;
+const { title, fullTitle, description = site.description } = Astro.props;
 // Page title always derives the school name from site.json — never hard-coded.
 const pageTitle = fullTitle ?? (title ? `${title} · ${site.name}` : site.name);
 ---

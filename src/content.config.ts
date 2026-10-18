@@ -2,71 +2,90 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 // Content lives in src/content/<collection>/*.md and is loaded with the
-// Content Layer glob loader. Add new entries by adding files here — see
-// CLAUDE.md for the content collection rules.
+// Content Layer glob loader. Fields follow the table in docs/project-brief.md.
+// Add new entries by adding files here; see CLAUDE.md for the rules.
+
+const loader = (name: string) => glob({ pattern: '**/*.md', base: `./src/content/${name}` });
+
+/** A [bracketed] placeholder, e.g. "[Date]". */
+const placeholder = z.string().regex(/^\[.*\]$/, 'Placeholders must be in [square brackets]');
+
+/** A real date, or a [bracketed] placeholder until the date is known. */
+const dateOrPlaceholder = z.union([z.coerce.date(), placeholder]);
+
+const photo = z.object({ src: z.string(), alt: z.string() });
 
 const team = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/team' }),
+  loader: loader('team'),
   schema: z.object({
     name: z.string(),
     role: z.string(),
-    bio: z.string(),
-    image: z.string().optional(),
-    order: z.number().default(0),
+    group: z.enum(['founder', 'board', 'admin', 'teacher']),
+    photo: photo.optional(),
+    bio: z.string().optional(),
+    order: z.number(),
   }),
 });
 
 const programs = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/programs' }),
+  loader: loader('programs'),
   schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    ageGroup: z.string(),
-    featured: z.boolean().default(false),
-    order: z.number().default(0),
+    name: z.string(),
+    grades: z.string(),
+    description: z.string(),
+    subjects: z.array(z.string()).optional(),
+    icon: z.enum(['blocks', 'book', 'flask']),
+    order: z.number(),
   }),
 });
 
 const activities = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/activities' }),
+  loader: loader('activities'),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    category: z.string(),
-    date: z.coerce.date().optional(),
+    name: z.enum(['Debate', 'Arts', 'Athletics']),
+    intro: z.string(),
+    lead: z.string().optional(),
+    schedule: z.string().optional(),
+    achievements: z.array(
+      z.object({ date: dateOrPlaceholder, event: z.string(), result: z.string() }),
+    ),
+    photos: z.array(photo).optional(),
+    colour: z.enum(['cyan', 'gold', 'green']),
   }),
 });
 
 const jobs = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/jobs' }),
+  loader: loader('jobs'),
   schema: z.object({
     title: z.string(),
-    location: z.string(),
-    type: z.enum(['full-time', 'part-time', 'contract', 'volunteer']),
-    description: z.string(),
-    postedDate: z.coerce.date(),
-    open: z.boolean().default(true),
+    type: z.enum(['full-time', 'part-time', 'volunteer']),
+    requirements: z.array(z.string()),
+    howToApply: z.string(),
+    closingDate: dateOrPlaceholder,
+    open: z.boolean(),
   }),
 });
 
 const news = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/news' }),
+  loader: loader('news'),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    publishDate: z.coerce.date(),
-    author: z.string().optional(),
-    tags: z.array(z.string()).default([]),
+    date: dateOrPlaceholder,
+    category: z.enum(['events', 'school-news', 'student-stories', 'announcement']),
+    summary: z.string(),
+    cover: photo.optional(),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
   }),
 });
 
 const testimonials = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
+  loader: loader('testimonials'),
   schema: z.object({
-    name: z.string(),
-    relation: z.string(),
     quote: z.string(),
-    order: z.number().default(0),
+    role: z.enum(['student', 'parent', 'alumni']),
+    name: z.string(),
+    photo: photo.optional(),
   }),
 });
 
