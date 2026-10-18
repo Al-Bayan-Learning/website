@@ -1,4 +1,32 @@
-# Al-Bayan School website
+# Al-Bayan Learning Initiative Foundation website
+
+## Read these first, every session
+
+Before any work on this site, read these three files in full and follow them:
+
+1. `docs/project-brief.md`: what to build, the pages, the content collections
+   and the rules. If it conflicts with anything below, the brief wins; update
+   this file to match.
+2. `docs/design-system.md`: colours, fonts, components and page patterns.
+3. `design/home-reference.html`: the approved homepage. Open it in a browser.
+
+## Key rules (from the brief)
+
+- **The repo is public.** Never commit secrets, keys, personal data, bank
+  account numbers, or photos of children. Children appear only with written
+  guardian consent, using first names or initials; until then use placeholders.
+- **Placeholders go in [square brackets]**, for example `[Student count]` or
+  `[Photo: debate team]`. Never write realistic fake text, names, numbers or
+  quotes.
+- **Keep the `launchMode` coming-soon gate working** (see below). Never break or
+  remove it: placeholders must never reach albayanlearning.pk.
+- **Commit straight to `main`** in small, clear commits. No pull requests before
+  launch. **Don't push unless the owner asks.** Pushing `main` triggers the
+  production build on Cloudflare.
+- No logins, staff portal, intranet, LMS or student records: those live in
+  Google Workspace for Education.
+- Use CSS logical properties (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`,
+  `text-start`), never left/right utilities, so Urdu RTL can be added later.
 
 Astro + Tailwind CSS static site, deployed to **Cloudflare Workers with static
 assets** (Workers Builds), using the `@astrojs/cloudflare` adapter. Pages are
@@ -62,25 +90,28 @@ config.
 To preview the production (coming-soon) behaviour locally:
 `WORKERS_CI_BRANCH=main npm run build`.
 
-## Branch and pull request workflow
+## Commit workflow
 
-- **Never commit directly to `main`.** `main` is the production branch.
-- Create a feature branch, push it, and open a pull request with `gh`.
-- Cloudflare Workers Builds builds a preview (with its own `preview_urls`
-  Worker URL) for every non-main branch (full site) and the production
-  coming-soon/live build for `main`.
+- Before launch, commit directly to `main` (owner's decision, see the brief).
+  No feature branches or pull requests unless the owner asks for them.
+- Do not push unless asked. Cloudflare Workers Builds builds `main` as
+  production (coming-soon while `launchMode` is `"coming-soon"`), and any other
+  pushed branch as a full-site preview with its own `preview_urls` Worker URL.
 
 ## Content collections
 
 Content lives in `src/content/<collection>/` and is validated by the schemas in
-`src/content.config.ts`. Collections: `team`, `programs`, `activities`, `jobs`,
-`news`, `testimonials`.
+`src/content.config.ts`, which follow the table in `docs/project-brief.md`.
+Collections: `team`, `programs`, `activities`, `jobs`, `news`, `testimonials`.
+Site-wide settings (contact details, socials, registration number, announcement
+strip, impact stats, `launchMode`) live in `src/data/site.json`.
 
 - Add content by adding a Markdown file to the right collection folder; its
   frontmatter must match that collection's schema.
 - To change a content shape, update the schema in `src/content.config.ts` first,
   then update every entry to match. The build fails on schema violations.
-- Keep one real sample entry per collection so the full site always renders.
+- Keep at least one entry per collection so the full site always renders.
+  Until real content exists, entries are placeholders in [brackets].
 
 ## Database migrations
 
