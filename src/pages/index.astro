@@ -1,10 +1,40 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
 import ComingSoon from '../components/ComingSoon.astro';
+import Button from '../components/Button.astro';
+import CTABand from '../components/CTABand.astro';
+import Placeholder from '../components/Placeholder.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import StatTile from '../components/StatTile.astro';
+import ValuePills from '../components/ValuePills.astro';
+import Wave from '../components/Wave.astro';
+import NewsCard from '../components/cards/NewsCard.astro';
+import ProgramCard from '../components/cards/ProgramCard.astro';
 import site from '../data/site.json';
 import { isComingSoon } from '../lib/launch';
+import { getNews } from '../lib/content';
+import { getCollection } from 'astro:content';
 
+// Homepage: design/home-reference.html (approved). On the production build
+// before launch, the coming-soon page renders here instead.
 const comingSoon = isComingSoon();
+
+const programs = comingSoon ? [] : (await getCollection('programs')).sort((a, b) => a.data.order - b.data.order);
+const activityOrder = ['Debate', 'Arts', 'Athletics'];
+const activities = comingSoon
+  ? []
+  : (await getCollection('activities')).sort((a, b) => activityOrder.indexOf(a.data.name) - activityOrder.indexOf(b.data.name));
+const latestNews = comingSoon ? [] : (await getNews()).slice(0, 3);
+const testimonial = comingSoon ? undefined : (await getCollection('testimonials'))[0];
+
+const frame = {
+  cyan: { border: 'border-cyan', text: 'text-cyan' },
+  gold: { border: 'border-gold', text: 'text-gold' },
+  green: { border: 'border-green', text: 'text-green' },
+};
+const tilts = ['-rotate-2', 'rotate-2', '-rotate-1'];
+const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
 ---
 
 {
@@ -13,8 +43,124 @@ const comingSoon = isComingSoon();
       <ComingSoon />
     </Layout>
   ) : (
-    <Layout title="Home">
-      <main><h1>{site.name}</h1></main>
-    </Layout>
+    <SiteLayout fullTitle={site.name} description={site.description}>
+      <section class="band-dark relative bg-purple text-white">
+        <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
+          <div class="absolute -end-30 -top-40 size-[420px] rounded-full bg-blue-mid opacity-55" />
+          <div class="absolute -start-[70px] bottom-15 size-[180px] rounded-full bg-purple-soft" />
+          <div class="absolute start-[46%] top-[90px] size-[22px] rounded-full bg-green" />
+        </div>
+
+        <div class="container-site relative flex flex-wrap items-center gap-14 pt-14 pb-28 md:pt-18 md:pb-30">
+          <div class="flex flex-[1_1_440px] flex-col gap-[22px]">
+            <p class="self-start rounded-full bg-navy px-4 py-1.5 font-display text-xl leading-[1.6] tracking-[0.08em] text-cyan-light">
+              Not-for-profit school · Lahore
+            </p>
+            <h1 class="text-h1 font-extrabold tracking-[-0.01em]">
+              Education that opens doors for{' '}
+              <span class="relative inline-block text-cyan-light">
+                every child
+                <svg aria-hidden="true" viewBox="0 0 300 20" preserveAspectRatio="none" class="absolute start-0 -bottom-2.5 h-3.5 w-full">
+                  <path d="M4 14 C 60 2, 120 18, 180 8 S 270 4, 296 10" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" />
+                </svg>
+              </span>
+            </h1>
+            <p class="max-w-[520px] text-[clamp(16px,1.8vw,19px)] text-on-purple">
+              Started by students and alumni of LUMS, Al-Bayan teaches children from pre-school to middle school at a
+              reasonable cost, with activity-based learning at its heart.
+            </p>
+            <div class="flex flex-wrap gap-3 pt-1.5">
+              <Button href="/admissions" variant="light">Apply for admission</Button>
+              <Button href="/get-involved" variant="outline-light">Get involved</Button>
+            </div>
+          </div>
+
+          <div class="relative min-h-[400px] flex-[1_1_400px]">
+            <div aria-hidden="true" class="absolute start-6 top-6 -end-3 -bottom-3 rotate-3 rounded-[28px] bg-navy" />
+            <Placeholder
+              label="[Photo: a class activity, with consent]"
+              class="absolute start-0 top-0 end-3 bottom-3 -rotate-2 rounded-[28px] border-6 border-white"
+            />
+            <p class="absolute -start-[18px] bottom-[26px] flex size-[118px] -rotate-10 flex-col items-center justify-center rounded-full bg-navy font-display leading-none text-cyan-light ring-6 ring-purple">
+              <span class="text-lg">Since</span>
+              <span class="text-[34px]">{site.foundedYear}</span>
+            </p>
+          </div>
+        </div>
+        <Wave fill="fill-white" />
+      </section>
+
+      <section aria-label="Impact" class="container-site grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5 pt-6 pb-14 md:pb-18">
+        {site.stats.map((stat) => <StatTile value={stat.value} label={stat.label} colour={stat.colour as 'cyan' | 'gold' | 'green' | 'navy'} />)}
+      </section>
+
+      <section aria-labelledby="who-we-are" class="container-site flex flex-wrap items-center gap-14 pb-14 md:pb-22">
+        <div class="flex flex-[1_1_440px] flex-col gap-4">
+          <p class="eyebrow text-purple">Who we are</p>
+          <h2 id="who-we-are" class="text-h2 font-extrabold">Better access to education, one classroom at a time</h2>
+          <p class="text-ink-2">
+            Al-Bayan aspires to empower the disenfranchised within our community. Funded partly by donors and partly by
+            student fees, we focus on dynamic, activity-based learning rather than only traditional methods.
+          </p>
+          <a href="/about" class="inline-flex min-h-11 items-center self-start font-bold">Read our story</a>
+        </div>
+        <ValuePills class="flex-[1_1_380px]" />
+      </section>
+
+      <section aria-labelledby="programs" class="bg-green">
+        <div class="container-site flex flex-col gap-9 py-14 md:py-20">
+          <SectionHeading id="programs" eyebrow="Our programs" title="From first letters to middle school" tone="on-colour" />
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+            {programs.map((entry, index) => <ProgramCard entry={entry} index={index} />)}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="beyond" class="band-dark bg-navy text-white">
+        <div class="container-site flex flex-col gap-10 py-14 md:py-22">
+          <SectionHeading id="beyond" eyebrow="Beyond the classroom" title="Debate. Create. Compete." tone="dark" />
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-8">
+            {activities.map((activity, i) => {
+              const colours = frame[activity.data.colour];
+              return (
+                <article class="flex flex-col gap-3.5">
+                  <Placeholder
+                    label={`[${activity.data.name} photo]`}
+                    class:list={['h-[220px] rounded-card border-4 bg-purple font-normal text-white', colours.border, tilts[i % tilts.length]]}
+                  />
+                  <h3 class:list={['font-display text-[34px] leading-[1.6]', colours.text]}>
+                    <a href={`/co-curricular#${activity.id}`} class="text-current no-underline hover:text-current hover:underline">
+                      {activity.data.name}
+                    </a>
+                  </h3>
+                  <p class="text-on-navy">{activity.data.intro}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="latest-news" class="container-site flex flex-col gap-9 py-14 md:py-22">
+        <SectionHeading id="latest-news" eyebrow="Latest news" title="What's happening at Al-Bayan" link={{ href: '/news', label: 'All news' }} />
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+          {latestNews.map((entry) => <NewsCard entry={entry} />)}
+        </div>
+      </section>
+
+      {testimonial && (
+        <section aria-label="What families say" class="bg-gold">
+          <figure class="mx-auto flex max-w-[1008px] flex-col items-center gap-4 px-6 py-14 text-center md:py-20">
+            <p aria-hidden="true" class="font-display text-[120px] leading-[0.6] text-purple">“</p>
+            <blockquote class="text-[clamp(22px,2.8vw,32px)] leading-[1.4] font-bold">{testimonial.data.quote}</blockquote>
+            <figcaption class="font-semibold">
+              {testimonial.data.name}, {roleLabel[testimonial.data.role]}
+            </figcaption>
+          </figure>
+        </section>
+      )}
+
+      <CTABand />
+    </SiteLayout>
   )
 }
