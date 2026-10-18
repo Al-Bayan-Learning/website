@@ -1,0 +1,33 @@
+---
+/** Numbered pagination; the current page is a purple pill. */
+interface Props {
+  current: number;
+  last: number;
+  /** URL for page n (page 1 is the base URL). */
+  urlFor: (page: number) => string;
+}
+
+const { current, last, urlFor } = Astro.props;
+const pages = Array.from({ length: last }, (_, i) => i + 1);
+const pill = 'inline-flex size-11 items-center justify-center rounded-full font-bold no-underline';
+---
+
+{
+  last > 1 && (
+    <nav aria-label="Pagination" class="flex flex-wrap items-center justify-center gap-2">
+      {current > 1 && <a href={urlFor(current - 1)} class="inline-flex min-h-11 items-center px-3 font-bold">Previous</a>}
+      {pages.map((page) =>
+        page === current ? (
+          <span aria-current="page" class:list={[pill, 'bg-purple text-white']}>
+            <span class="sr-only">Page </span>{page}
+          </span>
+        ) : (
+          <a href={urlFor(page)} class:list={[pill, 'border border-border-chip text-navy hover:bg-surface']}>
+            <span class="sr-only">Page </span>{page}
+          </a>
+        ),
+      )}
+      {current < last && <a href={urlFor(current + 1)} class="inline-flex min-h-11 items-center px-3 font-bold">Next</a>}
+    </nav>
+  )
+}

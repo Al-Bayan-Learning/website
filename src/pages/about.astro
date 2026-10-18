@@ -1,0 +1,105 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import CTABand from '../components/CTABand.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ValuePills from '../components/ValuePills.astro';
+import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import Timeline from '../components/blocks/Timeline.astro';
+import PersonCard from '../components/cards/PersonCard.astro';
+import site from '../data/site.json';
+import { getCollection } from 'astro:content';
+
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+const groups = [
+  { key: 'founder', label: 'Founders' },
+  { key: 'board', label: 'Board' },
+  { key: 'admin', label: 'Administration' },
+  { key: 'teacher', label: 'Teachers' },
+] as const;
+
+const milestones = [
+  { year: site.foundedYear, title: '[Milestone, e.g. Al-Bayan School System founded]', text: '[One line on what happened]' },
+  { year: '[Year]', title: '[Milestone]', text: '[One line on what happened]' },
+  { year: '[Year]', title: '[Milestone]', text: '[One line on what happened]' },
+  { year: '[Year]', title: 'Renamed Al-Bayan Learning Initiative Foundation', text: '[One line on why, to confirm]' },
+];
+---
+
+<SiteLayout title="About" description="The story, vision, mission and values of Al-Bayan Learning Initiative Foundation, a not-for-profit school in Lahore started by students and alumni of LUMS.">
+  <PageHero eyebrow="About us" title="Our story" intro={site.description} breadcrumbs={[{ label: 'About' }]} />
+
+  <section aria-labelledby="story" class="container-site flex flex-wrap items-center gap-14 py-14 md:py-22">
+    <div class="flex flex-[1_1_440px] flex-col gap-4">
+      <p class="eyebrow text-purple">How it started</p>
+      <h2 id="story" class="text-h2 font-extrabold">Started by students and alumni of LUMS</h2>
+      <p class="text-ink-2">
+        {site.name} is a not-for-profit school started by students and alumni of LUMS. We provide good-quality education from
+        pre-school to middle school at a reasonable cost, funded partly by donors and partly by student fees. Alongside the
+        classroom, we focus on dynamic, activity-based learning rather than only traditional methods.
+      </p>
+      <p class="text-ink-2">The school was formerly known as Al-Bayan School System.</p>
+      <p class="text-ink-2">[Story and origin: how and when the school began, and who started it, to confirm]</p>
+    </div>
+    <PhotoFrame label="[Photo: the school or an early class, with consent]" border="gold" tilt="rotate-2" class="h-[320px] flex-[1_1_380px]" />
+  </section>
+
+  <section aria-label="Vision and mission" class="container-site grid gap-6 pb-14 md:grid-cols-2 md:pb-22">
+    <div class="band-dark flex flex-col gap-3 rounded-card bg-purple p-8 text-white md:p-10">
+      <h2 class="eyebrow text-cyan-light">Our vision</h2>
+      <p class="text-[clamp(18px,2vw,22px)] leading-normal font-semibold">
+        To develop well-rounded, confident and responsible individuals who can compete and succeed in the ever-changing
+        environment of the world.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3 rounded-card bg-cyan p-8 text-navy md:p-10">
+      <h2 class="eyebrow">Our mission</h2>
+      <p class="text-[clamp(18px,2vw,22px)] leading-normal font-semibold">
+        Al-Bayan aspires to empower the disenfranchised within our community and help them achieve their potential by
+        providing better access to education.
+      </p>
+      <p>
+        Given the current state of the education system in the country, we hope to play our part in uplifting society
+        through subsidised educational facilities.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="values" class="bg-green">
+    <div class="container-site flex flex-wrap items-center gap-10 py-14 md:py-20">
+      <SectionHeading id="values" eyebrow="Core values" title="What we stand for" tone="on-colour" class="flex-[1_1_360px]" />
+      <ValuePills onGreen class="flex-[1_1_440px]" />
+    </div>
+  </section>
+
+  <section aria-labelledby="milestones" class="container-site grid gap-10 py-14 md:grid-cols-[1fr_1.4fr] md:py-22">
+    <SectionHeading id="milestones" eyebrow="Milestones" title="Our journey so far" class="self-start" />
+    <Timeline items={milestones} />
+  </section>
+
+  <section aria-labelledby="team" class="band-dark bg-navy text-white">
+    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
+      <SectionHeading id="team" eyebrow="Our people" title="Leadership and team" tone="dark" />
+      {
+        groups.map(({ key, label }) => {
+          const people = team.filter((person) => person.data.group === key);
+          return (
+            people.length > 0 && (
+              <div class="flex flex-col gap-5">
+                <h3 class="text-xl font-bold text-gold">{label}</h3>
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
+                  {people.map((person) => <PersonCard entry={person} index={team.indexOf(person)} />)}
+                </div>
+              </div>
+            )
+          );
+        })
+      }
+      <p class="border-t border-navy-line pt-6 text-sm text-on-navy-muted">
+        {site.name} is a registered not-for-profit. Registration number: {site.registrationNo}.
+      </p>
+    </div>
+  </section>
+
+  <CTABand />
+</SiteLayout>

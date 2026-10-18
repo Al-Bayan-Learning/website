@@ -1,0 +1,103 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import ProgramCard from '../components/cards/ProgramCard.astro';
+import { getCollection } from 'astro:content';
+
+const programs = (await getCollection('programs')).sort((a, b) => a.data.order - b.data.order);
+
+const facilities = [
+  { icon: 'book', colour: 'bg-cyan text-navy', name: '[Facility, e.g. library]' },
+  { icon: 'flask', colour: 'bg-gold text-navy', name: '[Facility, e.g. science corner]' },
+  { icon: 'users', colour: 'bg-green text-navy', name: '[Facility, e.g. play area]' },
+  { icon: 'building', colour: 'bg-purple text-white', name: '[Facility]' },
+] as const;
+---
+
+<SiteLayout title="Academics" description="Grades, curriculum, teaching approach, facilities and school timings at Al-Bayan, from pre-school to middle school.">
+  <PageHero
+    eyebrow="Academics"
+    title="From first letters to middle school"
+    intro="Pre-school to middle school, with dynamic, activity-based learning alongside the classroom."
+    breadcrumbs={[{ label: 'Academics' }]}
+    waveFill="fill-green"
+  />
+
+  <section aria-labelledby="grades" class="bg-green">
+    <div class="container-site flex flex-col gap-9 pt-10 pb-14 md:pb-20">
+      <SectionHeading id="grades" eyebrow="Grades offered" title="Our programs" tone="on-colour" />
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+        {programs.map((entry, index) => <ProgramCard entry={entry} index={index} showSubjects />)}
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="approach" class="container-site flex flex-wrap items-center gap-14 py-14 md:py-22">
+    <div class="flex flex-[1_1_440px] flex-col gap-4">
+      <p class="eyebrow text-purple">How we teach</p>
+      <h2 id="approach" class="text-h2 font-extrabold">Curriculum and teaching approach</h2>
+      <p class="text-ink-2">
+        Alongside the classroom, we focus on dynamic, activity-based learning rather than only traditional methods.
+      </p>
+      <p class="text-ink-2">[Curriculum followed, e.g. the national curriculum or a named board, to confirm]</p>
+      <p class="text-ink-2">[How a typical lesson works, class sizes and assessment, to confirm]</p>
+    </div>
+    <PhotoFrame label="[Photo: an activity-based lesson, with consent]" border="cyan" tilt="-rotate-2" class="h-[320px] flex-[1_1_380px]" />
+  </section>
+
+  <section aria-labelledby="facilities" class="band-dark bg-navy text-white">
+    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
+      <SectionHeading id="facilities" eyebrow="On campus" title="Facilities" tone="dark" />
+      <ul class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6">
+        {
+          facilities.map((facility) => (
+            <li class="flex flex-col gap-4 rounded-card bg-white p-7 text-navy">
+              <span class:list={['flex size-14 items-center justify-center rounded-icon', facility.colour]}>
+                <Icon name={facility.icon} size={28} />
+              </span>
+              <span class="text-lg font-bold">{facility.name}</span>
+              <span class="text-ink-2">[One line about it]</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section aria-label="Timings and calendar" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+      <p class="eyebrow text-purple">Daily timings</p>
+      <h2 class="text-[26px] leading-tight font-extrabold">The school day</h2>
+      <table class="w-full text-start">
+        <caption class="sr-only">School timings by section</caption>
+        <tbody class="divide-y divide-border-chip">
+          {
+            programs.map((program) => (
+              <tr>
+                <th scope="row" class="py-3 pe-4 text-start font-semibold">{program.data.name}</th>
+                <td class="py-3 text-ink-2">[Start time] – [End time]</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+      <p class="eyebrow text-purple">Academic calendar</p>
+      <h2 class="text-[26px] leading-tight font-extrabold">Terms and holidays</h2>
+      <p class="text-ink-2">[Term dates and holidays for the current session]</p>
+      <p class="font-semibold text-ink-2">[Academic calendar link, to add]</p>
+    </div>
+  </section>
+
+  <CTABand
+    title="Ready to apply?"
+    text="Find out who can apply, what you'll need and how the process works."
+    primary={{ label: 'Apply for admission', href: '/admissions' }}
+    secondary={{ label: 'Contact us', href: '/contact' }}
+  />
+</SiteLayout>

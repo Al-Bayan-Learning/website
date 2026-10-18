@@ -1,0 +1,22 @@
+---
+/** Milestones: cyan vertical line, palette dots, Bebas years in purple. */
+interface Props {
+  items: { year: string; title: string; text?: string }[];
+}
+
+const { items } = Astro.props;
+const dots = ['bg-purple', 'bg-cyan', 'bg-gold', 'bg-green'];
+---
+
+<ol class="relative flex flex-col gap-8 border-s-[3px] border-cyan ps-8">
+  {
+    items.map((item, i) => (
+      <li class="relative">
+        <span aria-hidden="true" class:list={['absolute -start-[42px] top-1.5 size-[18px] rounded-full ring-4 ring-white', dots[i % dots.length]]} />
+        <p class="font-display text-[34px] leading-none text-purple">{item.year}</p>
+        <h3 class="mt-1 text-lg font-bold text-navy">{item.title}</h3>
+        {item.text && <p class="text-ink-2">{item.text}</p>}
+      </li>
+    ))
+  }
+</ol>

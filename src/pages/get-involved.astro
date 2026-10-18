@@ -1,0 +1,106 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Button from '../components/Button.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import InfoCard from '../components/blocks/InfoCard.astro';
+import JobCard from '../components/cards/JobCard.astro';
+import Field from '../components/forms/Field.astro';
+import FormCard from '../components/forms/FormCard.astro';
+import site from '../data/site.json';
+import { getCollection } from 'astro:content';
+
+const { contact } = site;
+const jobs = await getCollection('jobs', ({ data }) => data.open);
+
+const roles = [
+  { icon: 'book', colour: 'bg-cyan text-navy', name: '[Volunteer role 1, e.g. reading buddy]' },
+  { icon: 'users', colour: 'bg-gold text-navy', name: '[Volunteer role 2, e.g. debate coach]' },
+  { icon: 'heart', colour: 'bg-purple text-white', name: '[Volunteer role 3, e.g. event helper]' },
+] as const;
+---
+
+<SiteLayout title="Get involved" description="Volunteer with Al-Bayan, see current job openings, and find out how to support the school.">
+  <PageHero
+    eyebrow="Get involved"
+    title="Help us reach more children"
+    intro="Volunteer your time, join our team, or support the school."
+    breadcrumbs={[{ label: 'Get involved' }]}
+  />
+
+  <section aria-labelledby="roles" class="container-site flex flex-col gap-9 py-14 md:py-22">
+    <SectionHeading id="roles" eyebrow="Volunteer" title="Ways to volunteer" link={{ href: '#volunteer', label: 'Sign up to volunteer' }} />
+    <ul class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+      {
+        roles.map((role) => (
+          <li class="flex flex-col gap-3 rounded-card bg-surface p-8">
+            <span class:list={['flex size-14 items-center justify-center rounded-icon', role.colour]}>
+              <Icon name={role.icon} size={28} />
+            </span>
+            <h3 class="text-[22px] leading-snug font-bold">{role.name}</h3>
+            <p class="text-ink-2">[What the role involves and the time it needs]</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="volunteer" aria-label="Volunteer sign-up" class="bg-surface">
+    <div class="container-site grid items-start gap-10 py-14 lg:grid-cols-[1fr_1.4fr] md:py-22">
+      <div class="flex flex-col gap-5">
+        <SectionHeading eyebrow="Sign up" title="Tell us how you'd like to help" />
+        <p class="text-ink-2">Share a few details and we'll be in touch about a role that fits your time.</p>
+        <InfoCard icon="mail" colour="cyan" title="Email">
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </InfoCard>
+      </div>
+      <FormCard id="volunteer-form" title="Volunteer sign-up" submitLabel="Send">
+        <Field form="volunteer-form" name="name" label="Name" required autocomplete="name" />
+        <div class="grid gap-5 sm:grid-cols-2">
+          <Field form="volunteer-form" name="email" label="Email" type="email" required autocomplete="email" error="Please enter an email address, like name@example.com." />
+          <Field form="volunteer-form" name="phone" label="Phone" type="tel" required autocomplete="tel" error="Please enter a phone number we can call." />
+        </div>
+        <Field form="volunteer-form" name="role" label="Role you're interested in" type="select" required options={[...roles.map((r) => r.name), 'Something else']} error="Please choose a role." />
+        <Field form="volunteer-form" name="availability" label="Availability" type="select" required options={['Weekday mornings', 'Weekday afternoons', 'Weekends', 'Flexible']} error="Please choose when you're available." />
+      </FormCard>
+    </div>
+  </section>
+
+  <section id="jobs" aria-labelledby="jobs-title" class="band-dark bg-navy text-white">
+    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
+      <SectionHeading id="jobs-title" eyebrow="Careers" title="Current job openings" tone="dark" />
+      <p class="-mt-4 max-w-[640px] text-on-navy">
+        Apply by email to <a href={`mailto:${contact.careersEmail}`} class="text-cyan-light hover:text-white">{contact.careersEmail}</a>.
+      </p>
+      {
+        jobs.length > 0 ? (
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+            {jobs.map((job) => <JobCard entry={job} />)}
+          </div>
+        ) : (
+          <p class="text-on-navy">There are no openings right now. You're welcome to send your CV for future roles.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="support" class="bg-gold">
+    <div class="container-site flex flex-wrap items-center justify-between gap-6 py-14 md:py-20">
+      <div class="flex flex-[1_1_440px] flex-col gap-3">
+        <p class="eyebrow text-navy">Donate</p>
+        <h2 id="support" class="text-h2 font-extrabold">Support the school</h2>
+        <p>Online giving is coming soon. Until then, email us to find out how you can support Al-Bayan.</p>
+      </div>
+      <Button href={`mailto:${contact.email}?subject=${encodeURIComponent('Supporting Al-Bayan')}`} variant="dark">Email us</Button>
+    </div>
+  </section>
+
+  <CTABand
+    title="Want to talk it through?"
+    text="Email or call us and we'll get back to you."
+    primary={{ label: 'Contact us', href: '/contact' }}
+    secondary={{ label: 'Email us', href: `mailto:${contact.email}` }}
+  />
+</SiteLayout>

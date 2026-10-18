@@ -1,0 +1,27 @@
+---
+/**
+ * Tilted photo frame: rounded 24px with a palette-coloured border. Shows a
+ * [bracketed] placeholder until a real (consented) photo exists.
+ */
+import Placeholder from '../Placeholder.astro';
+
+interface Props {
+  label: string;
+  photo?: { src: string; alt: string };
+  border?: 'cyan' | 'gold' | 'green' | 'purple' | 'white';
+  tilt?: string;
+  class?: string;
+}
+
+const { label, photo, border = 'cyan', tilt = '-rotate-2', class: className } = Astro.props;
+const borders = { cyan: 'border-cyan', gold: 'border-gold', green: 'border-green', purple: 'border-purple', white: 'border-white' };
+const frame = ['rounded-card border-[5px] motion-safe:transition-transform', borders[border], tilt, className];
+---
+
+{
+  photo ? (
+    <img src={photo.src} alt={photo.alt} class:list={[frame, 'object-cover']} loading="lazy" />
+  ) : (
+    <Placeholder label={label} class:list={frame} />
+  )
+}

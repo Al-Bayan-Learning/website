@@ -1,0 +1,24 @@
+---
+/** Numbered steps with big Bebas numbers in palette colours (for navy bands). */
+interface Props {
+  steps: { title: string; text: string }[];
+}
+
+const { steps } = Astro.props;
+const numbers = ['text-cyan', 'text-gold', 'text-green', 'text-cyan-light'];
+---
+
+<ol class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8">
+  {
+    steps.map((step, i) => (
+      <li class="flex flex-col gap-2">
+        <span aria-hidden="true" class:list={['font-display text-stat', numbers[i % numbers.length]]}>{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="text-xl font-bold text-white">
+          <span class="sr-only">Step {i + 1}: </span>
+          {step.title}
+        </h3>
+        <p class="text-on-navy">{step.text}</p>
+      </li>
+    ))
+  }
+</ol>

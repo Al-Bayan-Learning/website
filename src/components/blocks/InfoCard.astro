@@ -1,0 +1,23 @@
+---
+/** Contact-style info card with a coloured icon square. */
+import Icon, { type IconName } from '../Icon.astro';
+
+interface Props {
+  icon: IconName;
+  colour: 'cyan' | 'gold' | 'green' | 'purple';
+  title: string;
+}
+
+const { icon, colour, title } = Astro.props;
+const squares = { cyan: 'bg-cyan text-navy', gold: 'bg-gold text-navy', green: 'bg-green text-navy', purple: 'bg-purple text-white' };
+---
+
+<div class="flex items-start gap-4 rounded-card bg-white p-5">
+  <div class:list={['flex size-12 shrink-0 items-center justify-center rounded-icon', squares[colour]]}>
+    <Icon name={icon} />
+  </div>
+  <div class="flex min-w-0 flex-col">
+    <h3 class="font-bold text-navy">{title}</h3>
+    <div class="break-words text-ink-2"><slot /></div>
+  </div>
+</div>
