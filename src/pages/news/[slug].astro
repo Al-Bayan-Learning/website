@@ -1,0 +1,57 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Tag from '../../components/Tag.astro';
+import NewsCard from '../../components/cards/NewsCard.astro';
+import { categoryInfo, dateTime, formatDate, getNews, type NewsEntry } from '../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const news = await getNews();
+  return news.map((entry) => ({ params: { slug: entry.id }, props: { entry, others: news.filter((e) => e !== entry).slice(0, 3) } }));
+}) satisfies GetStaticPaths;
+
+const { entry, others } = Astro.props as { entry: NewsEntry; others: NewsEntry[] };
+const { title, date, category, summary, cover } = entry.data;
+const info = categoryInfo(category);
+const { Content } = await render(entry);
+---
+
+<SiteLayout title={title} description={summary}>
+  <PageHero title={title} breadcrumbs={[{ label: 'News', href: '/news' }, { label: title }]}>
+    <div class="flex flex-wrap items-center gap-3">
+      <Tag colour={info.colour}>{info.label}</Tag>
+      <time datetime={dateTime(date)} class="text-sm text-on-purple">{formatDate(date)}</time>
+    </div>
+  </PageHero>
+
+  <article class="container-site py-12 md:py-16">
+    <div class="mx-auto flex max-w-[720px] flex-col gap-8">
+      <p class="text-xl leading-relaxed font-medium text-navy">{summary}</p>
+      <figure>
+        {cover ? <img src={cover.src} alt={cover.alt} class="w-full rounded-card" /> : <Placeholder label="[Cover image]" class="h-[260px] rounded-card md:h-[360px]" />}
+        <figcaption class="mt-2 text-sm text-muted">{cover ? cover.alt : '[Image caption]'}</figcaption>
+      </figure>
+      <div class="prose-article">
+        <Content />
+      </div>
+      <a href="/news" class="inline-flex min-h-11 items-center self-start font-bold">← Back to news</a>
+    </div>
+  </article>
+
+  {
+    others.length > 0 && (
+      <section aria-labelledby="more-stories" class="bg-surface">
+        <div class="container-site flex flex-col gap-9 py-14 md:py-20">
+          <SectionHeading id="more-stories" eyebrow="Keep reading" title="More stories" link={{ href: '/news', label: 'All news' }} />
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+            {others.map((other) => <NewsCard entry={other} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</SiteLayout>

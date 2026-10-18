@@ -1,0 +1,66 @@
+---
+/**
+ * News listing body (design system → Listing): filter chips, featured story
+ * (first page of "All" only), card grid and numbered pagination. Filtering
+ * uses plain links to static category pages.
+ */
+import type { NewsCategory, NewsEntry } from '../lib/content';
+import { newsCategories } from '../lib/content';
+import NewsCard from './cards/NewsCard.astro';
+import Pagination from './blocks/Pagination.astro';
+
+interface Props {
+  entries: NewsEntry[];
+  featured?: NewsEntry;
+  category?: NewsCategory;
+  current: number;
+  last: number;
+}
+
+const { entries, featured, category, current, last } = Astro.props;
+const base = category ? `/news/category/${category}` : '/news';
+const urlFor = (page: number) => (page === 1 ? base : `${base}/${page}`);
+const chips = [{ label: 'All', href: '/news', slug: undefined }, ...newsCategories.map((c) => ({ label: c.label, href: `/news/category/${c.slug}`, slug: c.slug }))];
+---
+
+<div class="container-site flex flex-col gap-10 pt-10 pb-14 md:pb-22">
+  <nav aria-label="News categories">
+    <ul class="flex flex-wrap gap-2">
+      {
+        chips.map((chip) => {
+          const active = chip.slug === category;
+          return (
+            <li>
+              <a
+                href={chip.href}
+                aria-current={active ? 'page' : undefined}
+                class:list={[
+                  'inline-flex min-h-11 items-center rounded-full border px-5 font-semibold no-underline',
+                  active ? 'border-navy bg-navy text-white hover:text-white' : 'border-border-chip bg-white text-navy hover:bg-surface hover:text-navy',
+                ]}
+              >
+                {chip.label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+
+  {featured && <NewsCard entry={featured} featured headingLevel="h2" />}
+
+  {
+    entries.length > 0 ? (
+      <section aria-label={featured ? 'More stories' : 'Stories'}>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
+          {entries.map((entry) => <NewsCard entry={entry} headingLevel="h2" />)}
+        </div>
+      </section>
+    ) : (
+      !featured && <p class="rounded-card bg-surface p-8 text-ink-2">No stories here yet. Check back soon.</p>
+    )
+  }
+
+  <Pagination current={current} last={last} urlFor={urlFor} />
+</div>

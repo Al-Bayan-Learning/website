@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from 'astro';
+import SiteLayout from '../../../../layouts/SiteLayout.astro';
+import NewsListing from '../../../../components/NewsListing.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import { categoryInfo, getNews, newsCategories, NEWS_PAGE_SIZE, type NewsCategory, type NewsEntry } from '../../../../lib/content';
+
+// /news/category/events, /news/category/events/2, …
+export const getStaticPaths = (async ({ paginate }) => {
+  const news = await getNews();
+  return newsCategories.flatMap(({ slug }) =>
+    paginate(
+      news.filter((entry) => entry.data.category === slug),
+      { pageSize: NEWS_PAGE_SIZE, params: { category: slug } },
+    ),
+  );
+}) satisfies GetStaticPaths;
+
+const category = Astro.params.category as NewsCategory;
+const { page } = Astro.props as { page: { data: NewsEntry[]; currentPage: number; lastPage: number } };
+const { label } = categoryInfo(category);
+const pageSuffix = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
+---
+
+<SiteLayout title={`${label} · News${pageSuffix}`} description={`${label} from Al-Bayan Learning Initiative Foundation.`}>
+  <PageHero eyebrow="News" title={label} breadcrumbs={[{ label: 'News', href: '/news' }, { label }]} />
+  <NewsListing entries={page.data} category={category} current={page.currentPage} last={page.lastPage} />
+</SiteLayout>

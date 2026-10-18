@@ -1,0 +1,24 @@
+---
+import type { GetStaticPaths } from 'astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import NewsListing from '../../components/NewsListing.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getNews, NEWS_PAGE_SIZE, type NewsEntry } from '../../lib/content';
+
+// /news, /news/2, … The featured story sits above the grid on page 1 and is
+// left out of the paginated list so it isn't shown twice.
+export const getStaticPaths = (async ({ paginate }) => {
+  const news = await getNews();
+  const featured = news.find((entry) => entry.data.featured);
+  const rest = news.filter((entry) => entry !== featured);
+  return paginate(rest, { pageSize: NEWS_PAGE_SIZE, props: { featured } });
+}) satisfies GetStaticPaths;
+
+const { page, featured } = Astro.props as { page: { data: NewsEntry[]; currentPage: number; lastPage: number }; featured?: NewsEntry };
+const pageSuffix = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
+---
+
+<SiteLayout title={`News${pageSuffix}`} description="Events, school news and student stories from Al-Bayan Learning Initiative Foundation.">
+  <PageHero eyebrow="News" title="What's happening at Al-Bayan" intro="Events, school news and student stories." breadcrumbs={[{ label: 'News' }]} />
+  <NewsListing entries={page.data} featured={page.currentPage === 1 ? featured : undefined} current={page.currentPage} last={page.lastPage} />
+</SiteLayout>
