@@ -6,97 +6,161 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
 import ProgramCard from '../components/cards/ProgramCard.astro';
+import { photos } from '../data/photos';
 import { getCollection } from 'astro:content';
 
+// Text: docs/content.md (Academics).
 const programs = (await getCollection('programs')).sort((a, b) => a.data.order - b.data.order);
 
 const facilities = [
-  { icon: 'book', colour: 'bg-cyan text-navy', name: '[Facility, e.g. library]' },
-  { icon: 'flask', colour: 'bg-gold text-navy', name: '[Facility, e.g. science corner]' },
-  { icon: 'users', colour: 'bg-green text-navy', name: '[Facility, e.g. play area]' },
-  { icon: 'building', colour: 'bg-purple text-white', name: '[Facility]' },
+  { icon: 'book', colour: 'bg-cyan text-navy', name: 'Library' },
+  { icon: 'monitor', colour: 'bg-gold text-navy', name: 'Computer lab' },
+  { icon: 'flask', colour: 'bg-green text-navy', name: 'Science lab' },
+  { icon: 'ball', colour: 'bg-purple text-white', name: 'Playground' },
+  { icon: 'snow', colour: 'bg-white text-navy', name: 'Air-conditioning in selected areas' },
 ] as const;
+
+const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100vw - 48px)';
 ---
 
-<SiteLayout title="Academics" description="Grades, curriculum, teaching approach, facilities and school timings at Al-Bayan, from pre-school to middle school.">
+<SiteLayout title="Academics" description="How Al-Bayan teaches from Playgroup to Matric: the PCTB curriculum, Learning Beyond the Book, capstone projects, computer education, teacher training and facilities.">
   <PageHero
     eyebrow="Academics"
-    title="From first letters to middle school"
-    intro="Pre-school to middle school, with dynamic, activity-based learning alongside the classroom."
+    title="From first letters to Matric"
+    intro="At Al-Bayan, we want children to understand what they learn, not just memorise it for exams. We follow the Punjab Curriculum and Textbook Board (PCTB) from Playgroup to Matric."
     breadcrumbs={[{ label: 'Academics' }]}
     waveFill="fill-green"
   />
 
   <section aria-labelledby="grades" class="bg-green">
     <div class="container-site flex flex-col gap-9 pt-10 pb-14 md:pb-20">
-      <SectionHeading id="grades" eyebrow="Grades offered" title="Our programs" tone="on-colour" />
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
-        {programs.map((entry, index) => <ProgramCard entry={entry} index={index} showSubjects />)}
+      <SectionHeading id="grades" eyebrow="Grades offered" title="Playgroup to Matric" tone="on-colour" />
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
+        {programs.map((entry, index) => <ProgramCard entry={entry} index={index} />)}
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="approach" class="container-site flex flex-wrap items-center gap-14 py-14 md:py-22">
+  <section aria-labelledby="beyond-the-book" class="container-site flex flex-wrap items-center gap-14 py-14 md:py-22">
     <div class="flex flex-[1_1_440px] flex-col gap-4">
-      <p class="eyebrow text-purple">How we teach</p>
-      <h2 id="approach" class="text-h2 font-extrabold">Curriculum and teaching approach</h2>
+      <SectionHeading id="beyond-the-book" eyebrow="How we teach" title="Learning Beyond the Book" />
       <p class="text-ink-2">
-        Alongside the classroom, we focus on dynamic, activity-based learning rather than only traditional methods.
+        “Learning Beyond the Book” is built into our syllabus. Teachers go beyond completing textbook chapters and connect
+        each concept to everyday life, real-world examples and activities, so students understand not only what they are
+        learning, but why it matters and how to use it.
       </p>
-      <p class="text-ink-2">[Curriculum followed, e.g. the national curriculum or a named board, to confirm]</p>
-      <p class="text-ink-2">[How a typical lesson works, class sizes and assessment, to confirm]</p>
+      <h3 class="pt-2 text-xl font-bold">From concepts to board exams</h3>
+      <p class="text-ink-2">
+        In the younger and middle grades, we focus on conceptual understanding rather than memorisation. As students move
+        towards Matric, we gradually introduce the structure of Punjab Board exams (board-style questions, past papers and
+        formal exam formats) so there’s no sudden jump from understanding to exam preparation.
+      </p>
     </div>
-    <PhotoFrame label="[Photo: an activity-based lesson, with consent]" border="cyan" tilt="-rotate-2" class="h-[320px] flex-[1_1_380px]" />
+    <PhotoFrame label="[Photo: a class project]" photo={photos.independenceDayDiorama} border="cyan" tilt="-rotate-2" sizes={photoSizes} class="aspect-[4/3] flex-[1_1_380px]" />
+  </section>
+
+  <section aria-labelledby="capstones" class="band-dark bg-navy text-white">
+    <div class="container-site flex flex-wrap-reverse items-center gap-14 py-14 md:py-22">
+      <PhotoFrame label="[Photo: a science session]" photo={photos.scienceFuseCertificates} border="gold" tilt="rotate-2" sizes={photoSizes} class="aspect-[4/3] flex-[1_1_380px]" />
+      <div class="flex flex-[1_1_440px] flex-col gap-4">
+        <SectionHeading id="capstones" eyebrow="Once a year" title="Capstone projects" tone="dark" />
+        <p class="text-on-navy">
+          Once a year, students bring together what they’ve learned across a subject in one substantial group project, then
+          present and defend their decisions.
+        </p>
+        <p class="text-on-navy">
+          In Islamiyat, students design an ideal society based on Islamic principles, working through justice, honesty,
+          cleanliness and cooperation. In Science, they take on roles as researchers, designers, engineers and science
+          communicators to tackle problems like water use, energy, pollution and waste.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Computer education and reading" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+      <p class="eyebrow text-purple">Computer education</p>
+      <h2 class="text-[26px] leading-tight font-extrabold">Coding, tools and digital citizenship</h2>
+      <p class="text-ink-2">
+        Students learn coding and computational thinking, Microsoft Word, PowerPoint and Excel, digital citizenship and
+        online safety. In the Computer Capstone, they develop a business idea, with flowcharts, budgets, pricing and digital
+        marketing, and adapt their plan when given new scenarios such as a reduced budget or a customer complaint.
+      </p>
+    </div>
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+      <p class="eyebrow text-purple">Reading and writing</p>
+      <h2 class="text-[26px] leading-tight font-extrabold">Building a reading culture</h2>
+      <p class="text-ink-2">
+        We are building a reading culture through library use, storytelling, reading challenges, book clubs and book
+        reports, along with English and Urdu creative writing and short-story competitions.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="preschool" class="container-site flex flex-wrap items-center gap-14 pb-14 md:pb-22">
+    <PhotoFrame label="[Photo: preschool]" photo={photos.preschoolSunflowerCostume} border="gold" tilt="-rotate-2" sizes={photoSizes} class="aspect-[4/5] max-h-[520px] flex-[1_1_300px]" />
+    <div class="flex flex-[1_1_440px] flex-col gap-4">
+      <SectionHeading id="preschool" eyebrow="Playgroup, Nursery, Prep" title="Preschool" />
+      <p class="text-ink-2">
+        Our preschool follows a developmental, Montessori-influenced approach: play-based, practical learning, with progress
+        tracked through observation and developmental milestones rather than only written exams.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="teachers" class="bg-surface">
+    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
+      <div class="flex flex-wrap items-center gap-10">
+        <SectionHeading id="teachers" eyebrow="Teachers and assessment" title="Supported teachers, thoughtful exams" class="flex-[1_1_440px]" />
+        <PhotoFrame label="[Photo: teachers at work]" photo={photos.parentTeacherMeeting} border="purple" tilt="rotate-2" sizes="(min-width: 768px) 380px, calc(100vw - 48px)" maxWidth={960} class="aspect-[4/3] flex-[1_1_300px] md:max-w-[380px]" />
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <article class="flex flex-col gap-3 rounded-card bg-white p-8">
+          <h3 class="text-xl font-bold">Subject meetings</h3>
+          <p class="text-ink-2">
+            Teachers of each subject meet regularly with our Education Team and experts in that field to discuss how to teach
+            it: difficult concepts, common misconceptions, activities and assessment. Science teachers are supported by a
+            doctor; Computer Science teachers by a software engineer and a data scientist; English teachers by a former
+            newspaper editor and textbook author; and Islamiyat teachers by an Alima.
+          </p>
+        </article>
+        <article class="flex flex-col gap-3 rounded-card bg-white p-8">
+          <h3 class="text-xl font-bold">Year-round training and expert-designed exams</h3>
+          <p class="text-ink-2">
+            Teachers get training, classroom feedback and office hours throughout the year, not just one annual workshop. Our
+            exams are designed by a dedicated Education Team, with backgrounds that include postgraduate study in Education at
+            LUMS and a PhD in Educational Technology, and test understanding, application and reasoning, not memorisation.
+          </p>
+        </article>
+      </div>
+    </div>
   </section>
 
   <section aria-labelledby="facilities" class="band-dark bg-navy text-white">
     <div class="container-site flex flex-col gap-10 py-14 md:py-22">
-      <SectionHeading id="facilities" eyebrow="On campus" title="Facilities" tone="dark" />
-      <ul class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6">
+      <SectionHeading id="facilities" eyebrow="On campus" title="Facilities and timings" tone="dark" />
+      <ul class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
         {
           facilities.map((facility) => (
-            <li class="flex flex-col gap-4 rounded-card bg-white p-7 text-navy">
-              <span class:list={['flex size-14 items-center justify-center rounded-icon', facility.colour]}>
-                <Icon name={facility.icon} size={28} />
+            <li class="flex items-center gap-4 rounded-card bg-white/5 p-5">
+              <span class:list={['flex size-12 shrink-0 items-center justify-center rounded-icon', facility.colour]}>
+                <Icon name={facility.icon} />
               </span>
-              <span class="text-lg font-bold">{facility.name}</span>
-              <span class="text-ink-2">[One line about it]</span>
+              <span class="font-bold">{facility.name}</span>
             </li>
           ))
         }
       </ul>
-    </div>
-  </section>
-
-  <section aria-label="Timings and calendar" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
-    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
-      <p class="eyebrow text-purple">Daily timings</p>
-      <h2 class="text-[26px] leading-tight font-extrabold">The school day</h2>
-      <table class="w-full text-start">
-        <caption class="sr-only">School timings by section</caption>
-        <tbody class="divide-y divide-border-chip">
-          {
-            programs.map((program) => (
-              <tr>
-                <th scope="row" class="py-3 pe-4 text-start font-semibold">{program.data.name}</th>
-                <td class="py-3 text-ink-2">[Start time] – [End time]</td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
-      <p class="eyebrow text-purple">Academic calendar</p>
-      <h2 class="text-[26px] leading-tight font-extrabold">Terms and holidays</h2>
-      <p class="text-ink-2">[Term dates and holidays for the current session]</p>
-      <p class="font-semibold text-ink-2">[Academic calendar link, to add]</p>
+      <p class="flex items-center gap-3 text-lg text-on-navy">
+        <Icon name="clock" class="text-cyan" />
+        <span><strong class="text-white">School timings:</strong> Monday to Saturday, 8:00 am to 1:45 pm.</span>
+      </p>
     </div>
   </section>
 
   <CTABand
     title="Ready to apply?"
-    text="Find out who can apply, what you'll need and how the process works."
+    text="Admission is open to all. No admission fee for the first 10 students."
     primary={{ label: 'Apply for admission', href: '/admissions' }}
     secondary={{ label: 'Contact us', href: '/contact' }}
   />
