@@ -1,35 +1,35 @@
 {
-  "_source": "Vision and Core Values document from the school, supplied by the owner on 18 Oct 2026.",
+  "_source": "docs/content.md (About → Our values), 25 Oct 2026.",
   "values": [
     {
       "id": "tolerance",
       "name": "Tolerance",
       "colour": "purple",
-      "text": "We live in a diverse country and for that we need to be tolerant individuals, who understand that some people will differ from you in opinions, gender, income and religion. We emphasise the ability to listen to differing opinions and keep an open mind."
+      "text": "We live in a diverse country, and that asks us to be tolerant: to understand that people may differ from us in opinion, gender, income and religion. We emphasise listening to differing opinions and keeping an open mind."
     },
     {
       "id": "discipline",
       "name": "Discipline",
       "colour": "cyan",
-      "text": "We will use positive and negative reinforcement to reward good behaviour and punish bad behaviour. At Al-Bayan, our focus is not only to educate the children but also to create good citizens of the country."
+      "text": "[Discipline text: waiting for the team's final wording]"
     },
     {
       "id": "equality",
       "name": "Equality",
       "colour": "gold",
-      "text": "All decisions will be free of any discrimination based on gender, income, religion, or social status. We believe all people are created equal and everyone deserves an equal opportunity. This is one of the values we will be instilling in the students as well for a more inclusive future."
+      "text": "Our decisions are free of discrimination based on gender, income, religion or social status. We believe everyone deserves an equal opportunity, and we instil this value in our students for a more inclusive future."
     },
     {
       "id": "merit",
       "name": "Merit",
       "colour": "green",
-      "text": "Merit is the sole criterion in our decision making. This applies to all aspects of our operations, from selection of faculty and staff, to admission and evaluation of students."
+      "text": "Merit is the sole criterion in our decisions, from selecting teachers and staff to admitting and evaluating students."
     },
     {
       "id": "character-building",
       "name": "Character Building",
       "colour": "navy",
-      "text": "We consider character building to be an integral part of our project because we are grooming the next generation of this country. They will be individuals who always put humanity first and respect others."
+      "text": "Character building is integral to our work, because we are raising the next generation of this country: individuals who put humanity first and respect others."
     }
   ]
 }

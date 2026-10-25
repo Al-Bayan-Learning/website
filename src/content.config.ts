@@ -34,7 +34,7 @@ const programs = defineCollection({
     grades: z.string(),
     description: z.string(),
     subjects: z.array(z.string()).optional(),
-    icon: z.enum(['blocks', 'book', 'flask']),
+    icon: z.enum(['blocks', 'book', 'flask', 'cap']),
     order: z.number(),
   }),
 });
@@ -42,15 +42,12 @@ const programs = defineCollection({
 const activities = defineCollection({
   loader: loader('activities'),
   schema: z.object({
-    name: z.enum(['Debate', 'Arts', 'Athletics']),
+    name: z.string(),
     intro: z.string(),
-    lead: z.string().optional(),
-    schedule: z.string().optional(),
-    achievements: z.array(
-      z.object({ date: dateOrPlaceholder, event: z.string(), result: z.string() }),
-    ),
-    photos: z.array(photo).optional(),
+    items: z.array(z.string()),
+    partners: z.array(z.string()).optional(),
     colour: z.enum(['cyan', 'gold', 'green']),
+    order: z.number(),
   }),
 });
 

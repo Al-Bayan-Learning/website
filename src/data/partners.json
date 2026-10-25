@@ -1,0 +1,15 @@
+{
+  "_source": "docs/content.md (Partners and collaborations). Text only: logo permissions are a Phase 2 item.",
+  "partners": [
+    { "name": "Project Pakistan", "work": "Debates, game-design classes, planting activities and summer camps" },
+    { "name": "Afroz Pakistan", "work": "Summer camps" },
+    { "name": "Science Fuse", "work": "Science teacher training and hands-on experiments with students" },
+    { "name": "SPADES at LUMS", "work": "Student participation in PsiFi" },
+    { "name": "LUMUN at LUMS", "work": "A student play performed at LUMUN" },
+    { "name": "Beej Education", "work": "Spoken-English support for our teachers" },
+    { "name": "Kitabi Pulao", "work": "Storytelling sessions with our preschool students" },
+    { "name": "Sada Haq", "work": "An age-appropriate child-safety awareness session" },
+    { "name": "CMH and LMDC", "work": "Dental camps for students" },
+    { "name": "Vision screening", "work": "A school-wide eye test, after which we arranged glasses for children who needed them" }
+  ]
+}
