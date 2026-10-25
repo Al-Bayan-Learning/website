@@ -1,64 +1,98 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ValuePills from '../components/ValuePills.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
-import Timeline from '../components/blocks/Timeline.astro';
-import PersonCard from '../components/cards/PersonCard.astro';
+import { partners } from '../data/partners.json';
+import { photos } from '../data/photos';
 import site from '../data/site.json';
-import { getCollection } from 'astro:content';
 
-const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
-// Founders, then board, admin and teachers; `order` sorts within a group.
-const groupOrder = ['founder', 'board', 'admin', 'teacher'];
-team.sort((a, b) => groupOrder.indexOf(a.data.group) - groupOrder.indexOf(b.data.group));
-
-const milestones = [
-  { year: site.foundedYear, title: '[Milestone, e.g. Al-Bayan School System founded]', text: '[One line on what happened]' },
-  { year: '[Year]', title: '[Milestone]', text: '[One line on what happened]' },
-  { year: '[Year]', title: '[Milestone]', text: '[One line on what happened]' },
-  { year: '[Year]', title: 'Renamed Al-Bayan Learning Initiative Foundation', text: '[One line on why, to confirm]' },
+// Text: docs/content.md (About). The team section returns once leadership
+// details are ready; the `team` collection is kept but not rendered.
+const focus = [
+  'Tarbiyat-led learning alongside academics',
+  'Critical thinking over rote learning',
+  'Teacher development through consistent training',
+  'Co-curricular exposure through collaborations with universities and schools, including debates, storytelling, experiments, music and skill-based activities',
 ];
 ---
 
-<SiteLayout title="About" description="The story, vision, mission and values of Al-Bayan Learning Initiative Foundation, a not-for-profit school in Lahore started by students and alumni of LUMS.">
+<SiteLayout title="About" description={site.description}>
   <PageHero eyebrow="About us" title="Our story" intro={site.description} breadcrumbs={[{ label: 'About' }]} />
 
-  <section aria-labelledby="story" class="container-site flex flex-wrap items-center gap-14 py-14 md:py-22">
-    <div class="flex flex-[1_1_440px] flex-col gap-4">
-      <p class="eyebrow text-purple">How it started</p>
-      <h2 id="story" class="text-h2 font-extrabold">Started by students and alumni of LUMS</h2>
-      <p class="text-ink-2">
-        {site.name} is a not-for-profit school started by students and alumni of LUMS. We provide good-quality education from
-        pre-school to middle school at a reasonable cost, funded partly by donors and partly by student fees. Alongside the
-        classroom, we focus on dynamic, activity-based learning rather than only traditional methods.
-      </p>
-      <p class="text-ink-2">The school was formerly known as Al-Bayan School System.</p>
-      <p class="text-ink-2">[Story and origin: how and when the school began, and who started it, to confirm]</p>
-    </div>
-    <PhotoFrame label="[Photo: the school or an early class, with consent]" border="gold" tilt="rotate-2" class="h-[320px] flex-[1_1_380px]" />
-  </section>
-
-  <section aria-label="Vision and mission" class="container-site grid gap-6 pb-14 md:grid-cols-2 md:pb-22">
+  <section aria-label="Vision and mission" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
     <div class="band-dark flex flex-col gap-3 rounded-card bg-purple p-8 text-white md:p-10">
       <h2 class="eyebrow text-cyan-light">Our vision</h2>
-      <p class="text-[clamp(18px,2vw,22px)] leading-normal font-semibold">
-        To develop well-rounded, confident and responsible individuals who can compete and succeed in the ever-changing
-        environment of the world.
+      <p class="text-[clamp(18px,2vw,21px)] leading-normal font-semibold">
+        Our vision is an education system where academic learning goes hand in hand with tarbiyat: where children develop
+        not just knowledge, but the character, values, manners and understanding to think clearly, act responsibly and
+        contribute meaningfully to society.
       </p>
     </div>
     <div class="flex flex-col gap-3 rounded-card bg-cyan p-8 text-navy md:p-10">
       <h2 class="eyebrow">Our mission</h2>
-      <p class="text-[clamp(18px,2vw,22px)] leading-normal font-semibold">
-        Al-Bayan aspires to empower the disenfranchised within our community and help them achieve their potential by
-        providing better access to education.
+      <p class="text-[clamp(18px,2vw,21px)] leading-normal font-semibold">
+        {site.name} exists to make quality education accessible without compromising on its quality or affordability.
       </p>
       <p>
-        Given the current state of the education system in the country, we hope to play our part in uplifting society
-        through subsidised educational facilities.
+        We are building an alternative to rote-based learning through strong teaching practices, meaningful learning
+        experiences and a commitment to developing the whole child.
       </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="then-now" class="bg-surface">
+    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
+      <SectionHeading id="then-now" eyebrow="Our story" title="Then and now" />
+      <div class="grid gap-8 md:grid-cols-2">
+        <article class="flex flex-col gap-5 rounded-card bg-white p-6 md:p-8">
+          <PhotoFrame label="[Photo: our first 5-marla building, 2019]" border="gold" tilt="-rotate-1" class="aspect-[4/3] w-full" />
+          <p class="font-display text-stat text-purple">Then · {site.foundedYear}</p>
+          <p class="text-lg text-ink-2">We started in a 5-marla building with 20 children.</p>
+        </article>
+        <article class="flex flex-col gap-5 rounded-card bg-white p-6 md:p-8">
+          <PhotoFrame
+            label="[Photo: the campus today]"
+            photo={photos.studentsCelebratingCourtyard}
+            border="cyan"
+            tilt="rotate-1"
+            sizes="(min-width: 1248px) 520px, (min-width: 768px) 45vw, calc(100vw - 80px)"
+            class="aspect-[4/3] w-full"
+          />
+          <p class="font-display text-stat text-purple">Now</p>
+          <p class="text-lg text-ink-2">
+            We serve 300+ students on a 1.5-kanal purpose-built campus. We add a new grade each year, so our students can
+            stay with us all the way to Matric.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="how-we-work" class="container-site grid gap-12 py-14 md:grid-cols-2 md:py-22">
+    <div class="flex flex-col gap-4">
+      <SectionHeading id="how-we-work" eyebrow="How we work" title="Quality education should not be a privilege" />
+      <p class="text-ink-2">
+        Al-Bayan is a not-for-profit school offering education from Playgroup to Matric. We operate through a combination of
+        donations, Zakat and affordable student fees, to ensure both access and sustainability. We serve 300+ students with
+        17–20 trained teachers and staff in an underserved community on Bedian Road, Lahore (Gohawa village).
+      </p>
+    </div>
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+      <h2 class="text-[26px] leading-tight font-extrabold">Our focus</h2>
+      <ul class="flex flex-col gap-3">
+        {
+          focus.map((item) => (
+            <li class="flex gap-3 text-ink-2">
+              <Icon name="check" size={22} class="mt-0.5 text-purple" />
+              {item}
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -69,20 +103,19 @@ const milestones = [
     </div>
   </section>
 
-  <section aria-labelledby="milestones" class="container-site grid gap-10 py-14 md:grid-cols-[1fr_1.4fr] md:py-22">
-    <SectionHeading id="milestones" eyebrow="Milestones" title="Our journey so far" class="self-start" />
-    <Timeline items={milestones} />
-  </section>
-
-  <section aria-labelledby="team" class="band-dark bg-navy text-white">
+  <section aria-labelledby="partners" class="band-dark bg-navy text-white">
     <div class="container-site flex flex-col gap-10 py-14 md:py-22">
-      <SectionHeading id="team" eyebrow="Our people" title="Leadership and team" tone="dark" />
-      <div class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6">
-        {team.map((person, index) => <PersonCard entry={person} index={index} />)}
-      </div>
-      <p class="border-t border-navy-line pt-6 text-sm text-on-navy-muted">
-        {site.name} is a registered not-for-profit. Registration number: {site.registrationNo}.
-      </p>
+      <SectionHeading id="partners" eyebrow="Partners" title="Partners and collaborations" tone="dark" />
+      <dl class="grid gap-x-10 gap-y-6 md:grid-cols-2">
+        {
+          partners.map((partner) => (
+            <div class="border-s-[3px] border-cyan ps-5">
+              <dt class="text-lg font-bold">{partner.name}</dt>
+              <dd class="text-on-navy">{partner.work}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
   </section>
 
