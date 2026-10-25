@@ -12,46 +12,56 @@ import FormCard from '../components/forms/FormCard.astro';
 import site from '../data/site.json';
 import { getCollection } from 'astro:content';
 
+// Text: docs/content.md (Get involved).
 const { contact } = site;
 const jobs = await getCollection('jobs', ({ data }) => data.open);
 
-const roles = [
-  { icon: 'book', colour: 'bg-cyan text-navy', name: '[Volunteer role 1, e.g. reading buddy]' },
-  { icon: 'users', colour: 'bg-gold text-navy', name: '[Volunteer role 2, e.g. debate coach]' },
-  { icon: 'heart', colour: 'bg-purple text-white', name: '[Volunteer role 3, e.g. event helper]' },
-] as const;
+const topics = [
+  'UN Sustainable Development Goals, such as climate change and gender equality',
+  'Debates',
+  'Drama',
+  'Critical thinking',
+  'Karate',
+  'Any other informative or activity-based session',
+];
 ---
 
-<SiteLayout title="Get involved" description="Volunteer with Al-Bayan, see current job openings, and find out how to support the school.">
+<SiteLayout title="Get involved" description="Volunteer to teach a session at Al-Bayan's Saturday Scholars Programme, see job openings, and find out how to support the school.">
   <PageHero
     eyebrow="Get involved"
     title="Help us reach more children"
-    intro="Volunteer your time, join our team, or support the school."
+    intro="Volunteer for our Saturday Scholars Programme, join our team, or support the school."
     breadcrumbs={[{ label: 'Get involved' }]}
   />
 
-  <section aria-labelledby="roles" class="container-site flex flex-col gap-9 py-14 md:py-22">
-    <SectionHeading id="roles" eyebrow="Volunteer" title="Ways to volunteer" link={{ href: '#volunteer', label: 'Sign up to volunteer' }} />
-    <ul class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
-      {
-        roles.map((role) => (
-          <li class="flex flex-col gap-3 rounded-card bg-surface p-8">
-            <span class:list={['flex size-14 items-center justify-center rounded-icon', role.colour]}>
-              <Icon name={role.icon} size={28} />
-            </span>
-            <h3 class="text-[22px] leading-snug font-bold">{role.name}</h3>
-            <p class="text-ink-2">[What the role involves and the time it needs]</p>
-          </li>
-        ))
-      }
+  <section aria-labelledby="saturday-scholars" class="container-site grid gap-12 py-14 md:grid-cols-[1.3fr_1fr] md:py-22">
+    <div class="flex flex-col gap-5">
+      <SectionHeading id="saturday-scholars" eyebrow="Volunteer" title="Teach at Saturday Scholars" />
+      <p class="text-ink-2">
+        We welcome volunteers for our Saturday Scholars Programme. You can teach a skill or topic you care about.
+      </p>
+      <ul class="flex flex-wrap gap-2" aria-label="Session ideas">
+        {topics.map((topic) => <li class="rounded-full border border-border-chip px-4 py-1.5 text-[15px] font-semibold text-navy">{topic}</li>)}
+      </ul>
+      <a href="/co-curricular#saturday-scholars" class="inline-flex min-h-11 items-center self-start font-bold">See past Saturday Scholars sessions</a>
+    </div>
+    <ul class="flex flex-col gap-4 self-start">
+      <li class="flex items-center gap-4 rounded-card bg-cyan p-6 text-navy">
+        <Icon name="clock" size={32} />
+        <span><strong class="block font-display text-[34px] leading-none font-normal">One hour</strong>per session</span>
+      </li>
+      <li class="flex items-center gap-4 rounded-card bg-gold p-6 text-navy">
+        <Icon name="calendar" size={32} />
+        <span><strong class="block font-display text-[34px] leading-none font-normal">Three Saturdays</strong>minimum commitment</span>
+      </li>
     </ul>
   </section>
 
   <section id="volunteer" aria-label="Volunteer sign-up" class="bg-surface">
     <div class="container-site grid items-start gap-10 py-14 lg:grid-cols-[1fr_1.4fr] md:py-22">
       <div class="flex flex-col gap-5">
-        <SectionHeading eyebrow="Sign up" title="Tell us how you'd like to help" />
-        <p class="text-ink-2">Share a few details and we'll be in touch about a role that fits your time.</p>
+        <SectionHeading eyebrow="Sign up" title="Tell us what you'd like to teach" />
+        <p class="text-ink-2">Share a few details and we'll be in touch about a Saturday that suits you.</p>
         <InfoCard icon="mail" colour="cyan" title="Email">
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </InfoCard>
@@ -62,25 +72,25 @@ const roles = [
           <Field form="volunteer-form" name="email" label="Email" type="email" required autocomplete="email" error="Please enter an email address, like name@example.com." />
           <Field form="volunteer-form" name="phone" label="Phone" type="tel" required autocomplete="tel" error="Please enter a phone number we can call." />
         </div>
-        <Field form="volunteer-form" name="role" label="Role you're interested in" type="select" required options={[...roles.map((r) => r.name), 'Something else']} error="Please choose a role." />
-        <Field form="volunteer-form" name="availability" label="Availability" type="select" required options={['Weekday mornings', 'Weekday afternoons', 'Weekends', 'Flexible']} error="Please choose when you're available." />
+        <Field form="volunteer-form" name="teach" label="What would you like to teach?" type="textarea" required rows="3" error="Please tell us what you'd like to teach." />
+        <Field form="volunteer-form" name="saturdays" label="Which Saturdays can you commit to?" required hint="Sessions are one hour; we ask for at least three Saturdays." error="Please tell us which Saturdays you can do." />
       </FormCard>
     </div>
   </section>
 
   <section id="jobs" aria-labelledby="jobs-title" class="band-dark bg-navy text-white">
-    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
-      <SectionHeading id="jobs-title" eyebrow="Careers" title="Current job openings" tone="dark" />
-      <p class="-mt-4 max-w-[640px] text-on-navy">
-        Apply by email to <a href={`mailto:${contact.careersEmail}`} class="text-cyan-light hover:text-white">{contact.careersEmail}</a>.
-      </p>
+    <div class="container-site flex flex-col gap-8 py-14 md:py-22">
+      <SectionHeading id="jobs-title" eyebrow="Careers" title="Job openings" tone="dark" />
       {
         jobs.length > 0 ? (
           <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
             {jobs.map((job) => <JobCard entry={job} />)}
           </div>
         ) : (
-          <p class="text-on-navy">There are no openings right now. You're welcome to send your CV for future roles.</p>
+          <p class="max-w-[640px] rounded-card border border-navy-line p-8 text-lg text-on-navy">
+            We don't have any openings right now. You're welcome to send your CV to{' '}
+            <a href={`mailto:${contact.careersEmail}`} class="font-semibold text-cyan-light hover:text-white">{contact.careersEmail}</a>.
+          </p>
         )
       }
     </div>
@@ -99,7 +109,7 @@ const roles = [
 
   <CTABand
     title="Want to talk it through?"
-    text="Email or call us and we'll get back to you."
+    text="Email, call or WhatsApp us and we'll get back to you."
     primary={{ label: 'Contact us', href: '/contact' }}
     secondary={{ label: 'Email us', href: `mailto:${contact.email}` }}
   />

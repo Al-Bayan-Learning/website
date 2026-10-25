@@ -1,95 +1,60 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CTABand from '../components/CTABand.astro';
-import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
+import PhoneLinks from '../components/PhoneLinks.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import FAQ from '../components/blocks/FAQ.astro';
 import InfoCard from '../components/blocks/InfoCard.astro';
-import Steps from '../components/blocks/Steps.astro';
+import PhotoFrame from '../components/blocks/PhotoFrame.astro';
 import Field from '../components/forms/Field.astro';
 import FormCard from '../components/forms/FormCard.astro';
+import { photos } from '../data/photos';
 import site from '../data/site.json';
+import { phones } from '../lib/contact';
 
+// A deliberately short page (docs/content.md → Admissions): the site speaks
+// for Al-Bayan as an organisation, and parents aren't its main audience.
 const { contact } = site;
-const telHref = `tel:${contact.phoneIntl.replace(/\s/g, '')}`;
-
-const documents = [
-  "[Document, e.g. child's birth certificate or B-form]",
-  "[Document, e.g. guardian's CNIC copy]",
-  '[Document, e.g. previous school report]',
-  '[Document, e.g. passport-size photos]',
-];
-
-const steps = [
-  { title: 'Send an enquiry', text: 'Fill in the form below, email us or call. We will get back to you.' },
-  { title: '[Step, e.g. visit the campus]', text: '[What happens at this step]' },
-  { title: '[Step, e.g. assessment]', text: '[What happens at this step]' },
-  { title: '[Step, e.g. confirm the place]', text: '[What happens at this step, including fees]' },
-];
-
-const faqs = [
-  { question: 'What ages do you admit?', answer: '[Answer: age ranges for each class, to confirm]' },
-  { question: 'What are the fees?', answer: '[Answer: fee structure, to confirm]' },
-  { question: 'Is financial support available?', answer: '[Answer: subsidies or scholarships, to confirm]' },
-  { question: 'When does the school year start?', answer: '[Answer: session start month, to confirm]' },
-];
 ---
 
-<SiteLayout title="Admissions" description="Who can apply to Al-Bayan, the documents you need, how admission works, and how to send an admission enquiry.">
+<SiteLayout title="Admissions" description="Admission to Al-Bayan is open to all, from Playgroup to Matric. No admission fee for the first 10 students.">
   <PageHero
     eyebrow="Admissions"
     title="Join Al-Bayan"
-    intro="Find out who can apply, what you'll need and how the process works, then send us an enquiry."
+    intro="Admission is open to all, from Playgroup to Matric. Fees are kept affordable, and every student receives a 50% tuition scholarship."
     breadcrumbs={[{ label: 'Admissions' }]}
   />
 
-  <section aria-label="Who can apply and documents" class="container-site grid items-start gap-10 py-14 md:grid-cols-2 md:py-22">
-    <div class="flex flex-col gap-4">
-      <SectionHeading id="who" eyebrow="Eligibility" title="Who can apply" />
+  <section aria-labelledby="who" class="container-site flex flex-wrap items-center gap-14 py-14 md:py-22">
+    <div class="flex flex-[1_1_440px] flex-col gap-5">
+      <SectionHeading id="who" eyebrow="Who can apply" title="Admission is open to all" />
       <p class="text-ink-2">
-        We teach children from pre-school to middle school at a reasonable cost, funded partly by donors and partly by
-        student fees.
+        Each child sits an admission test for their age group; for the youngest classes, such as Playgroup, this is a few
+        oral questions.
       </p>
-      <p class="text-ink-2">[Who can apply: age ranges, area served and any priority criteria, to confirm]</p>
+      <p class="text-ink-2">Fees are kept affordable, and every student receives a 50% tuition scholarship.</p>
+      <p class="self-start rounded-card bg-gold px-6 py-4 text-lg font-bold text-navy">No admission fee for the first 10 students.</p>
     </div>
-    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
-      <h2 class="text-[26px] leading-tight font-extrabold">Documents needed</h2>
-      <ul class="flex flex-col gap-3">
-        {
-          documents.map((doc) => (
-            <li class="flex gap-3 text-ink-2">
-              <Icon name="check" size={22} class="mt-0.5 text-purple" />
-              {doc}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section aria-labelledby="steps" class="band-dark bg-navy text-white">
-    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
-      <SectionHeading id="steps" eyebrow="How it works" title="Steps to admission" tone="dark" />
-      <Steps steps={steps} />
-    </div>
-  </section>
-
-  <section aria-labelledby="faqs" class="container-site grid gap-10 py-14 md:grid-cols-[1fr_1.6fr] md:py-22">
-    <SectionHeading id="faqs" eyebrow="FAQs" title="Questions parents ask" class="self-start" />
-    <FAQ items={faqs} />
+    <PhotoFrame
+      label="[Photo: students at school]"
+      photo={photos.scholarshipCertificates}
+      border="cyan"
+      tilt="rotate-2"
+      sizes="(min-width: 1248px) 520px, (min-width: 768px) 42vw, calc(100vw - 48px)"
+      class="aspect-[4/5] max-h-[520px] flex-[1_1_300px]"
+    />
   </section>
 
   <section id="enquiry" aria-label="Admission enquiry" class="bg-surface">
     <div class="container-site grid items-start gap-10 py-14 lg:grid-cols-[1fr_1.4fr] md:py-22">
       <div class="flex flex-col gap-5">
         <SectionHeading eyebrow="Enquire" title="Talk to us about a place" />
-        <p class="text-ink-2">Send the form, or reach us directly. We usually reply within [response time].</p>
+        <p class="text-ink-2">Send the form, or reach us directly by email, phone or WhatsApp.</p>
         <InfoCard icon="mail" colour="cyan" title="Email">
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </InfoCard>
-        <InfoCard icon="phone" colour="gold" title="Phone">
-          <a href={telHref}>{contact.phone}</a>
+        <InfoCard icon="phone" colour="gold" title="Phone and WhatsApp">
+          <PhoneLinks />
         </InfoCard>
       </div>
       <FormCard id="admission-enquiry" title="Admission enquiry" submitLabel="Send enquiry">
@@ -106,8 +71,8 @@ const faqs = [
 
   <CTABand
     title="Prefer to talk first?"
-    text={`Call ${contact.phone} or email ${contact.email}.`}
+    text={`Call or WhatsApp ${phones[0].display}, or email ${contact.email}.`}
     primary={{ label: 'Contact us', href: '/contact' }}
-    secondary={{ label: 'Call us', href: telHref }}
+    secondary={{ label: 'Call us', href: `tel:${phones[0].tel}` }}
   />
 </SiteLayout>
