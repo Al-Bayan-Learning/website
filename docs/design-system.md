@@ -53,7 +53,7 @@ Approved direction: **bold colour**. The homepage reference is `design/home-refe
 ## Shared components (build once, use everywhere)
 
 1. **AnnouncementStrip**: gold, navy text, 14px/600, centred. The text and link come from `site.json`. It can be switched off there.
-2. **Header**: white background with the logo (58px tall) and "Al-Bayan Learning / Initiative Foundation" (700, 15px, two lines).
+2. **Header**: white background with the logo (58px tall) and "Al-Bayan Learning / Initiative" (700, 15px, two lines).
    - Nav: About, Academics, Admissions, Co-curricular, News, Contact, plus a navy "Get involved" pill.
    - The current page gets a 3px cyan underline and purple text.
    - **Mobile (< 900px):** a hamburger button (44×44, `aria-expanded`). It opens a full-width navy panel with large white links and a gold "Get involved" pill. Close it with Esc.
@@ -78,7 +78,7 @@ Approved direction: **bold colour**. The homepage reference is `design/home-refe
 10. **Footer**: navy, three columns.
     - Columns: the Bebas wordmark (second line in cyan) with a one-line about; Explore links; Contact (email, phone, address, socials).
     - Column headings are gold.
-    - The bottom bar has the © line, the registration number and a Privacy link.
+    - The bottom bar has the © line (legal name: Al-Bayan Learning Initiative Foundation), the registration number (hidden while it's empty) and a Privacy link.
 11. **Placeholder**: a block with the placeholder fill and centred navy text in [square brackets]. Use it for every image that isn't real yet.
 
 ## Section rhythm
@@ -99,8 +99,8 @@ Pages alternate full-bleed bands so they never feel all-white: white, then a col
 - End every content page with the CTABand.
 - Privacy is a simple single-column article (max 720px) with PageHero, and has no CTA band.
 
-**Co-curricular**: one section each for Debate, Arts and Athletics, on alternating backgrounds (navy, white, green).
-- Each has a Bebas title in that activity's colour (Debate = cyan, Arts = gold, Athletics = green), a tilted photo frame, intro, lead, and an achievements list.
+**Co-curricular**: one section each for Competitions, Saturday Scholars, Summer Camp, Special Days and Highlights, on alternating backgrounds (navy, white, green, white, navy).
+- Each has a Bebas title in its activity colour (cycle cyan, gold, green), an optional tilted photo placeholder, an intro, and its items as chips or a short list.
 - On white sections, put the title in a coloured pill with navy text instead of coloured text.
 
 **Listing (News)**

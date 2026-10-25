@@ -7,14 +7,23 @@ Before any work on this site, read these three files in full and follow them:
 1. `docs/project-brief.md`: what to build, the pages, the content collections
    and the rules. If it conflicts with anything below, the brief wins; update
    this file to match.
-2. `docs/design-system.md`: colours, fonts, components and page patterns.
-3. `design/home-reference.html`: the approved homepage. Open it in a browser.
+2. `docs/content.md`: the approved website text. Use it in place of
+   placeholders; keep [brackets] only where it still has them, and don't add
+   facts, numbers, names or quotes that aren't in it.
+3. `docs/design-system.md`: colours, fonts, components and page patterns.
+4. `design/home-reference.html`: the approved homepage. Open it in a browser.
 
 ## Key rules (from the brief)
 
-- **The repo is public.** Never commit secrets, keys, personal data, bank
-  account numbers, or photos of children. Children appear only with written
-  guardian consent, using first names or initials; until then use placeholders.
+- **The repo is public.** Never commit secrets, keys, personal data or bank
+  account numbers.
+- **Photos:** the photos in `src/assets/photos/` are approved by the school.
+  Any new photo of children needs the school's approval before it's added.
+  Before committing a photo, strip its metadata (camera, GPS), blur any
+  children's names visible in it (for example on certificates), and crop out
+  the old school name. Never name children in alt text or captions. Use
+  Astro's `<Image>`. This rule replaces the older "all photos stay
+  placeholders" line in `docs/content.md`.
 - **Placeholders go in [square brackets]**, for example `[Student count]` or
   `[Photo: debate team]`. Never write realistic fake text, names, numbers or
   quotes.
