@@ -4,6 +4,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import ComingSoon from '../components/ComingSoon.astro';
 import Button from '../components/Button.astro';
 import CTABand from '../components/CTABand.astro';
+import Photo from '../components/Photo.astro';
 import Placeholder from '../components/Placeholder.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import StatTile from '../components/StatTile.astro';
@@ -12,6 +13,7 @@ import Wave from '../components/Wave.astro';
 import NewsCard from '../components/cards/NewsCard.astro';
 import ProgramCard from '../components/cards/ProgramCard.astro';
 import site from '../data/site.json';
+import { photos } from '../data/photos';
 import { isComingSoon } from '../lib/launch';
 import { getNews } from '../lib/content';
 import { getCollection } from 'astro:content';
@@ -21,10 +23,11 @@ import { getCollection } from 'astro:content';
 const comingSoon = isComingSoon();
 
 const programs = comingSoon ? [] : (await getCollection('programs')).sort((a, b) => a.data.order - b.data.order);
-const activityOrder = ['Debate', 'Arts', 'Athletics'];
+// Homepage co-curricular band: three of the five sections (docs/content.md).
+const homeActivities = ['competitions', 'saturday-scholars', 'summer-camp'];
 const activities = comingSoon
   ? []
-  : (await getCollection('activities')).sort((a, b) => activityOrder.indexOf(a.data.name) - activityOrder.indexOf(b.data.name));
+  : (await getCollection('activities', ({ id }) => homeActivities.includes(id))).sort((a, b) => a.data.order - b.data.order);
 const latestNews = comingSoon ? [] : (await getNews()).slice(0, 3);
 const testimonial = comingSoon ? undefined : (await getCollection('testimonials'))[0];
 
@@ -35,11 +38,12 @@ const frame = {
 };
 const tilts = ['-rotate-2', 'rotate-2', '-rotate-1'];
 const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
+const hero = photos.sportsDayCheer;
 ---
 
 {
   comingSoon ? (
-    <Layout fullTitle={`${site.name} – coming soon`} description={site.description}>
+    <Layout fullTitle={`${site.comingSoon.heading} – coming soon`} description={site.comingSoon.text}>
       <ComingSoon />
     </Layout>
   ) : (
@@ -66,8 +70,8 @@ const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
               </span>
             </h1>
             <p class="max-w-[520px] text-[clamp(16px,1.8vw,19px)] text-on-purple">
-              Started by students and alumni of LUMS, Al-Bayan teaches children from pre-school to middle school at a
-              reasonable cost, with activity-based learning at its heart.
+              Run by alumni of LUMS, Al-Bayan teaches children from Playgroup to Matric in Gohawa, Lahore, with learning that
+              goes beyond the book and tarbiyat at its heart.
             </p>
             <div class="flex flex-wrap gap-3 pt-1.5">
               <Button href="/admissions" variant="light">Apply for admission</Button>
@@ -77,10 +81,15 @@ const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
 
           <div class="relative min-h-[400px] flex-[1_1_400px]">
             <div aria-hidden="true" class="absolute start-6 top-6 -end-3 -bottom-3 rotate-3 rounded-[28px] bg-navy" />
-            <Placeholder
-              label="[Photo: a class activity, with consent]"
-              class="absolute start-0 top-0 end-3 bottom-3 -rotate-2 rounded-[28px] border-6 border-white"
-            />
+            <div class="absolute start-0 top-0 end-3 bottom-3 -rotate-2 overflow-hidden rounded-[28px] border-6 border-white bg-placeholder">
+              <Photo
+                src={hero.src}
+                alt={hero.alt}
+                priority
+                sizes="(min-width: 1248px) 560px, (min-width: 900px) 46vw, calc(100vw - 48px)"
+                class="size-full"
+              />
+            </div>
             <p class="absolute -start-[18px] bottom-[26px] flex size-[118px] -rotate-10 flex-col items-center justify-center rounded-full bg-navy font-display leading-none text-cyan-light ring-6 ring-purple">
               <span class="text-lg">Since</span>
               <span class="text-[34px]">{site.foundedYear}</span>
@@ -98,10 +107,7 @@ const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
         <div class="flex flex-[1_1_440px] flex-col gap-4">
           <p class="eyebrow text-purple">Who we are</p>
           <h2 id="who-we-are" class="text-h2 font-extrabold">Better access to education, one classroom at a time</h2>
-          <p class="text-ink-2">
-            Al-Bayan aspires to empower the disenfranchised within our community. Funded partly by donors and partly by
-            student fees, we focus on dynamic, activity-based learning rather than only traditional methods.
-          </p>
+          <p class="text-ink-2">{site.description}</p>
           <a href="/about" class="inline-flex min-h-11 items-center self-start font-bold">Read our story</a>
         </div>
         <ValuePills class="flex-[1_1_380px]" />
@@ -109,7 +115,7 @@ const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
 
       <section aria-labelledby="programs" class="bg-green">
         <div class="container-site flex flex-col gap-9 py-14 md:py-20">
-          <SectionHeading id="programs" eyebrow="Our programs" title="From first letters to middle school" tone="on-colour" />
+          <SectionHeading id="programs" eyebrow="Our programs" title="From first letters to Matric" tone="on-colour" />
           <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
             {programs.map((entry, index) => <ProgramCard entry={entry} index={index} />)}
           </div>
