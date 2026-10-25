@@ -27,10 +27,10 @@ const year = new Date().getFullYear();
         <h1
           class="text-[clamp(24px,3vw,32px)] leading-[1.2] font-semibold text-purple min-[700px]:whitespace-nowrap"
         >
-          {site.name}
+          {site.comingSoon.heading}
         </h1>
         <p class="max-w-[560px] text-[clamp(16px,2vw,18px)] leading-[1.6] text-ink-2">
-          {site.description}
+          {site.comingSoon.text}
         </p>
       </div>
 
@@ -51,7 +51,7 @@ const year = new Date().getFullYear();
   <footer
     class="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-border px-6 py-5 text-[13px] text-muted"
   >
-    <span>© {year} {site.name}</span>
+    <span>© {year} {site.legalName}</span>
     <span>{site.contact.city}</span>
   </footer>
 </div>

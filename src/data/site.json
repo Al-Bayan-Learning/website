@@ -1,35 +1,82 @@
 {
-  "name": "Al-Bayan Learning Initiative Foundation",
+  "name": "Al-Bayan Learning Initiative",
+  "legalName": "Al-Bayan Learning Initiative Foundation",
   "shortName": "Al-Bayan",
-  "description": "A not-for-profit school started by students and alumni of LUMS, giving children from pre-school to middle school a quality education at a reasonable cost.",
-  "footerAbout": "A not-for-profit school in Lahore, started by students and alumni of LUMS.",
+  "description": "Al-Bayan Learning Initiative is a not-for-profit school in Lahore, run by alumni of LUMS and supported by co-founders and donors who believe quality education should not be a privilege.",
+  "footerAbout": "A not-for-profit school in Lahore, run by alumni of LUMS.",
+  "comingSoon": {
+    "_note": "The live coming-soon page keeps its launch text unchanged until the full site goes live.",
+    "heading": "Al-Bayan Learning Initiative Foundation",
+    "text": "A not-for-profit school started by students and alumni of LUMS, giving children from pre-school to middle school a quality education at a reasonable cost."
+  },
   "url": "https://albayanlearning.pk",
   "launchMode": "coming-soon",
-  "foundedYear": "[Year]",
-  "registrationNo": "[Registration no.]",
+  "foundedYear": "2019",
+  "registrationNo": "",
   "contact": {
     "email": "info@albayanlearning.pk",
     "careersEmail": "careers@albayanlearning.pk",
-    "phone": "0325 1257747",
-    "phoneIntl": "+92 325 1257747",
-    "address": "[Campus address, to confirm]",
-    "city": "Lahore, Pakistan"
+    "phones": [
+      {
+        "display": "0325 1257747",
+        "international": "+92 325 1257747",
+        "tel": "+923251257747",
+        "whatsapp": true
+      },
+      {
+        "display": "0331 4422437",
+        "international": "+92 331 4422437",
+        "tel": "+923314422437",
+        "whatsapp": true
+      }
+    ],
+    "address": "Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore",
+    "city": "Lahore, Pakistan",
+    "map": "[Map: Google Maps pin to come]"
   },
   "socials": [
-    { "name": "Instagram", "url": "", "placeholder": "[Instagram]" },
-    { "name": "Facebook", "url": "", "placeholder": "[Facebook]" },
-    { "name": "LinkedIn", "url": "", "placeholder": "[LinkedIn]" }
+    {
+      "name": "Instagram",
+      "url": "",
+      "placeholder": "[Instagram]"
+    },
+    {
+      "name": "Facebook",
+      "url": "",
+      "placeholder": "[Facebook]"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "",
+      "placeholder": "[LinkedIn]"
+    }
   ],
   "announcement": {
     "enabled": true,
-    "text": "Admissions open for [session]",
-    "linkText": "Find out how to apply",
+    "text": "No admission fee for the first 10 students",
+    "linkText": "Find out more",
     "href": "/admissions"
   },
   "stats": [
-    { "value": "[000]", "label": "students learning with us", "colour": "cyan" },
-    { "value": "[00]", "label": "teachers and staff", "colour": "gold" },
-    { "value": "[00]", "label": "years of teaching", "colour": "green" },
-    { "value": "Pre-school–8", "label": "grades on one campus", "colour": "navy" }
+    {
+      "value": "300+",
+      "label": "students learning with us",
+      "colour": "cyan"
+    },
+    {
+      "value": "50%",
+      "label": "tuition scholarship for every student",
+      "colour": "gold"
+    },
+    {
+      "value": "20%",
+      "label": "of students supported through Zakat",
+      "colour": "green"
+    },
+    {
+      "value": "PG–Matric",
+      "label": "on one campus, growing each year",
+      "colour": "navy"
+    }
   ]
 }

@@ -16,6 +16,8 @@ interface Props {
   hint?: string;
   /** Message shown when the field is invalid. */
   error?: string;
+  /** Visible lines for a textarea. */
+  rows?: number | string;
   [attr: string]: unknown;
 }
 
@@ -29,6 +31,7 @@ const {
   options = [],
   hint,
   error = `Please enter your ${label.toLowerCase()}.`,
+  rows = 5,
   ...rest
 } = Astro.props;
 
@@ -46,7 +49,7 @@ const control =
   {hint && <p id={`${id}-hint`} class="text-sm text-muted">{hint}</p>}
   {
     type === 'textarea' ? (
-      <textarea id={id} name={name} rows="5" required={required} aria-describedby={describedBy} class={control} {...rest} />
+      <textarea id={id} name={name} rows={rows} required={required} aria-describedby={describedBy} class={control} {...rest} />
     ) : type === 'select' ? (
       <select id={id} name={name} required={required} aria-describedby={describedBy} class={control} {...rest}>
         <option value="">Choose one</option>

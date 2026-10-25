@@ -2,9 +2,9 @@
 /** Navy three-column footer (design system → Footer). */
 import site from '../data/site.json';
 import { footerNav } from '../data/navigation';
+import { phones, telHref, whatsappHref } from '../lib/contact';
 
 const { contact, socials } = site;
-const telHref = `tel:${contact.phoneIntl.replace(/\s/g, '')}`;
 const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
 ---
 
@@ -12,7 +12,7 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
   <div class="container-site grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8 pt-16 pb-8">
     <div class="flex flex-col gap-2.5">
       <p class="font-display text-[30px] leading-[1.1] text-white">
-        Al-Bayan Learning<br /><span class="text-cyan">Initiative Foundation</span>
+        Al-Bayan Learning<br /><span class="text-cyan">Initiative</span>
       </p>
       <p>{site.footerAbout}</p>
     </div>
@@ -25,7 +25,18 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
     <div class="flex flex-col">
       <h2 class="mb-1 font-bold text-gold">Contact</h2>
       <a href={`mailto:${contact.email}`} class={link}>{contact.email}</a>
-      <a href={telHref} class={link}>{contact.phone}</a>
+      {
+        phones.map((phone) => (
+          <p class="flex flex-wrap items-center gap-x-3">
+            <a href={telHref(phone)} class={link}>{phone.display}</a>
+            {phone.whatsapp && (
+              <a href={whatsappHref(phone)} class={`${link} text-sm`}>
+                WhatsApp<span class="sr-only"> {phone.display}</span>
+              </a>
+            )}
+          </p>
+        ))
+      }
       <p class="py-2.5">{contact.address}</p>
       <ul class="flex flex-wrap gap-x-4">
         {
@@ -39,7 +50,7 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
 
   <div class="container-site">
     <div class="flex flex-wrap items-center justify-between gap-2 border-t border-navy-line pt-2 pb-5 text-[13px] text-on-navy-muted">
-      <span>© {new Date().getFullYear()} {site.name} · {site.registrationNo}</span>
+      <span>© {new Date().getFullYear()} {site.legalName}{site.registrationNo && ` · Registration no. ${site.registrationNo}`}</span>
       <a href="/privacy" class="inline-flex min-h-11 items-center text-on-navy-muted hover:text-white">Privacy</a>
     </div>
   </div>
