@@ -21,7 +21,9 @@ const workersCiBranch = process.env.WORKERS_CI_BRANCH ?? '';
 export default defineConfig({
   site: site.url,
   output: 'static',
-  adapter: cloudflare(),
+  // Images are optimised at build time with sharp and served as static files
+  // (no Cloudflare Images binding needed at build or run time).
+  adapter: cloudflare({ imageService: 'compile' }),
   // The Cloudflare adapter enables Astro sessions by default and injects a
   // SESSION KV binding with no namespace id, relying on auto-provisioning.
   // Preview deploys can't auto-provision it, so the deploy fails (error

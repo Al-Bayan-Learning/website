@@ -1,0 +1,43 @@
+---
+/**
+ * An approved photo from src/assets/photos, rendered with Astro's <Image>:
+ * responsive widths, modern formats, and lazy loading unless `priority`
+ * (use priority only for the first photo on screen, like the homepage hero).
+ * Alt text must describe the photo without naming any child.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  /** The `sizes` attribute: how wide the photo is drawn at each breakpoint. */
+  sizes?: string;
+  priority?: boolean;
+  /** Largest width to generate; use for photos that are only ever drawn small. */
+  maxWidth?: number;
+  class?: string;
+}
+
+const { src, alt, sizes = '(min-width: 1248px) 600px, (min-width: 768px) 50vw, 100vw', priority = false, maxWidth = 1280, class: className } = Astro.props;
+const cap = Math.min(maxWidth, src.width);
+const widths = [360, 540, 720, 960, 1280].filter((w) => w <= cap);
+if (!widths.includes(cap)) widths.push(cap);
+// The fallback `src` (for browsers that ignore srcset) is the largest of these,
+// not the full-size original.
+const width = Math.max(...widths);
+const height = Math.round((src.height / src.width) * width);
+---
+
+<Image
+  src={src}
+  alt={alt}
+  widths={widths}
+  width={width}
+  height={height}
+  sizes={sizes}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : undefined}
+  decoding={priority ? 'sync' : 'async'}
+  class:list={['object-cover', className]}
+/>

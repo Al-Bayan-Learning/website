@@ -1,26 +1,32 @@
 ---
 /**
- * Tilted photo frame: rounded 24px with a palette-coloured border. Shows a
- * [bracketed] placeholder until a real (consented) photo exists.
+ * Tilted photo frame: rounded 24px with a palette-coloured border. Shows an
+ * approved photo when one is given, otherwise the [bracketed] placeholder.
  */
+import type { ImageMetadata } from 'astro';
+import Photo from '../Photo.astro';
 import Placeholder from '../Placeholder.astro';
 
 interface Props {
   label: string;
-  photo?: { src: string; alt: string };
+  photo?: { src: ImageMetadata; alt: string };
   border?: 'cyan' | 'gold' | 'green' | 'purple' | 'white' | 'navy';
   tilt?: string;
+  sizes?: string;
+  maxWidth?: number;
   class?: string;
 }
 
-const { label, photo, border = 'cyan', tilt = '-rotate-2', class: className } = Astro.props;
+const { label, photo, border = 'cyan', tilt = '-rotate-2', sizes, maxWidth, class: className } = Astro.props;
 const borders = { cyan: 'border-cyan', gold: 'border-gold', green: 'border-green', purple: 'border-purple', white: 'border-white', navy: 'border-navy' };
-const frame = ['rounded-card border-[5px] motion-safe:transition-transform', borders[border], tilt, className];
+const frame = ['overflow-hidden rounded-card border-[5px]', borders[border], tilt, className];
 ---
 
 {
   photo ? (
-    <img src={photo.src} alt={photo.alt} class:list={[frame, 'object-cover']} loading="lazy" />
+    <div class:list={frame}>
+      <Photo src={photo.src} alt={photo.alt} sizes={sizes} maxWidth={maxWidth} class="size-full" />
+    </div>
   ) : (
     <Placeholder label={label} class:list={frame} />
   )
