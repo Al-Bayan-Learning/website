@@ -1,6 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import PhoneLinks from '../components/PhoneLinks.astro';
 import Placeholder from '../components/Placeholder.astro';
 import InfoCard from '../components/blocks/InfoCard.astro';
 import Field from '../components/forms/Field.astro';
@@ -8,14 +9,13 @@ import FormCard from '../components/forms/FormCard.astro';
 import site from '../data/site.json';
 
 const { contact, socials } = site;
-const telHref = `tel:${contact.phoneIntl.replace(/\s/g, '')}`;
 ---
 
 <SiteLayout title="Contact" description={`Email, phone and address for ${site.name} in Lahore, and a contact form.`}>
   <PageHero
     eyebrow="Contact"
     title="Get in touch"
-    intro="Questions about admissions, volunteering or anything else? Email, call or send us a message."
+    intro="Questions about admissions, volunteering or anything else? Email, call, WhatsApp or send us a message."
     breadcrumbs={[{ label: 'Contact' }]}
     waveFill="fill-surface"
   />
@@ -27,19 +27,18 @@ const telHref = `tel:${contact.phoneIntl.replace(/\s/g, '')}`;
         <InfoCard icon="mail" colour="cyan" title="Email">
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </InfoCard>
-        <InfoCard icon="phone" colour="gold" title="Phone">
-          <a href={telHref}>{contact.phone}</a>
-          <span class="block text-sm text-muted">From outside Pakistan: {contact.phoneIntl}</span>
+        <InfoCard icon="phone" colour="gold" title="Phone and WhatsApp">
+          <PhoneLinks international />
         </InfoCard>
         <InfoCard icon="pin" colour="green" title="Campus">
-          {contact.address}<br />{contact.city}
+          {contact.address}
         </InfoCard>
         <InfoCard icon="share" colour="purple" title="Social media">
           <ul class="flex flex-wrap gap-x-4">
             {socials.map((social) => <li>{social.url ? <a href={social.url}>{social.name}</a> : social.placeholder}</li>)}
           </ul>
         </InfoCard>
-        <Placeholder label="[Map: campus location]" class="h-[260px] rounded-card" />
+        <Placeholder label={contact.map} class="h-[260px] rounded-card" />
       </div>
 
       <FormCard id="contact-form" title="Send us a message" submitLabel="Send message">

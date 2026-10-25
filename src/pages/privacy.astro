@@ -4,13 +4,14 @@ import PageHero from '../components/PageHero.astro';
 import site from '../data/site.json';
 ---
 
-<SiteLayout title="Privacy" description={`How ${site.name} uses the information you share through this website.`}>
+<SiteLayout title="Privacy" description={`How ${site.legalName} uses the information you share through this website.`}>
   <PageHero eyebrow="Privacy" title="Privacy policy" breadcrumbs={[{ label: 'Privacy' }]} />
 
   <article class="container-site py-12 md:py-16">
     <div class="prose-article mx-auto max-w-[720px]">
       <p><strong>Last updated: [Date]</strong></p>
-      <p>[Privacy policy text: introduction, who we are and how to contact us about your data]</p>
+      <p>This website is run by {site.legalName}.</p>
+      <p>[Privacy policy text: introduction and how to contact us about your data]</p>
 
       <h2>How we use your information</h2>
       <p>[Privacy policy text: what the website forms collect, why, who sees it and how long it is kept]</p>
