@@ -1,91 +1,89 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import Button from '../components/Button.astro';
 import CTABand from '../components/CTABand.astro';
 import PageHero from '../components/PageHero.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
-import { formatDate, dateTime } from '../lib/content';
+import { photos } from '../data/photos';
 import { getCollection } from 'astro:content';
 
-const order = ['Debate', 'Arts', 'Athletics'];
-const activities = (await getCollection('activities')).sort((a, b) => order.indexOf(a.data.name) - order.indexOf(b.data.name));
+// Text: docs/content.md (Co-curricular); sections come from `activities`.
+const activities = (await getCollection('activities')).sort((a, b) => a.data.order - b.data.order);
 
-// Alternating backgrounds (design system → Co-curricular): navy, white, green.
+// Alternating backgrounds (design system → Co-curricular): navy, white, green, white, navy.
 const bands = [
-  { section: 'band-dark bg-navy text-white', body: 'text-on-navy', muted: 'text-on-navy-muted', card: 'bg-white/5 border-navy-line' },
-  { section: 'bg-white text-navy', body: 'text-ink-2', muted: 'text-muted', card: 'bg-surface border-border' },
-  { section: 'bg-green text-navy', body: 'text-navy', muted: 'text-navy', card: 'bg-white/60 border-transparent', frame: 'navy' as const },
+  { section: 'band-dark bg-navy text-white', body: 'text-on-navy', chip: 'border-navy-line text-white', dark: true },
+  { section: 'bg-white text-navy', body: 'text-ink-2', chip: 'border-border-chip text-navy', dark: false },
+  { section: 'bg-green text-navy', body: 'text-navy', chip: 'border-navy/25 bg-white/50 text-navy', dark: false, frame: 'navy' as const },
 ];
+const bandFor = (i: number) => bands[[0, 1, 2, 1, 0][i % 5]];
 const titleText = { cyan: 'text-cyan', gold: 'text-gold', green: 'text-green' };
 const titlePill = { cyan: 'bg-cyan', gold: 'bg-gold', green: 'bg-white' };
-const tilts = ['-rotate-2', 'rotate-2', '-rotate-1'];
+const tilts = ['-rotate-2', 'rotate-2', '-rotate-1', 'rotate-1', '-rotate-2'];
+
+// Approved photos that match a section; the others keep their placeholder.
+const sectionPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
+  'special-days': photos.cleanUpDrive,
+};
+const textOnly = ['highlights'];
 ---
 
-<SiteLayout title="Co-curricular" description="Debate, arts and athletics at Al-Bayan: what students do, who leads each activity, and what they have achieved.">
+<SiteLayout title="Co-curricular" description="Competitions, the Saturday Scholars Programme, summer camp, special days and highlights: learning beyond the classroom at Al-Bayan.">
   <PageHero
     eyebrow="Co-curricular"
     title="Debate. Create. Compete."
-    intro="Alongside the classroom, students take part in debate, arts and athletics."
+    intro="Learning at Al-Bayan extends beyond the classroom. Students take part in debates, public speaking, art, creative writing, science fairs and reading competitions. Our Saturday Scholars Programme and summer camps introduce them to new interests, from game design and storytelling to money management and performing arts."
     breadcrumbs={[{ label: 'Co-curricular' }]}
     waveFill="fill-navy"
   />
 
   {
     activities.map((activity, i) => {
-      const band = bands[i % bands.length];
-      const { name, intro, lead, schedule, achievements, photos, colour } = activity.data;
-      // Coloured Bebas text only on navy; elsewhere a coloured pill with navy text.
-      const onNavy = i % bands.length === 0;
+      const band = bandFor(i);
+      const { name, intro, items, partners, colour } = activity.data;
+      const photo = sectionPhotos[activity.id];
+      const showFrame = !textOnly.includes(activity.id);
+      // Only list partners the section text doesn't already name.
+      const sectionText = [intro, ...items].join(' ');
+      const extraPartners = (partners ?? []).filter((p) => !sectionText.includes(p.replace(/ at LUMS$/, '')));
       return (
         <section id={activity.id} aria-labelledby={`${activity.id}-title`} class={band.section}>
-          <div class:list={['container-site flex flex-wrap items-center gap-14 py-14 md:py-22', i % 2 === 1 && 'flex-row-reverse']}>
-            <PhotoFrame
-              label={`[${name} photo, with consent]`}
-              photo={photos?.[0]}
-              border={band.frame ?? colour}
-              tilt={tilts[i % tilts.length]}
-              class:list={['h-[300px] flex-[1_1_360px]', onNavy && 'bg-purple text-white']}
-            />
-            <div class="flex flex-[1_1_440px] flex-col gap-4">
+          <div class:list={['container-site flex flex-wrap items-center gap-14 py-14 md:py-20', i % 2 === 1 && 'flex-row-reverse']}>
+            {showFrame && (
+              <PhotoFrame
+                label={`[Photo: ${name}]`}
+                photo={photo}
+                border={band.frame ?? colour}
+                tilt={tilts[i % tilts.length]}
+                sizes="(min-width: 1248px) 540px, (min-width: 768px) 42vw, calc(100vw - 48px)"
+                class:list={['aspect-[4/3] flex-[1_1_340px]', band.dark && !photo && 'bg-purple text-white']}
+              />
+            )}
+            <div class="flex flex-[1_1_440px] flex-col gap-5">
               <h2
                 id={`${activity.id}-title`}
                 class:list={[
                   'font-display text-[clamp(44px,6vw,64px)] leading-none',
-                  onNavy ? titleText[colour] : ['self-start rounded-full px-6 pt-2 pb-1 text-navy', titlePill[colour]],
+                  band.dark ? titleText[colour] : ['self-start rounded-full px-6 pt-2 pb-1 text-navy', titlePill[colour]],
                 ]}
               >
                 {name}
               </h2>
               <p class:list={['text-lg', band.body]}>{intro}</p>
-              <dl class:list={['grid gap-x-6 gap-y-1 sm:grid-cols-[auto_1fr]', band.body]}>
-                {lead && (
-                  <>
-                    <dt class="font-bold">Led by</dt>
-                    <dd>{lead}</dd>
-                  </>
-                )}
-                {schedule && (
-                  <>
-                    <dt class="font-bold">When</dt>
-                    <dd>{schedule}</dd>
-                  </>
-                )}
-              </dl>
-              {achievements.length > 0 && (
-                <div class:list={['rounded-card border p-6', band.card]}>
-                  <h3 class="mb-3 text-lg font-bold">Achievements</h3>
-                  <ul class="flex flex-col gap-3">
-                    {achievements.map((item) => (
-                      <li class="flex flex-col">
-                        <span class="font-semibold">
-                          {item.event}: {item.result}
-                        </span>
-                        <time datetime={dateTime(item.date)} class:list={['text-sm', band.muted]}>
-                          {formatDate(item.date)}
-                        </time>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <ul class="flex flex-wrap gap-2" aria-label={`${name}: what's included`}>
+                {items.map((item) => (
+                  <li class:list={['rounded-full border px-4 py-1.5 text-[15px] font-semibold', band.chip]}>{item}</li>
+                ))}
+              </ul>
+              {extraPartners.length > 0 && (
+                <p class:list={['text-sm', band.body]}>
+                  <strong>With:</strong> {extraPartners.join(', ')}
+                </p>
+              )}
+              {activity.id === 'saturday-scholars' && (
+                <Button href="/get-involved#volunteer" variant={band.dark ? 'gold' : 'primary'} class="self-start">
+                  Volunteer to teach a session
+                </Button>
               )}
             </div>
           </div>
