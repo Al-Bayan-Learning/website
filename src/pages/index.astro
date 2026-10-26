@@ -5,7 +5,7 @@ import ComingSoon from '../components/ComingSoon.astro';
 import Button from '../components/Button.astro';
 import CTABand from '../components/CTABand.astro';
 import Photo from '../components/Photo.astro';
-import Placeholder from '../components/Placeholder.astro';
+import PhotoFrame from '../components/blocks/PhotoFrame.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import StatTile from '../components/StatTile.astro';
 import ValuePills from '../components/ValuePills.astro';
@@ -32,11 +32,17 @@ const latestNews = comingSoon ? [] : (await getNews()).slice(0, 3);
 const testimonial = comingSoon ? undefined : (await getCollection('testimonials'))[0];
 
 const frame = {
-  cyan: { border: 'border-cyan', text: 'text-cyan' },
-  gold: { border: 'border-gold', text: 'text-gold' },
-  green: { border: 'border-green', text: 'text-green' },
+  cyan: { text: 'text-cyan' },
+  gold: { text: 'text-gold' },
+  green: { text: 'text-green' },
 };
 const tilts = ['-rotate-2', 'rotate-2', '-rotate-1'];
+// Homepage card photos (different shots from the Co-curricular page where there's a choice).
+const cardPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
+  competitions: photos.competitionMedalsConfetti,
+  'saturday-scholars': photos.saturdayScholarsDentalHygiene,
+  'summer-camp': photos.summerCampMyFamily,
+};
 const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
 const hero = photos.sportsDayCheer;
 ---
@@ -130,9 +136,14 @@ const hero = photos.sportsDayCheer;
               const colours = frame[activity.data.colour];
               return (
                 <article class="flex flex-col gap-3.5">
-                  <Placeholder
+                  <PhotoFrame
                     label={`[${activity.data.name} photo]`}
-                    class:list={['h-[220px] rounded-card border-4 bg-purple font-normal text-white', colours.border, tilts[i % tilts.length]]}
+                    photo={cardPhotos[activity.id]}
+                    border={activity.data.colour}
+                    tilt={tilts[i % tilts.length]}
+                    sizes="(min-width: 1248px) 368px, (min-width: 900px) 30vw, calc(100vw - 48px)"
+                    maxWidth={960}
+                    class="h-[220px] bg-purple font-normal text-white"
                   />
                   <h3 class:list={['font-display text-[34px] leading-[1.6]', colours.text]}>
                     <a href={`/co-curricular#${activity.id}`} class="text-current no-underline hover:text-current hover:underline">
@@ -158,7 +169,15 @@ const hero = photos.sportsDayCheer;
         <section aria-label="What families say" class="bg-gold">
           <figure class="mx-auto flex max-w-[1008px] flex-col items-center gap-4 px-6 py-14 text-center md:py-20">
             <p aria-hidden="true" class="font-display text-[120px] leading-[0.6] text-purple">“</p>
-            <blockquote class="text-[clamp(22px,2.8vw,32px)] leading-[1.4] font-bold">{testimonial.data.quote}</blockquote>
+            <blockquote
+              class:list={[
+                'leading-[1.4] font-bold',
+                // Long quotes drop a size so they stay readable on phones.
+                testimonial.data.quote.length > 200 ? 'text-[clamp(19px,2.2vw,26px)]' : 'text-[clamp(22px,2.8vw,32px)]',
+              ]}
+            >
+              {testimonial.data.quote}
+            </blockquote>
             <figcaption class="font-semibold">
               {testimonial.data.name}, {roleLabel[testimonial.data.role]}
             </figcaption>

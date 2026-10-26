@@ -1,6 +1,7 @@
 ---
 /** Navy three-column footer (design system → Footer). */
 import site from '../data/site.json';
+import BrandIcon, { type BrandName } from './BrandIcon.astro';
 import { footerNav } from '../data/navigation';
 import { phones, telHref, whatsappHref } from '../lib/contact';
 
@@ -30,7 +31,8 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
           <p class="flex flex-wrap items-center gap-x-3">
             <a href={telHref(phone)} class={link}>{phone.display}</a>
             {phone.whatsapp && (
-              <a href={whatsappHref(phone)} class={`${link} text-sm`}>
+              <a href={whatsappHref(phone)} class={`${link} gap-1.5 text-sm`}>
+                <BrandIcon name="whatsapp" size={16} />
                 WhatsApp<span class="sr-only"> {phone.display}</span>
               </a>
             )}
@@ -38,10 +40,15 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
         ))
       }
       <p class="py-2.5">{contact.address}</p>
-      <ul class="flex flex-wrap gap-x-4">
+      <ul class="-ms-[11px] flex flex-wrap gap-x-1" aria-label="Social media">
         {
           socials.map((social) => (
-            <li>{social.url ? <a href={social.url} class={link}>{social.name}</a> : <span class="inline-flex min-h-11 items-center">{social.placeholder}</span>}</li>
+            <li>
+              <a href={social.url} class={`${link} min-w-11 justify-center`}>
+                <BrandIcon name={social.icon as BrandName} size={22} />
+                <span class="sr-only">{social.name}</span>
+              </a>
+            </li>
           ))
         }
       </ul>

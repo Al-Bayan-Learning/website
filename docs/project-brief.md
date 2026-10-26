@@ -56,7 +56,8 @@ Most visitors are on phones with limited data.
 | careersEmail | careers@albayanlearning.pk |
 | phones | 0325 1257747 (+92 325 1257747) and 0331 4422437 (+92 331 4422437), both on WhatsApp too |
 | address | Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore |
-| socials | [Instagram], [Facebook], [LinkedIn], all placeholders |
+| socials | Instagram (albayanschoolpk), Facebook (albayanschoolpk), LinkedIn (company/70905235); full links in `site.json` |
+| map | Campus pin by coordinates in `site.json`; loads on request |
 | registrationNo | empty for now; hide the line when empty |
 
 ## Phase 1 pages (build now)
@@ -70,7 +71,7 @@ Most visitors are on phones with limited data.
 | `/co-curricular` | Content | Intro, then Competitions, Saturday Scholars, Summer Camp, Special Days and Highlights (from `activities`) |
 | `/get-involved` | Content + form + jobs | Volunteer for Saturday Scholars; volunteer form (name, email, phone, what you'd like to teach, which Saturdays); jobs from `jobs` with a "no openings right now" empty state; a short "Support the school" block saying online giving is coming soon |
 | `/news` and `/news/[slug]` | Listing + detail | Category filter, featured story, card grid, pagination; single story page |
-| `/contact` | Contact + form | Email, phone, address, socials, map placeholder; contact form (name, email, phone optional, topic, message) |
+| `/contact` | Contact + form | Email, phone (with WhatsApp), address, socials, map; contact form (name, email, phone optional, topic, message) |
 | `/privacy` | Simple article | [Privacy policy text]: data use, photo consent, cookies (none) |
 | `/404` | Simple | Friendly message and links home |
 

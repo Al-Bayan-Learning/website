@@ -2,8 +2,9 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import PhoneLinks from '../components/PhoneLinks.astro';
-import Placeholder from '../components/Placeholder.astro';
+import BrandIcon, { type BrandName } from '../components/BrandIcon.astro';
 import InfoCard from '../components/blocks/InfoCard.astro';
+import MapCard from '../components/blocks/MapCard.astro';
 import Field from '../components/forms/Field.astro';
 import FormCard from '../components/forms/FormCard.astro';
 import site from '../data/site.json';
@@ -34,11 +35,18 @@ const { contact, socials } = site;
           {contact.address}
         </InfoCard>
         <InfoCard icon="share" colour="purple" title="Social media">
-          <ul class="flex flex-wrap gap-x-4">
-            {socials.map((social) => <li>{social.url ? <a href={social.url}>{social.name}</a> : social.placeholder}</li>)}
+          <ul class="flex flex-wrap gap-x-5">
+            {socials.map((social) => (
+              <li>
+                <a href={social.url} class="inline-flex min-h-11 items-center gap-2 font-semibold">
+                  <BrandIcon name={social.icon as BrandName} />
+                  {social.name}
+                </a>
+              </li>
+            ))}
           </ul>
         </InfoCard>
-        <Placeholder label={contact.map} class="h-[260px] rounded-card" />
+        <MapCard />
       </div>
 
       <FormCard id="contact-form" title="Send us a message" submitLabel="Send message">

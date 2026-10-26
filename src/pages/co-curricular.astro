@@ -21,8 +21,11 @@ const titleText = { cyan: 'text-cyan', gold: 'text-gold', green: 'text-green' };
 const titlePill = { cyan: 'bg-cyan', gold: 'bg-gold', green: 'bg-white' };
 const tilts = ['-rotate-2', 'rotate-2', '-rotate-1', 'rotate-1', '-rotate-2'];
 
-// Approved photos that match a section; the others keep their placeholder.
+// Approved photos for each section (Highlights is text only).
 const sectionPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
+  competitions: photos.competitionAwardStage,
+  'saturday-scholars': photos.saturdayScholarsPresentation,
+  'summer-camp': photos.summerCampMyFamily,
   'special-days': photos.cleanUpDrive,
 };
 const textOnly = ['highlights'];

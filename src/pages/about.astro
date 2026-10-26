@@ -49,7 +49,14 @@ const focus = [
       <SectionHeading id="then-now" eyebrow="Our story" title="Then and now" />
       <div class="grid gap-8 md:grid-cols-2">
         <article class="flex flex-col gap-5 rounded-card bg-white p-6 md:p-8">
-          <PhotoFrame label="[Photo: our first 5-marla building, 2019]" border="gold" tilt="-rotate-1" class="aspect-[4/3] w-full" />
+          <PhotoFrame
+            label="[Photo: our first 5-marla building, 2019]"
+            photo={photos.firstClassroom2019}
+            border="gold"
+            tilt="-rotate-1"
+            sizes="(min-width: 1248px) 520px, (min-width: 768px) 45vw, calc(100vw - 80px)"
+            class="aspect-[4/3] w-full"
+          />
           <p class="font-display text-stat text-purple">Then · {site.foundedYear}</p>
           <p class="text-lg text-ink-2">We started in a 5-marla building with 20 children.</p>
         </article>

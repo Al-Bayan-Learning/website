@@ -2,6 +2,8 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import site from '../data/site.json';
+
+const { contact } = site;
 ---
 
 <SiteLayout title="Privacy" description={`How ${site.legalName} uses the information you share through this website.`}>
@@ -9,21 +11,64 @@ import site from '../data/site.json';
 
   <article class="container-site py-12 md:py-16">
     <div class="prose-article mx-auto max-w-[720px]">
-      <p><strong>Last updated: [Date]</strong></p>
-      <p>This website is run by {site.legalName}.</p>
-      <p>[Privacy policy text: introduction and how to contact us about your data]</p>
+      <p><strong>Last updated: 26 October 2026</strong></p>
+      <p>
+        This website is run by {site.legalName}, a not-for-profit school at {contact.address}. This policy explains what
+        information we collect through the website, why we collect it and what we do with it. If you have any questions,
+        email us at <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+      </p>
 
-      <h2>How we use your information</h2>
-      <p>[Privacy policy text: what the website forms collect, why, who sees it and how long it is kept]</p>
+      <h2>What we collect</h2>
+      <p>We only collect what you choose to send us through the forms on this website:</p>
+      <ul>
+        <li><strong>Admission enquiries:</strong> the guardian's name, a phone number, the child's age, the area you live in and your message.</li>
+        <li><strong>Volunteering:</strong> your name, email, phone number, what you would like to teach and which Saturdays you can commit to.</li>
+        <li><strong>Contact form:</strong> your name, email, phone number (if you give one), the topic and your message.</li>
+      </ul>
+      <p>You don't need an account to use this website, and we don't ask for any information just to browse it.</p>
+
+      <h2>How we use it</h2>
+      <p>
+        We use your information only to reply to you and to deal with your enquiry: to arrange an admission, plan a
+        Saturday Scholars session or answer your question. We don't use it for marketing, and we never sell it or share it
+        with anyone for their own use.
+      </p>
+      <p>
+        Only the Al-Bayan staff who handle your enquiry can see it. It is stored with the service providers we use to run
+        this website and our email, who keep it secure and may not use it for anything else.
+      </p>
+      <p>
+        We keep your information only for as long as we need it to deal with your enquiry, and then delete it. If your
+        child joins the school or you start volunteering with us, we keep the details we need for that.
+      </p>
 
       <h2>Photos of children</h2>
-      <p>[Privacy policy text: photos of children appear only with written guardian consent, using first names or initials, and how to ask for a photo to be removed]</p>
+      <p>
+        We only show a child in a photo on this website with their parent or guardian's consent. We never name children
+        in photos. If you would like a photo removed, email us at <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        and we will take it down.
+      </p>
 
       <h2>Cookies</h2>
-      <p>[Privacy policy text: this website sets no cookies, to confirm]</p>
+      <p>This website does not use cookies, and it has no advertising or tracking.</p>
+      <p>
+        The map on our Contact page comes from Google Maps. It loads only if you press "Show the map", and Google may then
+        set its own cookies. Links to Instagram, Facebook, LinkedIn and WhatsApp take you to those services, which have
+        their own privacy policies.
+      </p>
+      <p>
+        Like any website, the service that hosts this site (Cloudflare) keeps short-term technical records of visits, such
+        as your IP address, to keep the site secure and working.
+      </p>
 
-      <h2>Contact</h2>
-      <p>Questions about your data? Email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
+      <h2>Your choices</h2>
+      <p>
+        You can ask us what information we hold about you, ask us to correct it, or ask us to delete it. Email
+        <a href={`mailto:${contact.email}`}>{contact.email}</a> and we will reply as soon as we can.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>If we change how we use your information, we will update this page and the date at the top.</p>
     </div>
   </article>
 </SiteLayout>

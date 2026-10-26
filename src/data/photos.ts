@@ -2,14 +2,20 @@
  * Approved photos (src/assets/photos) with their alt text, in one place so the
  * same photo always gets the same description. Never name a child here.
  */
+import competitionAwardStage from '../assets/photos/competition-award-stage.jpg';
+import competitionMedalsConfetti from '../assets/photos/competition-medals-confetti.jpg';
 import cleanUpDrive from '../assets/photos/clean-up-drive.jpg';
+import firstClassroom2019 from '../assets/photos/first-classroom-2019.jpg';
 import independenceDayDiorama from '../assets/photos/independence-day-diorama.jpg';
 import parentTeacherMeeting from '../assets/photos/parent-teacher-meeting.jpg';
 import preschoolSunflowerCostume from '../assets/photos/preschool-sunflower-costume.jpg';
+import saturdayScholarsDentalHygiene from '../assets/photos/saturday-scholars-dental-hygiene.jpg';
+import saturdayScholarsPresentation from '../assets/photos/saturday-scholars-presentation.jpg';
 import scholarshipCertificates from '../assets/photos/scholarship-certificates.jpg';
 import scienceFuseCertificates from '../assets/photos/science-fuse-certificates.jpg';
 import sportsDayCheer from '../assets/photos/sports-day-cheer.jpg';
 import studentsCelebratingCourtyard from '../assets/photos/students-celebrating-courtyard.jpg';
+import summerCampMyFamily from '../assets/photos/summer-camp-my-family.jpg';
 
 export const photos = {
   sportsDayCheer: {
@@ -43,5 +49,29 @@ export const photos = {
   scholarshipCertificates: {
     src: scholarshipCertificates,
     alt: 'Three young students in school uniform, one holding a certificate of scholarship',
+  },
+  competitionMedalsConfetti: {
+    src: competitionMedalsConfetti,
+    alt: 'Students in navy blazers wearing medals, cheering as confetti falls around them',
+  },
+  competitionAwardStage: {
+    src: competitionAwardStage,
+    alt: 'A team of students in school uniform on stage at an inter-school competition, receiving an award',
+  },
+  saturdayScholarsDentalHygiene: {
+    src: saturdayScholarsDentalHygiene,
+    alt: 'A volunteer in a white coat showing a student how to brush teeth on a dental model',
+  },
+  saturdayScholarsPresentation: {
+    src: saturdayScholarsPresentation,
+    alt: 'Three students presenting a poster with a microphone, beside a volunteer',
+  },
+  summerCampMyFamily: {
+    src: summerCampMyFamily,
+    alt: 'Young students holding signs such as “Sister”, “Brother” and “Father” in front of a “My Family” display',
+  },
+  firstClassroom2019: {
+    src: firstClassroom2019,
+    alt: 'Children standing at their desks with a teacher in a small classroom with an arched window, in our first building',
   },
 };
