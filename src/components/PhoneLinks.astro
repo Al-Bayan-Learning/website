@@ -1,6 +1,6 @@
 ---
 /** Both school phone numbers, each with a WhatsApp link (site.json → contact.phones). */
-import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
 import { phones, telHref, whatsappHref } from '../lib/contact';
 
 interface Props {
@@ -18,7 +18,7 @@ const { international = false } = Astro.props;
         <a href={telHref(phone)} class="inline-flex min-h-11 items-center font-semibold">{phone.display}</a>
         {phone.whatsapp && (
           <a href={whatsappHref(phone)} class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold">
-            <Icon name="chat" size={18} />
+            <BrandIcon name="whatsapp" size={18} />
             WhatsApp<span class="sr-only"> {phone.display}</span>
           </a>
         )}

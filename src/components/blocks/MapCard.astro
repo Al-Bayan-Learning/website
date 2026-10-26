@@ -1,0 +1,41 @@
+---
+/**
+ * Campus map, loaded only when the visitor asks for it: Google Maps is heavy on
+ * phones with limited data and may set cookies, so nothing loads from Google
+ * until "Show the map" is pressed. Without JavaScript the links still work.
+ */
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import { mapLinks } from '../../lib/contact';
+---
+
+<div class="flex flex-col gap-3">
+  <div data-map class="relative flex h-[260px] flex-col items-center justify-center gap-3 overflow-hidden rounded-card bg-placeholder p-6 text-center">
+    <Icon name="pin" size={32} class="text-purple" />
+    <p class="font-semibold">Al-Bayan campus, Main Gohawa, Lahore</p>
+    <Button size="sm" data-map-load data-src={mapLinks.embed} class="hidden">Show the map</Button>
+    <p data-map-note class="hidden text-sm text-muted">Loads Google Maps, which may set its own cookies.</p>
+  </div>
+  <p class="flex flex-wrap gap-x-5">
+    <a href={mapLinks.open} class="inline-flex min-h-11 items-center font-semibold">Open in Google Maps</a>
+    <a href={mapLinks.directions} class="inline-flex min-h-11 items-center font-semibold">Get directions</a>
+  </p>
+</div>
+
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-map]')) {
+    const button = box.querySelector<HTMLButtonElement>('[data-map-load]');
+    if (!button) continue;
+    button.classList.remove('hidden');
+    box.querySelector('[data-map-note]')?.classList.remove('hidden');
+    button.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = button.dataset.src ?? '';
+      frame.title = 'Map showing the Al-Bayan campus';
+      frame.className = 'absolute inset-0 size-full border-0';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      box.replaceChildren(frame);
+      frame.focus();
+    });
+  }
+</script>

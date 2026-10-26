@@ -32,23 +32,26 @@
     ],
     "address": "Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore",
     "city": "Lahore, Pakistan",
-    "map": "[Map: Google Maps pin to come]"
+    "map": {
+      "lat": 31.4954205,
+      "lng": 74.425348
+    }
   },
   "socials": [
     {
       "name": "Instagram",
-      "url": "",
-      "placeholder": "[Instagram]"
+      "icon": "instagram",
+      "url": "https://www.instagram.com/albayanschoolpk"
     },
     {
       "name": "Facebook",
-      "url": "",
-      "placeholder": "[Facebook]"
+      "icon": "facebook",
+      "url": "https://www.facebook.com/albayanschoolpk"
     },
     {
       "name": "LinkedIn",
-      "url": "",
-      "placeholder": "[LinkedIn]"
+      "icon": "linkedin",
+      "url": "https://www.linkedin.com/company/70905235"
     }
   ],
   "announcement": {
