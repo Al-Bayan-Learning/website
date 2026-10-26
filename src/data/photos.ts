@@ -61,6 +61,8 @@ export const photos = {
   saturdayScholarsDentalHygiene: {
     src: saturdayScholarsDentalHygiene,
     alt: 'A volunteer in a white coat showing a student how to brush teeth on a dental model',
+    // Tall photo in wide frames: keep both faces (upper part) in view.
+    position: 'center 25%',
   },
   saturdayScholarsPresentation: {
     src: saturdayScholarsPresentation,

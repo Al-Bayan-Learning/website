@@ -16,10 +16,12 @@ interface Props {
   priority?: boolean;
   /** Largest width to generate; use for photos that are only ever drawn small. */
   maxWidth?: number;
+  /** CSS object-position, to keep faces in view when the frame crops the photo. */
+  position?: string;
   class?: string;
 }
 
-const { src, alt, sizes = '(min-width: 1248px) 600px, (min-width: 768px) 50vw, 100vw', priority = false, maxWidth = 1280, class: className } = Astro.props;
+const { src, alt, sizes = '(min-width: 1248px) 600px, (min-width: 768px) 50vw, 100vw', priority = false, maxWidth = 1280, position, class: className } = Astro.props;
 const cap = Math.min(maxWidth, src.width);
 const widths = [360, 540, 720, 960, 1280].filter((w) => w <= cap);
 if (!widths.includes(cap)) widths.push(cap);
@@ -40,4 +42,5 @@ const height = Math.round((src.height / src.width) * width);
   fetchpriority={priority ? 'high' : undefined}
   decoding={priority ? 'sync' : 'async'}
   class:list={['object-cover', className]}
+  style={position ? { objectPosition: position } : undefined}
 />
