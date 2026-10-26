@@ -48,7 +48,8 @@ Suggested homepage stat tiles: "300+ students", "Since 2019", "50% scholarship f
 
 - **Programs band:** heading "From first letters to Matric", with four cards from `programs` (Preschool, Primary, Middle, Secondary). The reference has three cards; make it four.
 - **Co-curricular band:** keep the heading "Debate. Create. Compete." Show three cards: Competitions (cyan), Saturday Scholars (gold) and Summer Camp (green), each with one line from the Co-curricular section below. Photos stay placeholders.
-- **News and testimonial:** stay placeholders.
+- **News:** stays a placeholder.
+- **Testimonial (26 Oct 2026):** a parent's quote, shown as "Muneer H., parent" (first name and initial only; the child isn't named). The full quote is in `src/content/testimonials/parent.md`.
 
 ## About
 
@@ -75,12 +76,12 @@ Al-Bayan is a not-for-profit school offering education from Playgroup to Matric.
 - Teacher development through consistent training
 - Co-curricular exposure through collaborations with universities and schools, including debates, storytelling, experiments, music and skill-based activities
 
-**Our values** (tilted value pills, each with its short text)
-- **Tolerance:** We live in a diverse country, and that asks us to be tolerant: to understand that people may differ from us in opinion, gender, income and religion. We emphasise listening to differing opinions and keeping an open mind.
-- **Discipline:** [Discipline text: waiting for the team's final wording]
-- **Equality:** Our decisions are free of discrimination based on gender, income, religion or social status. We believe everyone deserves an equal opportunity, and we instil this value in our students for a more inclusive future.
-- **Merit:** Merit is the sole criterion in our decisions, from selecting teachers and staff to admitting and evaluating students.
-- **Character building:** Character building is integral to our work, because we are raising the next generation of this country: individuals who put humanity first and respect others.
+**Our values** (tilted value pills; each opens a popup with its full text). Final wording from the team, 26 Oct 2026.
+- **Tolerance:** We live in a diverse country and for that we need to be tolerant individuals, who understand that some people will differ from you in opinions, gender, income and religion. We emphasize the ability to listen to differing opinions and keep an open mind.
+- **Discipline:** We will use positive and negative reinforcement to reward good behaviour and punish bad behaviour. At Al-Bayan, our focus is not only to educate the children but also to create good citizens of the country.
+- **Equality:** All decisions will be free of any discrimination based on gender, income, religion, or social status. We believe all people are created equal and everyone deserves an equal opportunity. This is one of the values we will be instilling in the students as well for a more inclusive future.
+- **Merit:** Merit is the sole criterion in Al-Bayan's decision making. This applies to all aspects of its operations, from selection of faculty and staff, to admission and evaluation of students.
+- **Character building:** We consider character building to be an integral part of our project because we are grooming the next generation of this country. They will be individuals who always put humanity first and respect others.
 
 **Leadership and team:** not ready yet. Don't show a team section on the About page for now. Keep the `team` collection and its schema, but don't render it anywhere.
 
@@ -193,8 +194,8 @@ Keep the short "Online giving is coming soon" block. Don't mention amounts or ba
 | careersEmail | careers@albayanlearning.pk |
 | phones | 0325 1257747 (+92 325 1257747) and 0331 4422437 (+92 331 4422437). Both also work on WhatsApp. |
 | address | Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore |
-| map | [Map: Google Maps pin to come] |
-| socials | [Instagram], [Facebook], [LinkedIn]: links to come |
+| map | Campus pin at 31.4954205, 74.425348 (from the school's Google Business Profile). Link by coordinates: the Google listing still uses the old name. The map loads only when the visitor presses "Show the map". |
+| socials | Instagram https://www.instagram.com/albayanschoolpk, Facebook https://www.facebook.com/albayanschoolpk, LinkedIn https://www.linkedin.com/company/70905235 (shown with their logos) |
 
 Change `phone` in `site.json` to a `phones` list, each with `display`, `tel` and `whatsapp` (true or false). Add `wa.me` links for WhatsApp. The coming-soon page still shows **no** phone numbers, address or WhatsApp.
 
