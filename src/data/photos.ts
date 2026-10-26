@@ -14,7 +14,7 @@ import saturdayScholarsPresentation from '../assets/photos/saturday-scholars-pre
 import scholarshipCertificates from '../assets/photos/scholarship-certificates.jpg';
 import scienceFuseCertificates from '../assets/photos/science-fuse-certificates.jpg';
 import sportsDayCheer from '../assets/photos/sports-day-cheer.jpg';
-import studentsCelebratingCourtyard from '../assets/photos/students-celebrating-courtyard.jpg';
+import studentsCourtyard2026 from '../assets/photos/students-courtyard-2026.jpg';
 import summerCampMyFamily from '../assets/photos/summer-camp-my-family.jpg';
 
 export const photos = {
@@ -22,9 +22,9 @@ export const photos = {
     src: sportsDayCheer,
     alt: 'Students in navy tracksuits performing a cheer routine with pom-poms at the school sports gala',
   },
-  studentsCelebratingCourtyard: {
-    src: studentsCelebratingCourtyard,
-    alt: 'A crowd of students cheering with their arms in the air in the school courtyard',
+  studentsCourtyard2026: {
+    src: studentsCourtyard2026,
+    alt: 'Young students in school uniform and paper party hats, posing in two rows in the courtyard of the campus today',
   },
   independenceDayDiorama: {
     src: independenceDayDiorama,
