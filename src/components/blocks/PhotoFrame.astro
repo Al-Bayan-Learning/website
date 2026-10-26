@@ -9,7 +9,7 @@ import Placeholder from '../Placeholder.astro';
 
 interface Props {
   label: string;
-  photo?: { src: ImageMetadata; alt: string };
+  photo?: { src: ImageMetadata; alt: string; position?: string };
   border?: 'cyan' | 'gold' | 'green' | 'purple' | 'white' | 'navy';
   tilt?: string;
   sizes?: string;
@@ -25,7 +25,7 @@ const frame = ['overflow-hidden rounded-card border-[5px]', borders[border], til
 {
   photo ? (
     <div class:list={frame}>
-      <Photo src={photo.src} alt={photo.alt} sizes={sizes} maxWidth={maxWidth} class="size-full" />
+      <Photo src={photo.src} alt={photo.alt} position={photo.position} sizes={sizes} maxWidth={maxWidth} class="size-full" />
     </div>
   ) : (
     <Placeholder label={label} class:list={frame} />
