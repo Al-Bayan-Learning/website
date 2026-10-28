@@ -6,7 +6,8 @@ import { footerNav } from '../data/navigation';
 import { phones, telHref, whatsappHref } from '../lib/contact';
 
 const { contact, socials } = site;
-const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
+// Footer links are 36px tall (not the usual 44px) to keep the footer compact.
+const link = 'inline-flex min-h-9 items-center text-on-navy hover:text-white';
 ---
 
 <footer class="band-dark bg-navy text-[15px] text-on-navy">
@@ -26,12 +27,11 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
     <div class="flex flex-col">
       <h2 class="mb-1 font-bold text-gold">Contact</h2>
       <a href={`mailto:${contact.email}`} class={link}>{contact.email}</a>
-      {/* One WhatsApp link per number. Rows are 36px, not the usual 44px, so the two numbers sit closer together. */}
       <ul class="flex flex-col">
         {
           phones.map((phone) => (
             <li>
-              <a href={phone.whatsapp ? whatsappHref(phone) : telHref(phone)} class="inline-flex min-h-9 items-center gap-2 text-on-navy hover:text-white">
+              <a href={phone.whatsapp ? whatsappHref(phone) : telHref(phone)} class={`${link} gap-2`}>
                 {phone.whatsapp && <BrandIcon name="whatsapp" size={16} />}
                 {phone.whatsapp && <span class="sr-only">WhatsApp </span>}
                 {phone.display}
@@ -40,12 +40,12 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
           ))
         }
       </ul>
-      <p class="py-2.5">{contact.address}</p>
-      <ul class="-ms-[11px] flex flex-wrap gap-x-1" aria-label="Social media">
+      <p class="py-1.5">{contact.address}</p>
+      <ul class="-ms-[7px] flex flex-wrap gap-x-1" aria-label="Social media">
         {
           socials.map((social) => (
             <li>
-              <a href={social.url} class={`${link} min-w-11 justify-center`}>
+              <a href={social.url} class={`${link} min-w-9 justify-center`}>
                 <BrandIcon name={social.icon as BrandName} size={22} />
                 <span class="sr-only">{social.name}</span>
               </a>

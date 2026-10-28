@@ -15,19 +15,22 @@ const {
   primary = { label: 'Volunteer', href: '/get-involved#volunteer' },
   secondary = { label: 'Careers', href: '/get-involved#jobs' },
 } = Astro.props;
+
+// Soft shadow and a small lift on hover so the buttons stand out from the band.
+const lift = 'shadow-lg shadow-black/30 hover:-translate-y-0.5 hover:shadow-xl motion-reduce:hover:translate-y-0';
 ---
 
-<section class="band-dark relative overflow-hidden bg-linear-[100deg] from-navy to-purple text-white">
-  <div aria-hidden="true" class="absolute end-[8%] -top-16 size-28 rounded-full bg-cyan lg:end-[18%] lg:-top-15 lg:size-40"></div>
-  <div aria-hidden="true" class="absolute end-[6%] bottom-6 size-15 rounded-full bg-gold"></div>
+<section class="band-dark relative overflow-hidden bg-linear-[100deg] from-purple to-navy text-white">
+  <div aria-hidden="true" class="absolute -end-8 -top-16 size-28 rounded-full bg-cyan lg:-end-10 lg:-top-20 lg:size-40"></div>
+  <div aria-hidden="true" class="absolute -bottom-6 start-[48%] size-15 rounded-full bg-gold max-md:hidden"></div>
   <div class="container-site relative flex flex-wrap items-center justify-between gap-6 py-14 md:py-18">
     <div class="flex flex-[1_1_440px] flex-col gap-2">
       <h2 class="text-h2 font-extrabold">{title}</h2>
       <p class="text-lg font-medium">{text}</p>
     </div>
     <div class="flex flex-wrap gap-3">
-      <Button href={primary.href} variant="gold">{primary.label}</Button>
-      <Button href={secondary.href} variant="white">{secondary.label}</Button>
+      <Button href={primary.href} variant="gold" class={lift}>{primary.label}</Button>
+      <Button href={secondary.href} variant="white" class={lift}>{secondary.label}</Button>
     </div>
   </div>
 </section>
