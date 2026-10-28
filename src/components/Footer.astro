@@ -26,19 +26,20 @@ const link = 'inline-flex min-h-11 items-center text-on-navy hover:text-white';
     <div class="flex flex-col">
       <h2 class="mb-1 font-bold text-gold">Contact</h2>
       <a href={`mailto:${contact.email}`} class={link}>{contact.email}</a>
-      {
-        phones.map((phone) => (
-          <p class="flex flex-wrap items-center gap-x-3">
-            <a href={telHref(phone)} class={link}>{phone.display}</a>
-            {phone.whatsapp && (
-              <a href={whatsappHref(phone)} class={`${link} gap-1.5 text-sm`}>
-                <BrandIcon name="whatsapp" size={16} />
-                WhatsApp<span class="sr-only"> {phone.display}</span>
+      {/* One WhatsApp link per number. Rows are 36px, not the usual 44px, so the two numbers sit closer together. */}
+      <ul class="flex flex-col">
+        {
+          phones.map((phone) => (
+            <li>
+              <a href={phone.whatsapp ? whatsappHref(phone) : telHref(phone)} class="inline-flex min-h-9 items-center gap-2 text-on-navy hover:text-white">
+                {phone.whatsapp && <BrandIcon name="whatsapp" size={16} />}
+                {phone.whatsapp && <span class="sr-only">WhatsApp </span>}
+                {phone.display}
               </a>
-            )}
-          </p>
-        ))
-      }
+            </li>
+          ))
+        }
+      </ul>
       <p class="py-2.5">{contact.address}</p>
       <ul class="-ms-[11px] flex flex-wrap gap-x-1" aria-label="Social media">
         {
