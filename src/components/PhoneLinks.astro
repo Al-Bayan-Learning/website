@@ -1,5 +1,5 @@
 ---
-/** Both school phone numbers, each with a WhatsApp link (site.json → contact.phones). */
+/** Both school phone numbers, each a WhatsApp link with the icon before it (site.json → contact.phones). */
 import BrandIcon from './BrandIcon.astro';
 import { phones, telHref, whatsappHref } from '../lib/contact';
 
@@ -11,17 +11,15 @@ interface Props {
 const { international = false } = Astro.props;
 ---
 
-<ul class="flex flex-col gap-1">
+<ul class:list={["flex flex-col", international && "gap-2"]}>
   {
     phones.map((phone) => (
       <li class="flex flex-wrap items-center gap-x-4">
-        <a href={telHref(phone)} class="inline-flex min-h-11 items-center font-semibold">{phone.display}</a>
-        {phone.whatsapp && (
-          <a href={whatsappHref(phone)} class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold">
-            <BrandIcon name="whatsapp" size={18} />
-            WhatsApp<span class="sr-only"> {phone.display}</span>
-          </a>
-        )}
+        <a href={phone.whatsapp ? whatsappHref(phone) : telHref(phone)} class="inline-flex min-h-9 items-center gap-2 font-semibold">
+          {phone.whatsapp && <BrandIcon name="whatsapp" size={18} />}
+          {phone.whatsapp && <span class="sr-only">WhatsApp </span>}
+          {phone.display}
+        </a>
         {international && <span class="basis-full text-sm text-muted">From outside Pakistan: {phone.international}</span>}
       </li>
     ))
