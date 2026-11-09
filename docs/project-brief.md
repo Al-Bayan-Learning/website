@@ -65,7 +65,7 @@ Most visitors are on phones with limited data.
 | Route | Template | Sections |
 | --- | --- | --- |
 | `/` | Homepage | Exactly as `design/home-reference.html`. The latest 3 news items come from the collection. |
-| `/about` | Content | Short about; vision and mission; Then / Now story; how we work and our focus; core values; partners and collaborations (text only); CTA band. No team section yet. |
+| `/about` | Content | Short about; vision and mission; Then / Now story; how we work and our focus; core values; team (five main members; placeholders until names and photos arrive); partners and collaborations (text only); CTA band. |
 | `/academics` | Content | Intro; grades offered (from `programs`); Learning Beyond the Book; concepts to board exams; Capstones; computer education; reading and writing; preschool; teachers and assessment; facilities; timings; CTA |
 | `/admissions` | Content + form | Short page: who can apply; the no-admission-fee offer; admission enquiry form (guardian name, phone, child's age, area, message); CTA. No documents, steps or FAQs. |
 | `/co-curricular` | Content | Intro, then Competitions, Saturday Scholars, Summer Camp, Special Days and Highlights (from `activities`) |
@@ -81,7 +81,7 @@ There are **no form backends yet**. Build the forms as accessible static markup 
 
 | Collection | Fields |
 | --- | --- |
-| team | name, role, group (founder, board, admin, teacher), photo?, bio?, order. Keep the schema, but don't render it yet. |
+| team | name, role, group (founder, board, admin, teacher), photo?, bio?, order. Rendered as the team section on /about. |
 | programs | name, grades, description, subjects?, icon, order |
 | activities | name, intro, items[], partners?[], colour, order. The five sections are in `content.md`. |
 | jobs | title, type (full-time, part-time, volunteer), requirements, howToApply, closingDate, open (bool) |
@@ -95,7 +95,7 @@ Use the real content from `content.md` where it exists (programs, activities). S
 - **Phase 2:**
   - Donate (bank transfer, SWIFT, PayFast Pakistan via gopayfast.com), after the Foundation is registered.
 - Sponsor a Child (Rs 7,000 a month), and a fundraising cause: the new floor for senior grades 8–10.
-- Leadership and team, sponsor logos, the Shariah compliance certificate.
+- A full leadership and team page (the About page already has a team section), sponsor logos, the Shariah compliance certificate.
   - This Year's Goal, with a campaign mode.
   - Sponsor a Child, Impact and Reports, Events, Gallery, FAQ, Partners.
   - The header "Get involved" button later becomes "This Year's Goal" or "Donate".
