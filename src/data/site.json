@@ -52,6 +52,11 @@
       "name": "LinkedIn",
       "icon": "linkedin",
       "url": "https://www.linkedin.com/company/70905235"
+    },
+    {
+      "name": "TikTok",
+      "icon": "tiktok",
+      "url": "https://www.tiktok.com/@albayanschoolpk"
     }
   ],
   "announcement": {
