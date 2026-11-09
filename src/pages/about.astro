@@ -47,6 +47,19 @@ const focus = [
     </div>
   </section>
 
+  <section aria-labelledby="team" class="container-site flex flex-col gap-10 pb-14 md:pb-22">
+    <SectionHeading id="team" eyebrow="Our team" title="The people behind Al‑Bayan" />
+    <ul class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+      {
+        team.map((entry, index) => (
+          <li>
+            <PersonCard entry={entry} index={index} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
   <section aria-labelledby="then-now" class="bg-surface">
     <div class="container-site flex flex-col gap-10 py-14 md:py-22">
       <SectionHeading id="then-now" eyebrow="Our story" title="Then and now" />
@@ -111,19 +124,6 @@ const focus = [
       <SectionHeading id="values" eyebrow="Core values" title="What we stand for" tone="on-colour" class="flex-[1_1_360px]" />
       <ValuePills onGreen hintTone="navy" class="flex-[1_1_440px]" />
     </div>
-  </section>
-
-  <section aria-labelledby="team" class="container-site flex flex-col gap-10 py-14 md:py-22">
-    <SectionHeading id="team" eyebrow="Our team" title="The people behind Al‑Bayan" />
-    <ul class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
-      {
-        team.map((entry, index) => (
-          <li>
-            <PersonCard entry={entry} index={index} />
-          </li>
-        ))
-      }
-    </ul>
   </section>
 
   <section aria-labelledby="partners" class="band-dark bg-navy text-white">
