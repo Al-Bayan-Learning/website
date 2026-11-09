@@ -56,7 +56,7 @@ Most visitors are on phones with limited data.
 | careersEmail | careers@albayanlearning.pk |
 | phones | 0325 1257747 (+92 325 1257747) and 0331 4422437 (+92 331 4422437), both on WhatsApp too |
 | address | Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore |
-| socials | Instagram (albayanschoolpk), Facebook (albayanschoolpk), LinkedIn (company/70905235); full links in `site.json` |
+| socials | Instagram (albayanschoolpk), Facebook (albayanschoolpk), LinkedIn (company/70905235), TikTok (@albayanschoolpk); full links in `site.json` |
 | map | Campus pin by coordinates in `site.json`; loads on request |
 | registrationNo | empty for now; hide the line when empty |
 

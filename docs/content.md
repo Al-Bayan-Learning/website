@@ -195,7 +195,7 @@ Keep the short "Online giving is coming soon" block. Don't mention amounts or ba
 | phones | 0325 1257747 (+92 325 1257747) and 0331 4422437 (+92 331 4422437). Both also work on WhatsApp. |
 | address | Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore |
 | map | Campus pin at 31.4954205, 74.425348 (from the school's Google Business Profile). Link by coordinates: the Google listing still uses the old name. The map loads only when the visitor presses "Show the map". |
-| socials | Instagram https://www.instagram.com/albayanschoolpk, Facebook https://www.facebook.com/albayanschoolpk, LinkedIn https://www.linkedin.com/company/70905235 (shown with their logos) |
+| socials | Instagram https://www.instagram.com/albayanschoolpk, Facebook https://www.facebook.com/albayanschoolpk, LinkedIn https://www.linkedin.com/company/70905235, TikTok https://www.tiktok.com/@albayanschoolpk (shown with their logos) |
 
 Change `phone` in `site.json` to a `phones` list, each with `display`, `tel` and `whatsapp` (true or false). Add `wa.me` links for WhatsApp. The coming-soon page still shows **no** phone numbers, address or WhatsApp.
 
