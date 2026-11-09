@@ -2,16 +2,19 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
+import PersonCard from '../components/cards/PersonCard.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ValuePills from '../components/ValuePills.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import { getCollection } from 'astro:content';
 import { partners } from '../data/partners.json';
 import { photos } from '../data/photos';
 import site from '../data/site.json';
 
-// Text: docs/content.md (About). The team section returns once leadership
-// details are ready; the `team` collection is kept but not rendered.
+// Text: docs/content.md (About). Team names, roles and photos are placeholders until the team sends them.
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+
 const focus = [
   'Tarbiyat-led learning alongside academics',
   'Critical thinking over rote learning',
@@ -108,6 +111,19 @@ const focus = [
       <SectionHeading id="values" eyebrow="Core values" title="What we stand for" tone="on-colour" class="flex-[1_1_360px]" />
       <ValuePills onGreen hintTone="navy" class="flex-[1_1_440px]" />
     </div>
+  </section>
+
+  <section aria-labelledby="team" class="container-site flex flex-col gap-10 py-14 md:py-22">
+    <SectionHeading id="team" eyebrow="Our team" title="The people behind Al‑Bayan" />
+    <ul class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+      {
+        team.map((entry, index) => (
+          <li>
+            <PersonCard entry={entry} index={index} />
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section aria-labelledby="partners" class="band-dark bg-navy text-white">

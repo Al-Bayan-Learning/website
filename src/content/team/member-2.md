@@ -1,6 +1,6 @@
 ---
 name: "[Name]"
-role: "[Role, e.g. Board member]"
+role: "[Role]"
 group: board
 order: 2
 ---

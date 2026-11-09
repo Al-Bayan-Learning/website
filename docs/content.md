@@ -83,7 +83,7 @@ Al-Bayan is a not-for-profit school offering education from Playgroup to Matric.
 - **Merit:** Merit is the sole criterion in Al-Bayan's decision making. This applies to all aspects of its operations, from selection of faculty and staff, to admission and evaluation of students.
 - **Character building:** We consider character building to be an integral part of our project because we are grooming the next generation of this country. They will be individuals who always put humanity first and respect others.
 
-**Leadership and team:** not ready yet. Don't show a team section on the About page for now. Keep the `team` collection and its schema, but don't render it anywhere.
+**Leadership and team:** the About page shows a team section with five main team members (owner's decision, 9 Nov 2026). Names, roles and photos aren't ready yet, so each card stays a [Name] / [Role] placeholder with a photo placeholder.
 
 **Registration number:** not available yet. Leave `registrationNo` empty in `site.json` and hide the registration line wherever it's empty.
 
@@ -201,6 +201,6 @@ Change `phone` in `site.json` to a `phones` list, each with `display`, `tel` and
 
 ## Not in Phase 1 (don't build or mention yet)
 
-- Leadership and team page or section
+- A separate leadership and team page (the About page has a team section; see About)
 - Photos of children (all photos stay placeholders until consent forms exist)
 - Donations, bank details, Sponsor a Child, fundraising causes, sponsor logos, certificates
