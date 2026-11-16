@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import { showNews } from '../../lib/launch';
 import { render } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import PageHero from '../../components/PageHero.astro';
@@ -10,6 +11,8 @@ import NewsCard from '../../components/cards/NewsCard.astro';
 import { categoryInfo, dateTime, formatDate, getNews, type NewsEntry } from '../../lib/content';
 
 export const getStaticPaths = (async () => {
+  // News is hidden for launch (site.json → showNews): build no pages.
+  if (!showNews()) return [];
   const news = await getNews();
   return news.map((entry) => ({ params: { slug: entry.id }, props: { entry, others: news.filter((e) => e !== entry).slice(0, 3) } }));
 }) satisfies GetStaticPaths;
