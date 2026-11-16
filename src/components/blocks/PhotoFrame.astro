@@ -14,10 +14,12 @@ interface Props {
   tilt?: string;
   sizes?: string;
   maxWidth?: number;
+  /** Load eagerly (only for a photo at the top of the page). */
+  priority?: boolean;
   class?: string;
 }
 
-const { label, photo, border = 'cyan', tilt = '-rotate-2', sizes, maxWidth, class: className } = Astro.props;
+const { label, photo, border = 'cyan', tilt = '-rotate-2', sizes, maxWidth, priority = false, class: className } = Astro.props;
 const borders = { cyan: 'border-cyan', gold: 'border-gold', green: 'border-green', purple: 'border-purple', white: 'border-white', navy: 'border-navy' };
 const frame = ['overflow-hidden rounded-card border-[5px]', borders[border], tilt, className];
 ---
@@ -25,7 +27,7 @@ const frame = ['overflow-hidden rounded-card border-[5px]', borders[border], til
 {
   photo ? (
     <div class:list={frame}>
-      <Photo src={photo.src} alt={photo.alt} position={photo.position} sizes={sizes} maxWidth={maxWidth} class="size-full" />
+      <Photo src={photo.src} alt={photo.alt} position={photo.position} sizes={sizes} maxWidth={maxWidth} priority={priority} class="size-full" />
     </div>
   ) : (
     <Placeholder label={label} class:list={frame} />

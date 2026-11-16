@@ -2,9 +2,12 @@
 /**
  * Purple hero for inner pages (design system → PageHero): breadcrumb, Bebas
  * eyebrow, h1 and intro, with decorative circles and a wave. Use the default
- * slot for extras under the intro (tags, dates) and `aside` for an optional
- * small tilted photo.
+ * slot for extras under the intro (tags, dates). Content pages open with a
+ * visual: pass `photoLabel` (and `photo` once an approved one exists) for a
+ * tilted photo on the right; without `photo` it shows the [bracketed] label.
  */
+import type { ImageMetadata } from 'astro';
+import PhotoFrame from './blocks/PhotoFrame.astro';
 import Wave from './Wave.astro';
 
 interface Props {
@@ -15,9 +18,12 @@ interface Props {
   breadcrumbs?: { label: string; href?: string }[];
   /** Fill class for the wave, matching the next section. */
   waveFill?: string;
+  /** Placeholder label for the hero photo, e.g. "[Photo: volunteers teaching]". */
+  photoLabel?: string;
+  photo?: { src: ImageMetadata; alt: string; position?: string };
 }
 
-const { title, eyebrow, intro, breadcrumbs = [{ label: title }], waveFill = 'fill-white' } = Astro.props;
+const { title, eyebrow, intro, breadcrumbs = [{ label: title }], waveFill = 'fill-white', photoLabel, photo } = Astro.props;
 const trail = [{ label: 'Home', href: '/' }, ...breadcrumbs];
 ---
 
@@ -52,7 +58,22 @@ const trail = [{ label: 'Home', href: '/' }, ...breadcrumbs];
       {intro && <p class="max-w-[640px] text-[clamp(16px,1.8vw,19px)] text-on-purple">{intro}</p>}
       <slot />
     </div>
-    <slot name="aside" />
+    {
+      photoLabel && (
+        <div class="relative w-full max-w-[480px] flex-[1_1_320px] self-center">
+          <div aria-hidden="true" class="absolute inset-0 translate-x-3 translate-y-3 rotate-3 rounded-card bg-navy rtl:-translate-x-3"></div>
+          <PhotoFrame
+            label={photoLabel}
+            photo={photo}
+            border="white"
+            tilt="-rotate-2"
+            priority
+            sizes="(min-width: 1248px) 480px, (min-width: 900px) 38vw, calc(100vw - 48px)"
+            class="relative aspect-[4/3] w-full"
+          />
+        </div>
+      )
+    }
   </div>
 
   <Wave fill={waveFill} height="h-14 md:h-20" />
