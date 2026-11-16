@@ -1,27 +1,46 @@
 ---
-/** Both school phone numbers, each a WhatsApp link with the icon before it (site.json → contact.phones). */
+/**
+ * Phone numbers, each shown as the WhatsApp icon (opens WhatsApp) and the
+ * number (calls it), with no extra labels. `whatsappOnly` numbers don't take
+ * calls, so the icon and number are one WhatsApp link.
+ */
 import BrandIcon from './BrandIcon.astro';
-import { phones, telHref, whatsappHref } from '../lib/contact';
+import { phones as schoolPhones, telHref, whatsappHref, type Phone } from '../lib/contact';
 
 interface Props {
-  /** Show the +92 number under each, for callers outside Pakistan. */
-  international?: boolean;
+  phones?: Phone[];
+  whatsappOnly?: boolean;
+  /** Link classes, e.g. for the footer's colours and row height. */
+  linkClass?: string;
 }
 
-const { international = false } = Astro.props;
+const { phones = schoolPhones, whatsappOnly = false, linkClass = 'min-h-11 font-semibold' } = Astro.props;
 ---
 
-<ul class:list={["flex flex-col", international && "gap-2"]}>
+<ul class="flex flex-col">
   {
-    phones.map((phone) => (
-      <li class="flex flex-wrap items-center gap-x-4">
-        <a href={phone.whatsapp ? whatsappHref(phone) : telHref(phone)} class="inline-flex min-h-9 items-center gap-2 font-semibold">
-          {phone.whatsapp && <BrandIcon name="whatsapp" size={18} />}
-          {phone.whatsapp && <span class="sr-only">WhatsApp </span>}
-          {phone.display}
-        </a>
-        {international && <span class="basis-full text-sm text-muted">From outside Pakistan: {phone.international}</span>}
-      </li>
-    ))
+    phones.map((phone) =>
+      whatsappOnly ? (
+        <li>
+          <a href={whatsappHref(phone)} class:list={['inline-flex items-center gap-2', linkClass]}>
+            <BrandIcon name="whatsapp" size={18} />
+            <span class="sr-only">WhatsApp </span>
+            {phone.display}
+          </a>
+        </li>
+      ) : (
+        <li class="flex items-center gap-1">
+          {phone.whatsapp && (
+            <a href={whatsappHref(phone)} class:list={['-ms-1.5 inline-flex min-w-9 items-center justify-center', linkClass]}>
+              <BrandIcon name="whatsapp" size={18} />
+              <span class="sr-only">WhatsApp {phone.display}</span>
+            </a>
+          )}
+          <a href={telHref(phone)} class:list={['inline-flex items-center', linkClass]}>
+            {phone.display}
+          </a>
+        </li>
+      ),
+    )
   }
 </ul>

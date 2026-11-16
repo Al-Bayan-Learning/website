@@ -9,3 +9,5 @@ howToApply: "[How to apply, e.g. email your CV and a short cover note]"
 closingDate: "[Closing date]"
 open: false
 ---
+
+[Full job description: the role, responsibilities and who it suits]

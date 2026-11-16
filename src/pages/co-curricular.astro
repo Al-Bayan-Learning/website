@@ -4,6 +4,7 @@ import Button from '../components/Button.astro';
 import CTABand from '../components/CTABand.astro';
 import PageHero from '../components/PageHero.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import Placeholder from '../components/Placeholder.astro';
 import { photos } from '../data/photos';
 import { getCollection } from 'astro:content';
 
@@ -21,23 +22,25 @@ const titleText = { cyan: 'text-cyan', gold: 'text-gold', green: 'text-green' };
 const titlePill = { cyan: 'bg-cyan', gold: 'bg-gold', green: 'bg-white' };
 const tilts = ['-rotate-2', 'rotate-2', '-rotate-1', 'rotate-1', '-rotate-2'];
 
-// Approved photos for each section (Highlights is text only).
+// Approved photos for each section; the rest stay [Photo: …] placeholders.
+// Each section also has two gallery slots for more photos.
 const sectionPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
   competitions: photos.competitionAwardStage,
   'saturday-scholars': photos.saturdayScholarsPresentation,
   'summer-camp': photos.summerCampMyFamily,
   'special-days': photos.cleanUpDrive,
 };
-const textOnly = ['highlights'];
 ---
 
 <SiteLayout title="Co-curricular" description="Competitions, the Saturday Scholars Programme, summer camp, special days and highlights: learning beyond the classroom at Al-Bayan.">
   <PageHero
     eyebrow="Co-curricular"
     title="Debate. Create. Compete."
-    intro="Learning at Al-Bayan extends beyond the classroom. Students take part in debates, public speaking, art, creative writing, science fairs and reading competitions. Our Saturday Scholars Programme and summer camps introduce them to new interests, from game design and storytelling to money management and performing arts."
+    intro="Debates, competitions, Saturday sessions and summer camps: learning that goes beyond the classroom."
     breadcrumbs={[{ label: 'Co-curricular' }]}
     waveFill="fill-navy"
+    photoLabel="[Photo: co-curricular page hero, ideally happy children]"
+    photo={photos.competitionMedalsConfetti}
   />
 
   {
@@ -45,23 +48,27 @@ const textOnly = ['highlights'];
       const band = bandFor(i);
       const { name, intro, items, partners, colour } = activity.data;
       const photo = sectionPhotos[activity.id];
-      const showFrame = !textOnly.includes(activity.id);
       // Only list partners the section text doesn't already name.
       const sectionText = [intro, ...items].join(' ');
       const extraPartners = (partners ?? []).filter((p) => !sectionText.includes(p.replace(/ at LUMS$/, '')));
       return (
         <section id={activity.id} aria-labelledby={`${activity.id}-title`} class={band.section}>
           <div class:list={['container-site flex flex-wrap items-center gap-14 py-14 md:py-20', i % 2 === 1 && 'flex-row-reverse']}>
-            {showFrame && (
+            <div class="flex flex-[1_1_340px] flex-col gap-4">
               <PhotoFrame
                 label={`[Photo: ${name}]`}
                 photo={photo}
                 border={band.frame ?? colour}
                 tilt={tilts[i % tilts.length]}
                 sizes="(min-width: 1248px) 540px, (min-width: 768px) 42vw, calc(100vw - 48px)"
-                class:list={['aspect-[4/3] flex-[1_1_340px]', band.dark && !photo && 'bg-purple text-white']}
+                class="aspect-[4/3] w-full"
               />
-            )}
+              <div class="grid grid-cols-2 gap-4">
+                {[2, 3].map((n) => (
+                  <Placeholder label={`[Photo: ${name} ${n}]`} class="aspect-[4/3] rounded-card text-sm" />
+                ))}
+              </div>
+            </div>
             <div class="flex flex-[1_1_440px] flex-col gap-5">
               <h2
                 id={`${activity.id}-title`}
@@ -84,7 +91,7 @@ const textOnly = ['highlights'];
                 </p>
               )}
               {activity.id === 'saturday-scholars' && (
-                <Button href="/get-involved#volunteer" variant={band.dark ? 'gold' : 'primary'} class="self-start">
+                <Button href="/volunteer" variant={band.dark ? 'gold' : 'primary'} class="self-start">
                   Volunteer to teach a session
                 </Button>
               )}

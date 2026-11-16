@@ -11,7 +11,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "playwright test"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.0",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261016.1",
+    "@playwright/test": "^1.65.1",
     "typescript": "^7.0.2"
   }
 }

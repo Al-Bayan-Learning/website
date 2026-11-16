@@ -14,9 +14,11 @@ interface Props {
   title: string;
   intro?: string;
   submitLabel: string;
+  /** Address shown in the "[Form not connected yet]" note; null leaves it out. */
+  email?: string | null;
 }
 
-const { id, title, intro, submitLabel } = Astro.props;
+const { id, title, intro, submitLabel, email = site.contact.email } = Astro.props;
 ---
 
 <form
@@ -32,8 +34,8 @@ const { id, title, intro, submitLabel } = Astro.props;
     {intro && <p class="text-ink-2">{intro}</p>}
   </div>
   <p id={`${id}-notice`} class="rounded-input border-[1.5px] border-dashed border-border-input bg-surface px-4 py-3 text-sm text-navy">
-    <strong>[Form not connected yet]</strong> Nothing is sent from this form yet. Please email{' '}
-    <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> instead.
+    <strong>[Form not connected yet]</strong> Nothing is sent from this form yet.
+    {email && <>{' '}Please email <a href={`mailto:${email}`}>{email}</a> instead.</>}
   </p>
 
   <slot />

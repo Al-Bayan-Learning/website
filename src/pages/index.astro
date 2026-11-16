@@ -10,12 +10,12 @@ import SectionHeading from '../components/SectionHeading.astro';
 import StatTile from '../components/StatTile.astro';
 import ValuePills from '../components/ValuePills.astro';
 import Wave from '../components/Wave.astro';
-import NewsCard from '../components/cards/NewsCard.astro';
 import ProgramCard from '../components/cards/ProgramCard.astro';
+import Placeholder from '../components/Placeholder.astro';
 import site from '../data/site.json';
+import { donateCta, volunteerCta } from '../data/navigation';
 import { photos } from '../data/photos';
 import { isComingSoon } from '../lib/launch';
-import { getNews } from '../lib/content';
 import { getCollection } from 'astro:content';
 
 // Homepage: design/home-reference.html (approved). On the production build
@@ -28,7 +28,6 @@ const homeActivities = ['competitions', 'saturday-scholars', 'summer-camp'];
 const activities = comingSoon
   ? []
   : (await getCollection('activities', ({ id }) => homeActivities.includes(id))).sort((a, b) => a.data.order - b.data.order);
-const latestNews = comingSoon ? [] : (await getNews()).slice(0, 3);
 const testimonial = comingSoon ? undefined : (await getCollection('testimonials'))[0];
 
 const frame = {
@@ -76,12 +75,12 @@ const hero = photos.sportsDayCheer;
               </span>
             </h1>
             <p class="max-w-[520px] text-[clamp(16px,1.8vw,19px)] text-on-purple">
-              Run by alumni of LUMS, Al-Bayan teaches children from Playgroup to Matric in Gohawa, Lahore, with learning that
+              Founded and run by alumni of LUMS, Al-Bayan teaches children from Playgroup to Matric in Gohawa, Lahore, with learning that
               goes beyond the book and tarbiyat at its heart.
             </p>
             <div class="flex flex-wrap gap-3 pt-1.5">
-              <Button href="/admissions" variant="light">Apply for admission</Button>
-              <Button href="/get-involved" variant="outline-light">Get involved</Button>
+              <Button href={donateCta.href} variant="light">{donateCta.label}</Button>
+              <Button href={volunteerCta.href} variant="outline-light">{volunteerCta.label}</Button>
             </div>
           </div>
 
@@ -158,30 +157,29 @@ const hero = photos.sportsDayCheer;
         </div>
       </section>
 
-      <section aria-labelledby="latest-news" class="container-site flex flex-col gap-9 py-14 md:py-22">
-        <SectionHeading id="latest-news" eyebrow="Latest news" title="What's happening at Al-Bayan" link={{ href: '/news', label: 'All news' }} />
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
-          {latestNews.map((entry) => <NewsCard entry={entry} />)}
-        </div>
-      </section>
-
       {testimonial && (
         <section aria-label="What families say" class="bg-gold">
-          <figure class="mx-auto flex max-w-[1008px] flex-col items-center gap-4 px-6 py-14 text-center md:py-20">
-            <p aria-hidden="true" class="font-display text-[120px] leading-[0.6] text-purple">“</p>
-            <blockquote
-              class:list={[
-                'leading-[1.4] font-bold',
-                // Long quotes drop a size so they stay readable on phones.
-                testimonial.data.quote.length > 200 ? 'text-[clamp(19px,2.2vw,26px)]' : 'text-[clamp(22px,2.8vw,32px)]',
-              ]}
-            >
-              {testimonial.data.quote}
-            </blockquote>
-            <figcaption class="font-semibold">
-              {testimonial.data.name}, {roleLabel[testimonial.data.role]}
-            </figcaption>
-          </figure>
+          <div class="container-site flex flex-wrap items-center justify-center gap-10 py-14 md:py-20">
+            <Placeholder
+              label="[Photo: parent who agreed to be shown]"
+              class="aspect-square w-full max-w-[280px] -rotate-2 rounded-card border-[5px] border-white"
+            />
+            <figure class="flex flex-[1_1_440px] flex-col gap-4">
+              <p aria-hidden="true" class="font-display text-[120px] leading-[0.6] text-purple">“</p>
+              <blockquote
+                class:list={[
+                  'leading-[1.4] font-bold',
+                  // Long quotes drop a size so they stay readable on phones.
+                  testimonial.data.quote.length > 200 ? 'text-[clamp(19px,2.2vw,26px)]' : 'text-[clamp(22px,2.8vw,32px)]',
+                ]}
+              >
+                {testimonial.data.quote}
+              </blockquote>
+              <figcaption class="font-semibold">
+                {testimonial.data.name}, {roleLabel[testimonial.data.role]}
+              </figcaption>
+            </figure>
+          </div>
         </section>
       )}
 

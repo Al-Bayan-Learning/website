@@ -5,6 +5,7 @@ import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import Placeholder from '../components/Placeholder.astro';
 import ProgramCard from '../components/cards/ProgramCard.astro';
 import { photos } from '../data/photos';
 import { getCollection } from 'astro:content';
@@ -21,15 +22,17 @@ const facilities = [
 ] as const;
 
 const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100vw - 48px)';
+const cardPhoto = 'aspect-[16/9] w-full';
 ---
 
 <SiteLayout title="Academics" description="How Al-Bayan teaches from Playgroup to Matric: the PCTB curriculum, Learning Beyond the Book, capstone projects, computer education, teacher training and facilities.">
   <PageHero
     eyebrow="Academics"
     title="From first letters to Matric"
-    intro="At Al-Bayan, we want children to understand what they learn, not just memorise it for exams. We follow the Punjab Curriculum and Textbook Board (PCTB) from Playgroup to Matric."
+    intro="We follow the Punjab Curriculum and Textbook Board (PCTB) from Playgroup to Matric, and teach for understanding, not memorisation."
     breadcrumbs={[{ label: 'Academics' }]}
     waveFill="fill-green"
+    photoLabel="[Photo: academics page hero, ideally happy children]"
   />
 
   <section aria-labelledby="grades" class="bg-green">
@@ -45,15 +48,13 @@ const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100
     <div class="flex flex-[1_1_440px] flex-col gap-4">
       <SectionHeading id="beyond-the-book" eyebrow="How we teach" title="Learning Beyond the Book" />
       <p class="text-ink-2">
-        “Learning Beyond the Book” is built into our syllabus. Teachers go beyond completing textbook chapters and connect
-        each concept to everyday life, real-world examples and activities, so students understand not only what they are
-        learning, but why it matters and how to use it.
+        Teachers connect each concept to everyday life, real-world examples and activities, so students understand why it
+        matters and how to use it.
       </p>
       <h3 class="pt-2 text-xl font-bold">From concepts to board exams</h3>
       <p class="text-ink-2">
-        In the younger and middle grades, we focus on conceptual understanding rather than memorisation. As students move
-        towards Matric, we gradually introduce the structure of Punjab Board exams (board-style questions, past papers and
-        formal exam formats) so there’s no sudden jump from understanding to exam preparation.
+        Younger grades focus on understanding. Towards Matric, we gradually introduce board-style questions, past papers and
+        exam formats, so there's no sudden jump.
       </p>
     </div>
     <PhotoFrame label="[Photo: a class project]" photo={photos.independenceDayDiorama} border="cyan" tilt="-rotate-2" sizes={photoSizes} class="aspect-[4/3] flex-[1_1_380px]" />
@@ -61,38 +62,36 @@ const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100
 
   <section aria-labelledby="capstones" class="band-dark bg-navy text-white">
     <div class="container-site flex flex-wrap-reverse items-center gap-14 py-14 md:py-22">
-      <PhotoFrame label="[Photo: a science session]" photo={photos.scienceFuseCertificates} border="gold" tilt="rotate-2" sizes={photoSizes} class="aspect-[4/3] flex-[1_1_380px]" />
+      <PhotoFrame label="[Photo: capstone presentations]" border="gold" tilt="rotate-2" class="aspect-[4/3] flex-[1_1_380px]" />
       <div class="flex flex-[1_1_440px] flex-col gap-4">
         <SectionHeading id="capstones" eyebrow="Once a year" title="Capstone projects" tone="dark" />
         <p class="text-on-navy">
-          Once a year, students bring together what they’ve learned across a subject in one substantial group project, then
-          present and defend their decisions.
+          Students bring a subject together in one big group project, then present and defend their decisions.
         </p>
-        <p class="text-on-navy">
-          In Islamiyat, students design an ideal society based on Islamic principles, working through justice, honesty,
-          cleanliness and cooperation. In Science, they take on roles as researchers, designers, engineers and science
-          communicators to tackle problems like water use, energy, pollution and waste.
-        </p>
+        <ul class="flex flex-col gap-2 text-on-navy">
+          <li><strong class="text-white">Islamiyat:</strong> design an ideal society based on Islamic principles.</li>
+          <li><strong class="text-white">Science:</strong> tackle problems like water use, energy, pollution and waste.</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section aria-label="Computer education and reading" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
-    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-6 md:p-8">
+      <Placeholder label="[Photo: computer lab]" class:list={[cardPhoto, 'rounded-card']} />
       <p class="eyebrow text-purple">Computer education</p>
       <h2 class="text-[26px] leading-tight font-extrabold">Coding, tools and digital citizenship</h2>
       <p class="text-ink-2">
-        Students learn coding and computational thinking, Microsoft Word, PowerPoint and Excel, digital citizenship and
-        online safety. In the Computer Capstone, they develop a business idea, with flowcharts, budgets, pricing and digital
-        marketing, and adapt their plan when given new scenarios such as a reduced budget or a customer complaint.
+        Coding, Word, PowerPoint, Excel and online safety. In the Computer Capstone, students plan a business, then adapt it
+        when the budget shrinks or a customer complains.
       </p>
     </div>
-    <div class="flex flex-col gap-4 rounded-card bg-surface p-8">
+    <div class="flex flex-col gap-4 rounded-card bg-surface p-6 md:p-8">
+      <Placeholder label="[Photo: reading and library]" class:list={[cardPhoto, 'rounded-card']} />
       <p class="eyebrow text-purple">Reading and writing</p>
       <h2 class="text-[26px] leading-tight font-extrabold">Building a reading culture</h2>
       <p class="text-ink-2">
-        We are building a reading culture through library use, storytelling, reading challenges, book clubs and book
-        reports, along with English and Urdu creative writing and short-story competitions.
+        Library time, storytelling, reading challenges, book clubs, and English and Urdu creative writing competitions.
       </p>
     </div>
   </section>
@@ -102,8 +101,8 @@ const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100
     <div class="flex flex-[1_1_440px] flex-col gap-4">
       <SectionHeading id="preschool" eyebrow="Playgroup, Nursery, Prep" title="Preschool" />
       <p class="text-ink-2">
-        Our preschool follows a developmental, Montessori-influenced approach: play-based, practical learning, with progress
-        tracked through observation and developmental milestones rather than only written exams.
+        Play-based, practical learning with a Montessori influence. We track progress through observation and developmental
+        milestones, not only written exams.
       </p>
     </div>
   </section>
@@ -118,18 +117,17 @@ const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100
         <article class="flex flex-col gap-3 rounded-card bg-white p-8">
           <h3 class="text-xl font-bold">Subject meetings</h3>
           <p class="text-ink-2">
-            Teachers of each subject meet regularly with our Education Team and experts in that field to discuss how to teach
-            it: difficult concepts, common misconceptions, activities and assessment. Science teachers are supported by a
-            doctor; Computer Science teachers by a software engineer and a data scientist; English teachers by a former
-            newspaper editor and textbook author; and Islamiyat teachers by an Alima.
+            Teachers of each subject meet regularly with our Education Team and experts: a doctor for Science, a software
+            engineer and a data scientist for Computer Science, a former newspaper editor and textbook author for English,
+            and an Alima for Islamiyat.
           </p>
         </article>
         <article class="flex flex-col gap-3 rounded-card bg-white p-8">
           <h3 class="text-xl font-bold">Year-round training and expert-designed exams</h3>
           <p class="text-ink-2">
-            Teachers get training, classroom feedback and office hours throughout the year, not just one annual workshop. Our
-            exams are designed by a dedicated Education Team, with backgrounds that include postgraduate study in Education at
-            LUMS and a PhD in Educational Technology, and test understanding, application and reasoning, not memorisation.
+            Teachers get training, classroom feedback and office hours all year. Our Education Team designs our exams
+            in-house to test understanding, application, problem-solving and critical thinking, not memorisation. This keeps
+            our merit and educational quality consistent all year.
           </p>
         </article>
       </div>
@@ -137,31 +135,25 @@ const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100
   </section>
 
   <section aria-labelledby="facilities" class="band-dark bg-navy text-white">
-    <div class="container-site flex flex-col gap-10 py-14 md:py-22">
-      <SectionHeading id="facilities" eyebrow="On campus" title="Facilities and timings" tone="dark" />
-      <ul class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
-        {
-          facilities.map((facility) => (
-            <li class="flex items-center gap-4 rounded-card bg-white/5 p-5">
-              <span class:list={['flex size-12 shrink-0 items-center justify-center rounded-icon', facility.colour]}>
-                <Icon name={facility.icon} />
-              </span>
-              <span class="font-bold">{facility.name}</span>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="flex items-center gap-3 text-lg text-on-navy">
-        <Icon name="clock" class="text-cyan" />
-        <span><strong class="text-white">School timings:</strong> Monday to Saturday, 8:00 am to 1:45 pm.</span>
-      </p>
+    <div class="container-site flex flex-wrap items-center gap-12 py-14 md:py-22">
+      <div class="flex flex-[1_1_440px] flex-col gap-8">
+        <SectionHeading id="facilities" eyebrow="On campus" title="Facilities" tone="dark" />
+        <ul class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
+          {
+            facilities.map((facility) => (
+              <li class="flex items-center gap-4 rounded-card bg-white/5 p-5">
+                <span class:list={['flex size-12 shrink-0 items-center justify-center rounded-icon', facility.colour]}>
+                  <Icon name={facility.icon} />
+                </span>
+                <span class="font-bold">{facility.name}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <PhotoFrame label="[Photo: science lab]" border="cyan" tilt="-rotate-2" class="aspect-[4/3] flex-[1_1_340px]" />
     </div>
   </section>
 
-  <CTABand
-    title="Ready to apply?"
-    text="Admission is open to all. No admission fee for the first 10 students."
-    primary={{ label: 'Apply for admission', href: '/admissions' }}
-    secondary={{ label: 'Contact us', href: '/contact' }}
-  />
+  <CTABand />
 </SiteLayout>

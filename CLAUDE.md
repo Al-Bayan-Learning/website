@@ -58,8 +58,11 @@ npm run build      # production build → dist/ (dist/client assets + dist/serve
 npm run preview    # serve the built Worker + assets locally (via the adapter)
 ```
 
-There is no unit-test suite yet. "Testing" a change means: it builds cleanly
-(`npm run build`) and looks correct in `npm run dev` / `npm run preview`.
+"Testing" a change means: it builds cleanly (`npm run build`), looks correct
+in `npm run dev` / `npm run preview` at 390px and 1280px, and `npm test`
+passes. `npm test` runs Playwright against the built site: it taps every
+mobile-menu link on an iPhone profile in WebKit and an Android profile in
+Chromium (`npx playwright install webkit chromium` once, then build first).
 
 The build output is split by the Cloudflare adapter:
 

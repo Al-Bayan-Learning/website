@@ -5,7 +5,7 @@
  * with Esc.
  */
 import site from '../data/site.json';
-import { mainNav, getInvolved, isCurrent } from '../data/navigation';
+import { mainNav, headerCta, isCurrent } from '../data/navigation';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 
@@ -18,7 +18,8 @@ const path = Astro.url.pathname;
       <img src="/images/albayan-logo.png" alt="" width="51" height="58" class="block h-[58px] w-auto" />
       <span class="text-[15px] leading-tight font-bold text-navy">
         <span class="sr-only">{site.name}, home</span>
-        <span aria-hidden="true">Al-Bayan Learning<br />Initiative</span>
+        <!-- One line on desktop; it wraps onto two lines on smaller screens. -->
+        <span aria-hidden="true">Al-Bayan Learning<br class="xl:hidden" /><span class="hidden xl:inline"> </span>Initiative</span>
       </span>
     </a>
 
@@ -42,9 +43,13 @@ const path = Astro.url.pathname;
           );
         })
       }
-      <Button href={getInvolved.href} variant="dark" size="sm" aria-current={isCurrent(path, getInvolved.href) ? 'page' : undefined}>
-        {getInvolved.label}
-      </Button>
+      {
+        headerCta && (
+          <Button href={headerCta.href} variant="gold" size="sm" aria-current={isCurrent(path, headerCta.href) ? 'page' : undefined}>
+            {headerCta.label}
+          </Button>
+        )
+      }
     </nav>
 
     <button
@@ -79,9 +84,13 @@ const path = Astro.url.pathname;
           );
         })
       }
-      <Button href={getInvolved.href} variant="gold" class="mt-4 self-start">
-        {getInvolved.label}
-      </Button>
+      {
+        headerCta && (
+          <Button href={headerCta.href} variant="gold" class="mt-4 self-start">
+            {headerCta.label}
+          </Button>
+        )
+      }
     </nav>
   </div>
 </header>
@@ -110,8 +119,13 @@ const path = Astro.url.pathname;
     document.addEventListener('click', (event) => {
       if (!panel.hidden && !header.contains(event.target as Node)) setOpen(false);
     });
+    // Only close when focus moves to something else (keyboard Tab). Safari
+    // doesn't focus a link when it's tapped, so a tap blurs to nothing
+    // (relatedTarget is null); closing then would hide the link before it
+    // could navigate. Taps outside are handled by the click listener above.
     header.addEventListener('focusout', (event) => {
-      if (!panel.hidden && !header.contains(event.relatedTarget as Node | null)) setOpen(false);
+      const next = event.relatedTarget as Node | null;
+      if (!panel.hidden && next && !header.contains(next)) setOpen(false);
     });
     matchMedia('(min-width: 56.25rem)').addEventListener('change', (event) => {
       if (event.matches) setOpen(false);

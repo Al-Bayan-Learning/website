@@ -3,7 +3,7 @@
 import site from '../data/site.json';
 import BrandIcon, { type BrandName } from './BrandIcon.astro';
 import { footerNav } from '../data/navigation';
-import { phones, telHref, whatsappHref } from '../lib/contact';
+import PhoneLinks from './PhoneLinks.astro';
 
 const { contact, socials } = site;
 // Footer links are 36px tall (not the usual 44px) to keep the footer compact.
@@ -27,19 +27,7 @@ const link = 'inline-flex min-h-9 items-center text-on-navy hover:text-white';
     <div class="flex flex-col">
       <h2 class="mb-1 font-bold text-gold">Contact</h2>
       <a href={`mailto:${contact.email}`} class={link}>{contact.email}</a>
-      <ul class="flex flex-col">
-        {
-          phones.map((phone) => (
-            <li>
-              <a href={phone.whatsapp ? whatsappHref(phone) : telHref(phone)} class={`${link} gap-2`}>
-                {phone.whatsapp && <BrandIcon name="whatsapp" size={16} />}
-                {phone.whatsapp && <span class="sr-only">WhatsApp </span>}
-                {phone.display}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <PhoneLinks linkClass="min-h-9 text-on-navy hover:text-white" />
       <p class="py-1.5">{contact.address}</p>
       <ul class="-ms-[7px] flex flex-wrap gap-x-1" aria-label="Social media">
         {

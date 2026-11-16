@@ -1,0 +1,196 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Button from '../components/Button.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import Field from '../components/forms/Field.astro';
+import FormCard from '../components/forms/FormCard.astro';
+import { photos } from '../data/photos';
+import site from '../data/site.json';
+
+// Text: docs/feedback-round-1.md (9a) and docs/content.md (Volunteer).
+const { contact } = site;
+
+const ways: {
+  id: string;
+  option: string;
+  icon: IconName;
+  square: string;
+  title: string;
+  where: string;
+  time: string;
+  text: string;
+}[] = [
+  {
+    id: 'saturday',
+    option: 'Become a Saturday Scholar',
+    icon: 'users',
+    square: 'bg-gold text-navy',
+    title: 'Become a Saturday Scholar',
+    where: 'In person, on campus',
+    time: 'One hour on Saturdays, at least three Saturdays',
+    text: 'Teach a skill or topic you care about: the SDGs, debates, drama, critical thinking, karate or anything else.',
+  },
+  {
+    id: 'education',
+    option: 'Education team volunteer',
+    icon: 'cap',
+    square: 'bg-cyan text-navy',
+    title: 'Education team volunteer',
+    where: 'Remote',
+    time: '[Time commitment, to come]',
+    text: '[Short description, to come from the education team]',
+  },
+  {
+    id: 'expert',
+    option: 'Subject expert',
+    icon: 'chat',
+    square: 'bg-green text-navy',
+    title: 'Subject expert',
+    where: 'Remote',
+    time: 'The smallest time commitment',
+    text: 'Help teachers of one subject think through how to teach it, like our subject meetings. [Confirm the wording]',
+  },
+];
+---
+
+<SiteLayout title="Volunteer" description="Volunteer with Al-Bayan: teach a Saturday session on campus, or support our education team and teachers remotely.">
+  <PageHero
+    eyebrow="Volunteer"
+    title="Volunteer with us"
+    intro="Share your time and skills with our students and teachers, in person or remotely."
+    breadcrumbs={[{ label: 'Volunteer' }]}
+    photoLabel="[Photo: volunteers at Saturday Scholars]"
+    photo={photos.saturdayScholarsPresentation}
+  />
+
+  <section aria-labelledby="ways" class="container-site flex flex-col gap-9 py-14 md:py-22">
+    <SectionHeading id="ways" eyebrow="Ways to volunteer" title="Pick what suits you" />
+    <ul class="grid gap-6 md:grid-cols-3">
+      {
+        ways.map((way) => (
+          <li class="flex flex-col gap-4 rounded-card border border-border bg-white p-7">
+            <span class:list={['flex size-14 items-center justify-center rounded-icon', way.square]}>
+              <Icon name={way.icon} size={28} />
+            </span>
+            <h3 class="text-[22px] leading-snug font-bold">{way.title}</h3>
+            <dl class="flex flex-col gap-1.5 text-[15px]">
+              <div class="flex items-start gap-2">
+                <dt><Icon name="pin" size={20} class="mt-0.5 text-purple" /><span class="sr-only">Where</span></dt>
+                <dd class="font-semibold">{way.where}</dd>
+              </div>
+              <div class="flex items-start gap-2">
+                <dt><Icon name="clock" size={20} class="mt-0.5 text-purple" /><span class="sr-only">Time</span></dt>
+                <dd class="font-semibold">{way.time}</dd>
+              </div>
+            </dl>
+            <p class="text-ink-2">{way.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="sign-up" aria-label="Volunteer sign-up" class="bg-surface">
+    <div class="container-site grid items-start gap-10 py-14 lg:grid-cols-[1fr_1.4fr] md:py-22">
+      <div class="flex flex-col gap-5">
+        <SectionHeading eyebrow="Sign up" title="Tell us how you'd like to help" />
+        <p class="text-ink-2">One form for all three. We'll get back to you about next steps.</p>
+        <PhotoFrame
+          label="[Photo: volunteers at Saturday Scholars]"
+          photo={photos.saturdayScholarsDentalHygiene}
+          border="gold"
+          tilt="-rotate-1"
+          sizes="(min-width: 1024px) 440px, calc(100vw - 48px)"
+          maxWidth={960}
+          class="aspect-[4/3] w-full"
+        />
+        <p class="text-ink-2">
+          Questions? Email <a href={`mailto:${contact.educationEmail}`} class="font-semibold">{contact.educationEmail}</a>
+        </p>
+      </div>
+      <FormCard id="volunteer-form" title="Volunteer sign-up" submitLabel="Send" email={null}>
+        <Field form="volunteer-form" name="name" label="Name" required autocomplete="name" />
+        <div class="grid gap-5 sm:grid-cols-2">
+          <Field form="volunteer-form" name="email" label="Email" type="email" required autocomplete="email" error="Please enter an email address, like name@example.com." />
+          <Field form="volunteer-form" name="phone" label="Phone" type="tel" required autocomplete="tel" error="Please enter a phone number we can call." />
+        </div>
+        <Field
+          form="volunteer-form"
+          name="role"
+          label="Which would you like to do?"
+          type="select"
+          required
+          options={ways.map((way) => way.option)}
+          error="Please choose one."
+          data-volunteer-choice
+        />
+
+        <fieldset data-volunteer-option="Become a Saturday Scholar" class="flex flex-col gap-5 rounded-input border-[1.5px] border-border p-5">
+          <legend class="px-1 font-bold">Become a Saturday Scholar <span class="font-normal text-muted">[draft questions]</span></legend>
+          <Field form="volunteer-form" name="teach" label="What would you like to teach?" type="textarea" rows="3" required error="Please tell us what you'd like to teach." />
+          <Field form="volunteer-form" name="saturdays" label="Which Saturdays can you do?" required hint="Sessions are one hour; we ask for at least three Saturdays." error="Please tell us which Saturdays you can do." />
+        </fieldset>
+
+        <fieldset data-volunteer-option="Education team volunteer" class="flex flex-col gap-5 rounded-input border-[1.5px] border-border p-5">
+          <legend class="px-1 font-bold">Education team volunteer <span class="font-normal text-muted">[draft questions]</span></legend>
+          <Field form="volunteer-form" name="background" label="Your background" type="textarea" rows="3" required error="Please tell us a little about your background." />
+          <Field form="volunteer-form" name="hours" label="How many hours a week can you give?" required error="Please tell us how many hours a week you can give." />
+        </fieldset>
+
+        <fieldset data-volunteer-option="Subject expert" class="flex flex-col gap-5 rounded-input border-[1.5px] border-border p-5">
+          <legend class="px-1 font-bold">Subject expert <span class="font-normal text-muted">[draft questions]</span></legend>
+          <Field form="volunteer-form" name="subject" label="Your subject" required error="Please tell us your subject." />
+          <Field form="volunteer-form" name="experience" label="Your experience" type="textarea" rows="3" required error="Please tell us about your experience." />
+          <Field form="volunteer-form" name="meetings" label="How often could you join a meeting?" required error="Please tell us how often you could join a meeting." />
+        </fieldset>
+      </FormCard>
+    </div>
+  </section>
+
+  <section aria-labelledby="collaborate" class="bg-green">
+    <div class="container-site flex flex-wrap items-center gap-12 py-14 md:py-20">
+      <div class="flex flex-[1_1_440px] flex-col gap-5">
+        <SectionHeading id="collaborate" eyebrow="Non-profits, universities and schools" title="Collaborate with us" tone="on-colour" />
+        <p class="text-lg">
+          Collaborations are a big part of how we work, from debates and summer camps to teacher training and health camps.
+        </p>
+        <a href="/about#partners" class="inline-flex min-h-11 items-center self-start font-bold text-navy hover:text-navy">See who we've worked with</a>
+      </div>
+      <div class="flex flex-[1_1_380px] flex-col gap-5 rounded-card bg-white p-7">
+        <h3 class="text-xl font-bold">To pitch an idea, send us:</h3>
+        <ul class="flex flex-col gap-3">
+          <li class="flex gap-3 text-ink-2"><Icon name="check" size={22} class="mt-0.5 shrink-0 text-purple" />A short introduction to your organisation</li>
+          <li class="flex gap-3 text-ink-2"><Icon name="check" size={22} class="mt-0.5 shrink-0 text-purple" />A proposal for the idea you'd like to pitch</li>
+        </ul>
+        <Button href={`mailto:${contact.educationEmail}?subject=${encodeURIComponent('Collaboration proposal')}`} class="self-start">
+          Email {contact.educationEmail}
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</SiteLayout>
+
+<script>
+  // Show only the follow-up questions for the chosen option. Without
+  // JavaScript every group stays visible. Hidden groups are disabled, so
+  // their required fields don't block the form.
+  const choice = document.querySelector<HTMLSelectElement>('[data-volunteer-choice]');
+  const groups = [...document.querySelectorAll<HTMLFieldSetElement>('[data-volunteer-option]')];
+  if (choice) {
+    const update = () => {
+      for (const group of groups) {
+        const active = group.dataset.volunteerOption === choice.value;
+        group.hidden = !active;
+        group.disabled = !active;
+      }
+    };
+    choice.addEventListener('change', update);
+    update();
+  }
+</script>

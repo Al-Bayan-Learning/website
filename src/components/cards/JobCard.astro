@@ -1,6 +1,10 @@
 ---
-/** Job opening card. Applications go by email to careersEmail in site.json. */
-import type { CollectionEntry } from 'astro:content';
+/**
+ * Job opening card: the full job description (the entry's Markdown body),
+ * requirements and how to apply. Applications go by email to careersEmail in
+ * site.json.
+ */
+import { render, type CollectionEntry } from 'astro:content';
 import site from '../../data/site.json';
 import { formatDate, dateTime } from '../../lib/content';
 import Button from '../Button.astro';
@@ -17,12 +21,14 @@ const types = {
   'part-time': { label: 'Part-time', colour: 'gold' },
   volunteer: { label: 'Volunteer', colour: 'green' },
 } as const;
+const { Content } = await render(entry);
 const mailto = `mailto:${site.contact.careersEmail}?subject=${encodeURIComponent(`Application: ${title}`)}`;
 ---
 
 <article class="flex flex-col gap-4 rounded-card bg-white p-7 text-navy">
   <Tag colour={types[type].colour}>{types[type].label}</Tag>
   <h3 class="text-[22px] leading-snug font-bold">{title}</h3>
+  <div class="prose-article text-ink-2"><Content /></div>
   <div>
     <h4 class="font-semibold">Requirements</h4>
     <ul class="list-disc ps-5 text-ink-2">

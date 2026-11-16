@@ -1,6 +1,7 @@
 ---
 /** Navy→purple closing band with two buttons (design system → CTABand). */
 import Button from './Button.astro';
+import { donateCta, volunteerCta } from '../data/navigation';
 
 interface Props {
   title?: string;
@@ -11,9 +12,9 @@ interface Props {
 
 const {
   title = 'Help us reach more children',
-  text = 'Volunteer your time, join our team, or support the school.',
-  primary = { label: 'Volunteer', href: '/get-involved#volunteer' },
-  secondary = { label: 'Careers', href: '/get-involved#jobs' },
+  text = 'Your donation, Zakat or time helps more children get a quality education.',
+  primary = donateCta,
+  secondary = volunteerCta,
 } = Astro.props;
 
 // Soft shadow and a small lift on hover so the buttons stand out from the band.
