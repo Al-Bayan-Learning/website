@@ -9,7 +9,7 @@ items:
   - "Pollution Awareness Day"
   - "National Clean Up Day"
   - "Health and hygiene"
-  - "Careers"
+  - "Career Day"
 colour: cyan
 order: 4
 ---
