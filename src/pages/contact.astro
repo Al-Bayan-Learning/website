@@ -8,6 +8,7 @@ import MapCard from '../components/blocks/MapCard.astro';
 import Field from '../components/forms/Field.astro';
 import FormCard from '../components/forms/FormCard.astro';
 import site from '../data/site.json';
+import { educationWhatsapp } from '../lib/contact';
 
 const { contact, socials } = site;
 ---
@@ -16,9 +17,10 @@ const { contact, socials } = site;
   <PageHero
     eyebrow="Contact"
     title="Get in touch"
-    intro="Questions about admissions, volunteering or anything else? Email, call, WhatsApp or send us a message."
+    intro="Want to donate, volunteer or work with us? Email, call or WhatsApp us."
     breadcrumbs={[{ label: 'Contact' }]}
     waveFill="fill-surface"
+    photoLabel="[Photo: contact page hero, ideally happy children]"
   />
 
   <section aria-label="Contact details and form" class="bg-surface">
@@ -29,8 +31,18 @@ const { contact, socials } = site;
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </InfoCard>
         <InfoCard icon="phone" colour="gold" title="Phone and WhatsApp">
-          <PhoneLinks international />
+          <PhoneLinks />
         </InfoCard>
+        <section aria-labelledby="education-team" class="flex flex-col gap-4 rounded-card border-2 border-purple/20 bg-white p-5">
+          <h2 id="education-team" class="text-xl font-extrabold text-navy">Education team and collaborations</h2>
+          <InfoCard icon="mail" colour="cyan" title="Email" flat>
+            <a href={`mailto:${contact.educationEmail}`}>{contact.educationEmail}</a>
+          </InfoCard>
+          <InfoCard icon="chat" colour="green" title="WhatsApp only" flat>
+            <p class="text-sm text-muted">Messages only, no calls.</p>
+            <PhoneLinks phones={educationWhatsapp} whatsappOnly />
+          </InfoCard>
+        </section>
         <InfoCard icon="pin" colour="green" title="Campus">
           {contact.address}
         </InfoCard>
@@ -55,7 +67,7 @@ const { contact, socials } = site;
           <Field form="contact-form" name="email" label="Email" type="email" required autocomplete="email" error="Please enter an email address, like name@example.com." />
           <Field form="contact-form" name="phone" label="Phone" type="tel" autocomplete="tel" />
         </div>
-        <Field form="contact-form" name="topic" label="Topic" type="select" required options={['Admissions', 'Volunteering', 'Careers', 'Supporting the school', 'Something else']} error="Please choose a topic." />
+        <Field form="contact-form" name="topic" label="Topic" type="select" required options={['Supporting the school', 'Volunteering', 'Collaborating', 'Careers', 'Admissions', 'Something else']} error="Please choose a topic." />
         <Field form="contact-form" name="message" label="Message" type="textarea" required error="Please write a message." />
       </FormCard>
     </div>

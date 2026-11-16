@@ -1,8 +1,12 @@
 import site from '../data/site.json';
 
-export type Phone = (typeof site.contact.phones)[number];
+/** A number as stored in site.json: `display` for people, `tel` in +92 form. */
+export type Phone = { display: string; tel: string; whatsapp?: boolean };
 
-export const phones = site.contact.phones;
+export const phones: Phone[] = site.contact.phones;
+
+/** The education team's numbers: WhatsApp only, no calls. */
+export const educationWhatsapp: Phone[] = site.contact.educationWhatsapp;
 
 export const telHref = (phone: Phone) => `tel:${phone.tel}`;
 

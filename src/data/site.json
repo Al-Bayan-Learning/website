@@ -16,18 +16,32 @@
   "contact": {
     "email": "info@albayanlearning.pk",
     "careersEmail": "careers@albayanlearning.pk",
+    "educationEmail": "education@albayanlearning.pk",
     "phones": [
       {
         "display": "0325 1257747",
-        "international": "+92 325 1257747",
         "tel": "+923251257747",
         "whatsapp": true
       },
       {
         "display": "0331 4422437",
-        "international": "+92 331 4422437",
         "tel": "+923314422437",
         "whatsapp": true
+      },
+      {
+        "display": "0333 1440976",
+        "tel": "+923331440976",
+        "whatsapp": true
+      }
+    ],
+    "educationWhatsapp": [
+      {
+        "display": "0333 1440976",
+        "tel": "+923331440976"
+      },
+      {
+        "display": "0344 4055253",
+        "tel": "+923444055253"
       }
     ],
     "address": "Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore",
