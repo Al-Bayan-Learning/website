@@ -18,7 +18,8 @@ const path = Astro.url.pathname;
       <img src="/images/albayan-logo.png" alt="" width="51" height="58" class="block h-[58px] w-auto" />
       <span class="text-[15px] leading-tight font-bold text-navy">
         <span class="sr-only">{site.name}, home</span>
-        <span aria-hidden="true">Al-Bayan Learning<br />Initiative</span>
+        <!-- One line on desktop; it wraps onto two lines on smaller screens. -->
+        <span aria-hidden="true">Al-Bayan Learning<br class="xl:hidden" /><span class="hidden xl:inline"> </span>Initiative</span>
       </span>
     </a>
 
@@ -42,9 +43,13 @@ const path = Astro.url.pathname;
           );
         })
       }
-      <Button href={headerCta.href} variant="dark" size="sm" aria-current={isCurrent(path, headerCta.href) ? 'page' : undefined}>
-        {headerCta.label}
-      </Button>
+      {
+        headerCta && (
+          <Button href={headerCta.href} variant="gold" size="sm" aria-current={isCurrent(path, headerCta.href) ? 'page' : undefined}>
+            {headerCta.label}
+          </Button>
+        )
+      }
     </nav>
 
     <button
@@ -79,9 +84,13 @@ const path = Astro.url.pathname;
           );
         })
       }
-      <Button href={headerCta.href} variant="gold" class="mt-4 self-start">
-        {headerCta.label}
-      </Button>
+      {
+        headerCta && (
+          <Button href={headerCta.href} variant="gold" class="mt-4 self-start">
+            {headerCta.label}
+          </Button>
+        )
+      }
     </nav>
   </div>
 </header>

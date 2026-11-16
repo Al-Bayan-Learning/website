@@ -1,16 +1,28 @@
-/** Main navigation (design system → Header). "Get involved" is the header pill. */
+import { showDonate, showNews } from '../lib/launch';
+
+/** Main navigation (design system → Header). The header pill is `headerCta`. */
 export const mainNav = [
   { label: 'About', href: '/about' },
   { label: 'Academics', href: '/academics' },
-  { label: 'Admissions', href: '/admissions' },
   { label: 'Co-curricular', href: '/co-curricular' },
-  { label: 'News', href: '/news' },
+  { label: 'Volunteer', href: '/volunteer' },
+  { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' },
 ];
 
-export const headerCta = { label: 'Get involved', href: '/get-involved' };
+/** Gold "Donate" pill in the header; hidden where /donate isn't shown yet. */
+export const headerCta = showDonate() ? { label: 'Donate', href: '/donate' } : undefined;
 
-export const footerNav = [...mainNav.slice(0, 5), headerCta, mainNav[5]];
+/** The two calls to action used on the homepage hero and every CTA band. */
+export const donateCta = showDonate() ? { label: 'Donate now', href: '/donate' } : { label: 'Contact us', href: '/contact' };
+export const volunteerCta = { label: 'Volunteer with us', href: '/volunteer' };
+
+export const footerNav = [
+  ...mainNav.slice(0, 5),
+  ...(showNews() ? [{ label: 'News', href: '/news' }] : []),
+  ...(headerCta ? [headerCta] : []),
+  mainNav[5],
+];
 
 /** True when `href` is the current section (so /news/some-story marks News). */
 export function isCurrent(pathname: string, href: string): boolean {

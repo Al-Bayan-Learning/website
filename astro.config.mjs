@@ -31,6 +31,12 @@ export default defineConfig({
   // namespace and add it to wrangler.jsonc, then remove this line.
   session: false,
   integrations: [sitemap()],
+  // Pages removed in feedback round 1 (docs/feedback-round-1.md), kept as
+  // redirects so old links still land somewhere useful.
+  redirects: {
+    '/admissions': '/',
+    '/get-involved': '/volunteer',
+  },
   vite: {
     plugins: [tailwindcss()],
     define: {

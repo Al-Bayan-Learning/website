@@ -11,6 +11,9 @@
   },
   "url": "https://albayanlearning.pk",
   "launchMode": "coming-soon",
+  "_featuresNote": "showNews: build /news and show it in the nav, footer and homepage. showDonate: show /donate and the Donate buttons on the production site too (they always show on previews).",
+  "showNews": false,
+  "showDonate": false,
   "foundedYear": "2019",
   "registrationNo": "",
   "contact": {
@@ -74,10 +77,11 @@
     }
   ],
   "announcement": {
-    "enabled": true,
-    "text": "No admission fee for the first 10 students",
-    "linkText": "Find out more",
-    "href": "/admissions"
+    "enabled": false,
+    "text": "[Announcement text]",
+    "linkText": "[Link text]",
+    "href": "/donate",
+    "_note": "Off for now: the admission-fee offer was aimed at parents. Switch it back on with new text, for example for a donation campaign."
   },
   "stats": [
     {
