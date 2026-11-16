@@ -2,8 +2,8 @@
   "name": "Al-Bayan Learning Initiative",
   "legalName": "Al-Bayan Learning Initiative Foundation",
   "shortName": "Al-Bayan",
-  "description": "Al-Bayan Learning Initiative is a not-for-profit school in Lahore, run by alumni of LUMS and supported by co-founders and donors who believe quality education should not be a privilege.",
-  "footerAbout": "A not-for-profit school in Lahore, run by alumni of LUMS.",
+  "description": "Al-Bayan Learning Initiative is a not-for-profit school in Lahore, founded and run by alumni of LUMS and supported by co-founders and donors who believe quality education should not be a privilege.",
+  "footerAbout": "A not-for-profit school in Lahore, founded and run by alumni of LUMS.",
   "comingSoon": {
     "_note": "The live coming-soon page keeps its launch text unchanged until the full site goes live.",
     "heading": "Al-Bayan Learning Initiative Foundation",
@@ -73,7 +73,7 @@
     },
     {
       "value": "50%",
-      "label": "tuition scholarship for every student",
+      "label": "fee reduction for every student",
       "colour": "gold"
     },
     {
