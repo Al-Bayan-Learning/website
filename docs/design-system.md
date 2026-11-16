@@ -12,8 +12,8 @@ Approved direction: **bold colour**. The homepage reference is `design/home-refe
 | cyan | #05C5DA | Stat tile, tags, borders, headings **on navy only**. Never text on white (2.1:1) |
 | cyan-light | #9BEAF2 | Highlight text on purple or navy (4.7:1 on purple) |
 | blue-mid | #3F8FB8 | Big decorative circle on the purple hero (opacity 0.55) |
-| navy | #242038 | Body text, footer, dark sections, "Get involved" header pill |
-| gold | #FCC05E | Announcement strip, testimonial band, tags, CTA button (navy text) |
+| navy | #242038 | Body text, footer, dark sections |
+| gold | #FCC05E | Announcement strip, testimonial band, tags, CTA button and the header "Donate" pill (navy text) |
 | green | #C2D6A0 | Programs band, tags, stat tile (navy text) |
 | surface | #F6F5FB | Light card / section background |
 | placeholder | #E6F9FB | Image placeholder fill |
@@ -53,13 +53,14 @@ Approved direction: **bold colour**. The homepage reference is `design/home-refe
 ## Shared components (build once, use everywhere)
 
 1. **AnnouncementStrip**: gold, navy text, 14px/600, centred. The text and link come from `site.json`. It can be switched off there.
-2. **Header**: white background with the logo (58px tall) and "Al-Bayan Learning / Initiative" (700, 15px, two lines).
-   - Nav: About, Academics, Admissions, Co-curricular, News, Contact, plus a navy "Get involved" pill.
+2. **Header**: white background with the logo (58px tall) and "Al-Bayan Learning Initiative" (700, 15px), on one line on wide screens and two lines below that.
+   - Nav: About, Academics, Co-curricular, Volunteer, Careers, Contact, plus a gold "Donate" pill (navy text).
    - The current page gets a 3px cyan underline and purple text.
-   - **Mobile (< 900px):** a hamburger button (44×44, `aria-expanded`). It opens a full-width navy panel with large white links and a gold "Get involved" pill. Close it with Esc.
+   - **Mobile (< 900px):** a hamburger button (44×44, `aria-expanded`). It opens a full-width navy panel with large white links and a gold "Donate" pill. Close it with Esc, a tap outside, or Tab out of it. Every link must work on iPhone Safari (`npm test`).
 3. **PageHero** (all inner pages): a purple band with decorative circles and the wave at the bottom.
    - Content: breadcrumb (`#E6E1F5`, 14px), Bebas eyebrow in cyan-light, h1 in white at weight 800, and an intro in on-purple with max-width 640px.
-   - It's shorter than the homepage hero: padding about 64px top, 110px bottom. There's no photo, or an optional small tilted photo on the right.
+   - It's shorter than the homepage hero: padding about 64px top, 110px bottom.
+   - Content pages open with a visual: a tilted photo on the right (white border, offset navy block behind), or a [Photo: …] placeholder until the photo arrives. It stacks under the text on phones.
 4. **SectionHeading**: Bebas eyebrow plus an h2 at weight 800. Optionally a right-aligned "All …" link.
 5. **Button**: pill, min-height 52px (44px in the header), weight 700. Variants:
    - `primary` (purple bg, white text);
@@ -74,9 +75,9 @@ Approved direction: **bold colour**. The homepage reference is `design/home-refe
    - job card.
 7. **Tag**: a pill coloured by category. Events = gold, School news = cyan, Student stories = green, Announcement = purple with white text. Text is navy unless the background is purple.
 8. **StatTile**: cyan, gold, green or navy tiles with a Bebas number and a 600 label.
-9. **CTABand**: navy→purple gradient (100deg) with cyan and gold circles, an h2, a line of text and two buttons (gold + white).
+9. **CTABand**: purple→navy gradient (100deg) with cyan and gold circles kept clear of the buttons, an h2, a line of donor-focused text and two buttons with a soft shadow (gold "Donate now" + white "Volunteer with us").
 10. **Footer**: navy, three columns.
-    - Columns: the Bebas wordmark (second line in cyan) with a one-line about; Explore links; Contact (email, phone, address, socials).
+    - Columns: the Bebas wordmark (second line in cyan) with a one-line about; Explore links (the main nav plus Donate); Contact (email, phones as WhatsApp icon + number, address, social icons).
     - Column headings are gold.
     - The bottom bar has the © line (legal name: Al-Bayan Learning Initiative Foundation), the registration number (hidden while it's empty) and a Privacy link.
 11. **Placeholder**: a block with the placeholder fill and centred navy text in [square brackets]. Use it for every image that isn't real yet.
@@ -87,7 +88,7 @@ Pages alternate full-bleed bands so they never feel all-white: white, then a col
 
 ## Page patterns
 
-**Content page** (About, Academics, Admissions, Co-curricular, Get involved, Privacy)
+**Content page** (About, Academics, Co-curricular, Volunteer, Careers, Donate, Privacy)
 - PageHero, then sections built from these blocks:
   - text and photo split;
   - a two-card pair (purple card with white text and a cyan-light eyebrow, next to a cyan card with navy text). Use it for vision and mission.
@@ -116,7 +117,7 @@ Pages alternate full-bleed bands so they never feel all-white: white, then a col
 - Images get radius 24px and a caption. Blockquotes have a 4px gold left border.
 - After the article: a "Back to news" link, then "More stories" (3 cards).
 
-**Contact and forms** (Contact, Admissions enquiry, Volunteer)
+**Contact and forms** (Contact, Volunteer sign-up)
 - PageHero.
 - Two columns on desktop, stacked on mobile.
   - Left: info cards, each with a coloured icon square (email = cyan, phone = gold, campus = green, socials = purple), plus a map placeholder.

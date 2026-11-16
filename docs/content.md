@@ -1,6 +1,8 @@
 # Al-Bayan website: approved content (Phase 1)
 
-This file holds the real text for the site, from the team's answers (October 2026). Use it in place of the [bracket] placeholders. Where something still says [brackets] here, it's not decided yet and stays a placeholder.
+This file holds the real text for the site, from the team's answers (October 2026), updated with the team's review of the preview (feedback round 1, November 2026: `docs/feedback-round-1.md`). Use it in place of the [bracket] placeholders. Where something still says [brackets] here, it's not decided yet and stays a placeholder.
+
+**Audience:** the site is mainly for **donors**, then volunteers, partners (non-profits, universities, schools) and job seekers. Parents can visit, but they aren't who the site is for. Write headings, intros and buttons from a donor's point of view (impact, trust, transparency), and keep text short: 1–3 short sentences per section, or chips and short lists. The About page can be a little longer. Every page opens with a visual.
 
 Keep the wording close to what's here. You can shorten text to fit a layout, but don't add facts, numbers, names or quotes that aren't in this file.
 
@@ -9,7 +11,8 @@ Keep the wording close to what's here. You can shorten text to fit a layout, but
 - **Name on the website:** Al-Bayan Learning Initiative. Short name: Al-Bayan.
 - **Legal name:** Al-Bayan Learning Initiative Foundation. Use it only in the © line in the footer and in the privacy page.
 - Never mention the old name ("Al-Bayan School System").
-- Header wordmark, two lines: "Al-Bayan Learning / Initiative".
+- Header wordmark: "Al-Bayan Learning Initiative" on one line on wide screens; it wraps onto two lines on smaller screens.
+- Always "Founded and run by alumni of LUMS" (the co-founders are alumni too), never just "Run by alumni of LUMS".
 
 ## Key facts and numbers
 
@@ -23,38 +26,42 @@ Use these on the homepage stats and wherever numbers appear. Don't use any other
 | Grades | Playgroup to Matric, adding a new grade each year |
 | Board | Punjab Curriculum and Textbook Board (PCTB) |
 | Campus | 1.5-kanal purpose-built campus in Gohawa, Lahore |
-| Scholarship | Every student has received a 50% scholarship on tuition fees since 2019 |
+| Fee reduction | Every student has received a 50% fee reduction since 2019. Never call it a scholarship: Al-Bayan's merit scholarships are a separate thing. |
 | Zakat support | About 20% of students receive Zakat-based financial assistance |
 | Merit | The top 3–5% of students receive additional merit scholarships |
 | Graduates | None yet. Don't mention graduates or alumni of the school. |
 
-Suggested homepage stat tiles: "300+ students", "Since 2019", "50% scholarship for every student", "PG to Matric".
+Suggested homepage stat tiles: "300+ students", "Since 2019", "50% fee reduction for every student", "PG to Matric".
 
 ## Homepage text
 
 `design/home-reference.html` sets the layout. Use these words in it:
 
-- **Announcement strip:** "No admission fee for the first 10 students" · link "Find out more" → /admissions
-- **Hero intro:** "Run by alumni of LUMS, Al-Bayan teaches children from Playgroup to Matric in Gohawa, Lahore, with learning that goes beyond the book and tarbiyat at its heart."
+- **Announcement strip:** off (`announcement.enabled: false` in `site.json`). The old admission-fee offer was aimed at parents. Keep the component so it can come back, for example for a donation campaign: [Announcement text].
+- **Hero intro:** "Founded and run by alumni of LUMS, Al-Bayan teaches children from Playgroup to Matric in Gohawa, Lahore, with learning that goes beyond the book and tarbiyat at its heart."
+- **Hero buttons:** "Donate now" (→ /donate) and "Volunteer with us" (→ /volunteer).
 - **"Since" sticker:** Since 2019
 - **Stat tiles:**
 
   | Tile | Number | Label |
   | --- | --- | --- |
   | cyan | 300+ | students learning with us |
-  | gold | 50% | tuition scholarship for every student |
+  | gold | 50% | fee reduction for every student |
   | green | 20% | of students supported through Zakat |
   | navy | PG–MATRIC | on one campus, growing each year |
 
-- **Programs band:** heading "From first letters to Matric", with four cards from `programs` (Preschool, Primary, Middle, Secondary). The reference has three cards; make it four.
+- **Programs band:** heading "From first letters to Matric", with four cards from `programs` (Preschool, Primary, Middle, Matric). The reference has three cards; make it four.
 - **Co-curricular band:** keep the heading "Debate. Create. Compete." Show three cards: Competitions (cyan), Saturday Scholars (gold) and Summer Camp (green), each with one line from the Co-curricular section below. Photos stay placeholders.
-- **News:** stays a placeholder.
-- **Testimonial (26 Oct 2026):** a parent's quote, shown as "Muneer H., parent" (first name and initial only; the child isn't named). The full quote is in `src/content/testimonials/parent.md`.
+- **News:** removed from the homepage (News is hidden for launch; see News below).
+- **Testimonial (26 Oct 2026):** a parent's quote, shown as "Muneer H., parent" (first name and initial only; the child isn't named). The full quote is in `src/content/testimonials/parent.md`. It will be replaced by a 1–2 line quote in Roman Urdu: [Parent quote in Roman Urdu, to come]; keep the current quote until it arrives. Next to the quote: [Photo: parent who agreed to be shown].
+- **CTA band (every page):** "Help us reach more children" · "Your donation, Zakat or time helps more children get a quality education." · buttons "Donate now" and "Volunteer with us".
 
 ## About
 
 **Short about (homepage and footer)**
-Al-Bayan Learning Initiative is a not-for-profit school in Lahore, run by alumni of LUMS and supported by co-founders and donors who believe quality education should not be a privilege.
+Al-Bayan Learning Initiative is a not-for-profit school in Lahore, founded and run by alumni of LUMS and supported by co-founders and donors who believe quality education should not be a privilege.
+
+Footer line: "A not-for-profit school in Lahore, founded and run by alumni of LUMS."
 
 **Vision**
 Our vision is an education system where academic learning goes hand in hand with tarbiyat: where children develop not just knowledge, but the character, values, manners and understanding to think clearly, act responsibly and contribute meaningfully to society.
@@ -62,10 +69,13 @@ Our vision is an education system where academic learning goes hand in hand with
 **Mission**
 Al-Bayan Learning Initiative Foundation exists to make quality education accessible without compromising on its quality or affordability. We are building an alternative to rote-based learning through strong teaching practices, meaningful learning experiences and a commitment to developing the whole child.
 
+**Hero photo:** the page opens with a photo on the right of the hero.
+
 **Our story (then and now)**
 Use a simple "Then / Now" block instead of a long timeline; there are only two milestones so far.
 - **Then (2019):** We started in a 5-marla building with 20 children.
-- **Now:** We serve 300+ students on a 1.5-kanal purpose-built campus. We add a new grade each year, so our students can stay with us all the way to Matric.
+- **Now:** We serve 300+ students on a 1.5-kanal purpose-built campus. We add a new grade each year, so our students can stay with us all the way to Matric. Photo: [Photo: assembly or big group], to show the school's scale.
+- **Co-founder quotes:** two short personal quotes, one from each co-founder, each with a photo, first name and role (like the team's earlier Instagram posts): [Quote: co-founder 1] and [Quote: co-founder 2], with [Photo: co-founder 1], [Photo: co-founder 2] and [First name], [Role].
 
 **How we work**
 Al-Bayan is a not-for-profit school offering education from Playgroup to Matric. We operate through a combination of donations, Zakat and affordable student fees, to ensure both access and sustainability. We serve 300+ students with 17–20 trained teachers and staff in an underserved community on Bedian Road, Lahore (Gohawa village).
@@ -88,6 +98,8 @@ Al-Bayan is a not-for-profit school offering education from Playgroup to Matric.
 **Registration number:** not available yet. Leave `registrationNo` empty in `site.json` and hide the registration line wherever it's empty.
 
 ## Academics
+
+Keep the text on this page much shorter than the full versions below, and give each section a photo: [Photo: computer lab], [Photo: reading and library], [Photo: capstone presentations], [Photo: preschool] (approved photo in use), [Photo: science lab].
 
 **Intro**
 At Al-Bayan, we want children to understand what they learn, not just memorise it for exams. We follow the Punjab Curriculum and Textbook Board (PCTB) from Playgroup to Matric.
@@ -112,46 +124,43 @@ Our preschool follows a developmental, Montessori-influenced approach: play-base
 
 **Teachers and assessment** (one section, two cards)
 - **Subject meetings:** teachers of each subject meet regularly with our Education Team and experts in that field to discuss how to teach it: difficult concepts, common misconceptions, activities and assessment. Science teachers are supported by a doctor; Computer Science teachers by a software engineer and a data scientist; English teachers by a former newspaper editor and textbook author; and Islamiyat teachers by an Alima.
-- **Year-round training and expert-designed exams:** teachers get training, classroom feedback and office hours throughout the year, not just one annual workshop. Our exams are designed by a dedicated Education Team, with backgrounds that include postgraduate study in Education at LUMS and a PhD in Educational Technology, and test understanding, application and reasoning, not memorisation.
+- **Year-round training and expert-designed exams:** teachers get training, classroom feedback and office hours throughout the year, not just one annual workshop. Our exams are designed in-house by a dedicated Education Team, with backgrounds that include postgraduate study in Education at LUMS and a PhD in Educational Technology. They test understanding, application, problem-solving and critical thinking, not memorisation, and designing them in-house keeps Al-Bayan's merit and educational quality consistent all year.
 
-**Facilities** (icon list)
+**Facilities** (icon list; section heading "Facilities")
 Library · Computer lab · Science lab · Playground · Air-conditioning in selected areas
 
-**School timings**
-Monday to Saturday, 8:00 am to 1:45 pm.
+**School timings:** don't show them anywhere. They vary by season, government notices and grade.
 
 **Academic calendar link:** not available. Remove it.
 
-The `programs` collection: one entry each for Preschool (Playgroup, Nursery, Prep), Primary (Classes 1–5), Middle (Classes 6–8) and Secondary (Classes 9–10, Matric). Short descriptions can come from the sections above.
+The `programs` collection: one entry each for Preschool (Playgroup, Nursery, Prep), Primary (Classes 1–5), Middle (Classes 6–8) and Matric (Classes 9–10). Short descriptions can come from the sections above. Primary mentions **activity-based learning**; Middle mentions **project-based learning**. Don't call the last card "Secondary": a reviewer thought "Middle" and "Secondary" meant the same thing.
 
 ## Admissions
 
-The site speaks for Al-Bayan as an organisation; parents aren't its main audience. Keep this page short.
-
-- **Who can apply:** Admission is open to all. Each child sits an admission test for their age group; for the youngest classes, such as Playgroup, this is a few oral questions.
-- **Fees:** don't show fees. If needed, say: "Fees are kept affordable, and every student receives a 50% tuition scholarship."
-- **Offer:** "No admission fee for the first 10 students." Also use this as the announcement strip text, with a link to /admissions.
-- **Documents needed, steps and FAQs:** remove these sections.
-- **Enquiry form:** keep it (still static, "[Form not connected yet]").
+The Admissions page and the admission enquiry form were removed in feedback round 1. `/admissions` redirects to the homepage. Parents can still reach the school through the Contact page.
 
 ## Co-curricular
 
 Replace the old Debate / Arts / Athletics structure. The page now has these sections, alternating backgrounds as in the design system:
 
-**Intro**
-Learning at Al-Bayan extends beyond the classroom. Students take part in debates, public speaking, art, creative writing, science fairs and reading competitions. Our Saturday Scholars Programme and summer camps introduce them to new interests, from game design and storytelling to money management and performing arts.
+This page needs lots of pictures: a hero photo, plus a main photo and a small gallery for each section ([Photo: <section> 2], [Photo: <section> 3]).
+
+**Intro** (hero, 1–2 lines)
+Debates, competitions, Saturday sessions and summer camps: learning that goes beyond the classroom.
+
+Longer version, for reference: Learning at Al-Bayan extends beyond the classroom. Students take part in debates, public speaking, art, creative writing, science fairs and reading competitions. Our Saturday Scholars Programme and summer camps introduce them to new interests, from game design and storytelling to money management and performing arts.
 
 **Competitions**
 Art · Mathematics · Naat · English creative writing · Urdu creative writing · Poetry slam · Public speaking · Reading · Science fair · Spelling bee
 
 **Saturday Scholars**
-A Saturday programme for learning beyond the regular timetable: enrichment, guest speakers, practical activities and extra support where needed. Sessions have included chess, guitar, karate, Urdu poetry, story writing, game design, women's empowerment and the UN Sustainable Development Goals. (Link to /get-involved: volunteers teach these sessions.)
+A Saturday programme for learning beyond the regular timetable: enrichment, guest speakers, practical activities and extra support where needed. Sessions have included chess, guitar, karate, Urdu poetry, story writing, game design, women's empowerment and the UN Sustainable Development Goals. (Link to /volunteer: volunteers teach these sessions.)
 
 **Summer Camp**
-An intensive daily programme each summer, run with Afroz Pakistan and Project Pakistan, covering problem-solving, money management, public speaking, debates, technology, confidence-building and performing arts.
+An intensive daily programme each summer, run in collaboration with other non-profits, such as Afroz Pakistan and Project Pakistan, covering problem-solving, money management, public speaking, debates, technology, confidence-building and performing arts.
 
 **Special Days**
-Each year we use special days to explore topics beyond the textbook and connect them back to learning: International Girls in Science Day, Women's Day, Earthquake Awareness Day and drill, Road Safety, Pollution Awareness Day, National Clean Up Day, health and hygiene, and careers.
+Each year we use special days to explore topics beyond the textbook and connect them back to learning: International Girls in Science Day, Women's Day, Earthquake Awareness Day and drill, Road Safety, Pollution Awareness Day, National Clean Up Day, health and hygiene, and Career Day.
 
 **Highlights**
 Our students have taken part in a debate competition organised by Idara-e-Kalam and in PsiFi at LUMS, through SPADES. Students also performed a play at LUMUN at LUMS.
@@ -160,7 +169,7 @@ Change the `activities` collection to fit this: name, intro, items[] (list), par
 
 ## Partners and collaborations
 
-Show this as a text-only section on the About page, with each partner's name in bold and one line about the collaboration. Don't use logos (logo permissions are a Phase 2 item).
+Show this on the About page as a logo grid: each partner's logo, name and the one line about the collaboration underneath. Until the logo files arrive (used with permission), each logo is a placeholder: [Logo: Project Pakistan] and so on. The name and line always show, so it still works as a text list.
 
 - **Project Pakistan:** debates, game-design classes, planting activities and summer camps
 - **Afroz Pakistan:** summer camps
@@ -173,18 +182,42 @@ Show this as a text-only section on the About page, with each partner's name in 
 - **CMH and LMDC:** dental camps for students
 - **Vision screening:** a school-wide eye test, after which we arranged glasses for children who needed them
 
-## Get involved
+## Volunteer (`/volunteer`)
 
-**Volunteer**
-We welcome volunteers for our Saturday Scholars Programme. Each session is one hour, and we ask volunteers to commit to at least three Saturdays. You can teach a skill or topic you care about: the UN Sustainable Development Goals (such as climate change and gender equality), debates, drama, critical thinking, karate, or any other informative or activity-based session.
+Replaces the old "Get involved" page (`/get-involved` redirects here). Volunteer photos throughout: [Photo: volunteers at Saturday Scholars] (approved Saturday Scholars photos are in use).
 
-The volunteer form's role field becomes "What would you like to teach?" (free text), and availability becomes "Which Saturdays can you commit to?".
+- **Hero:** "Volunteer with us". Don't use the name "Saturday Scholars" in the hero; newcomers won't know what it is.
+- **Ways to volunteer** (three cards: what it is, where, how much time):
+  1. **Become a Saturday Scholar** (in person): one-hour sessions on Saturdays, teaching a skill or topic you care about: the UN Sustainable Development Goals (such as climate change and gender equality), debates, drama, critical thinking, karate, or any other informative or activity-based session. Minimum commitment: three Saturdays.
+  2. **Education team volunteer** (remote): [Short description, to come from the education team]. Time: [Time commitment, to come].
+  3. **Subject expert** (remote, the smallest time commitment): help teachers of one subject think through how to teach it, like the subject meetings on the Academics page. [Confirm the wording]
+  - [Possible fourth card: marketing and content volunteer, still to be decided. Not shown.]
+- **Sign-up form** (one form for all three, still static, "[Form not connected yet]"): name, email, phone, then "Which would you like to do?". Then only the chosen option's follow-up questions, marked [draft] for the team to edit:
+  - Saturday Scholar: what you'd like to teach, and which Saturdays you can do.
+  - Education team: your background, and the hours per week you can give.
+  - Subject expert: your subject, your experience, and how often you could join a meeting.
+- **Email next to the form:** questions only: "Questions? Email education@albayanlearning.pk". Don't present email as a second way to sign up.
+- **Collaborate with us** (for non-profits, universities and schools): collaborations are a big part of how we work. To pitch an idea, send a short introduction to your organisation and a proposal for the idea. Contact: education@albayanlearning.pk. Link to the partners on the About page.
 
-**Jobs**
-There are no openings right now. Show an empty state: "We don't have any openings right now. You're welcome to send your CV to careers@albayanlearning.pk." Keep the `jobs` collection with one example entry marked `open: false` (so it isn't shown), to show the format.
+## Careers (`/careers`)
 
-**Support the school**
-Keep the short "Online giving is coming soon" block. Don't mention amounts or bank details.
+"Work with us", on a light background (the old dark jobs section looked like the footer).
+
+- Openings come from the `jobs` collection, each with its full job description (the entry's Markdown body). With no open jobs, show: "We don't have any openings right now. You're welcome to send your CV to careers@albayanlearning.pk." Keep one example entry marked `open: false` (so it isn't shown), to show the format.
+- **Why work at Al-Bayan:** year-round training, subject meetings and expert-designed exams, from the Academics text.
+
+## Donate (`/donate`)
+
+"Support Al-Bayan". Built with placeholders; it shows only on previews until the team approves it (`showDonate` in `site.json`). **Never add bank account numbers to the repo.**
+
+- **Ways to give:** Zakat and Sadqa are both accepted. Zakat: about 20% of our students receive Zakat-based financial assistance. Sadqa: Sadqa and general donations support the school, alongside Zakat and affordable student fees. Next to them: [Show the Shariah/Zakat compliance certificate image].
+- **Sponsorship packages:** three cards: [Package name], [Amount per month], [Short description]. The team is still finalising them (ideas include sponsoring a child, a classroom, or a teacher's salary).
+- **Current appeal:** "Our new floor for senior grades (Classes 8–10)", with [Goal amount], [Progress] and [Photo: the new floor for senior grades].
+- **How to donate:** bank transfer: [Bank details, to be added after the account title is confirmed]. "Online giving is coming soon."
+
+## News
+
+Hidden for launch (`showNews: false` in `site.json`): not built, and not linked from the navigation, footer or homepage. The code and the `news` collection stay, so it can come back. Subtitle: "Events, school news, and student stories."
 
 ## Contact
 
@@ -192,15 +225,19 @@ Keep the short "Online giving is coming soon" block. Don't mention amounts or ba
 | --- | --- |
 | email | info@albayanlearning.pk |
 | careersEmail | careers@albayanlearning.pk |
-| phones | 0325 1257747 (+92 325 1257747) and 0331 4422437 (+92 331 4422437). Both also work on WhatsApp. |
+| educationEmail | education@albayanlearning.pk (education team and collaborations) |
+| phones | 0325 1257747 (`+923251257747`), 0331 4422437 (`+923314422437`) and 0333 1440976 (`+923331440976`). All on WhatsApp too. Show each with the WhatsApp icon (→ `https://wa.me/<number without +>`) and the number (→ `tel:`), with no extra labels and no "From outside Pakistan" lines. |
+| educationWhatsapp | 0333 1440976 and 0344 4055253 (`+923444055253`): WhatsApp only, no calls. Show with the WhatsApp icon and a "WhatsApp only" note. |
 | address | Rohi Nala Link Road, off Airport Road, opposite Toyota Airport Motors, Main Gohawa, Lahore |
 | map | Campus pin at 31.4954205, 74.425348 (from the school's Google Business Profile). Link by coordinates: the Google listing still uses the old name. The map loads only when the visitor presses "Show the map". |
 | socials | Instagram https://www.instagram.com/albayanschoolpk, Facebook https://www.facebook.com/albayanschoolpk, LinkedIn https://www.linkedin.com/company/70905235, TikTok https://www.tiktok.com/@albayanschoolpk (shown with their logos) |
 
-Change `phone` in `site.json` to a `phones` list, each with `display`, `tel` and `whatsapp` (true or false). Add `wa.me` links for WhatsApp. The coming-soon page still shows **no** phone numbers, address or WhatsApp.
+`phones` in `site.json` is a list, each with `display`, `tel` and `whatsapp` (true or false). The coming-soon page still shows **no** phone numbers, address or WhatsApp.
+
+The Contact page has a section **"Education team and collaborations"** with the education email and the WhatsApp-only numbers. Contact form topics: Supporting the school, Volunteering, Collaborating, Careers, Admissions, Something else.
 
 ## Not in Phase 1 (don't build or mention yet)
 
 - A separate leadership and team page (the About page has a team section; see About)
-- Photos of children (all photos stay placeholders until consent forms exist)
-- Donations, bank details, Sponsor a Child, fundraising causes, sponsor logos, certificates
+- New photos of children without the school's approval (the approved photos in `src/assets/photos/` are fine; see CLAUDE.md)
+- Online payments, and bank account numbers anywhere in the repo (the Donate page shows placeholders only)
