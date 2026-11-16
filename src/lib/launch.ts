@@ -18,7 +18,8 @@ declare const __WORKERS_CI_BRANCH__: string;
  * site).
  */
 export function getBranch(): string {
-  return __WORKERS_CI_BRANCH__ || 'local';
+  // The typeof check lets Node scripts (the Playwright tests) import this.
+  return (typeof __WORKERS_CI_BRANCH__ !== 'undefined' && __WORKERS_CI_BRANCH__) || 'local';
 }
 
 /** True when this build is the production (main) branch build on Cloudflare. */
@@ -35,4 +36,18 @@ export function isProductionBranch(): boolean {
  */
 export function isComingSoon(): boolean {
   return site.launchMode === 'coming-soon' && isProductionBranch();
+}
+
+/** Whether /news is built and linked (site.json → showNews). */
+export function showNews(): boolean {
+  return site.showNews;
+}
+
+/**
+ * Whether /donate and the Donate buttons appear. Until the team approves the
+ * page (site.json → showDonate), they show only on previews and locally,
+ * never on the production build.
+ */
+export function showDonate(): boolean {
+  return site.showDonate || !isProductionBranch();
 }
