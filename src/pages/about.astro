@@ -2,6 +2,7 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
+import Placeholder from '../components/Placeholder.astro';
 import PersonCard from '../components/cards/PersonCard.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -24,7 +25,14 @@ const focus = [
 ---
 
 <SiteLayout title="About" description={site.description}>
-  <PageHero eyebrow="About us" title="Our story" intro={site.description} breadcrumbs={[{ label: 'About' }]} />
+  <PageHero
+    eyebrow="About us"
+    title="Our story"
+    intro={site.description}
+    breadcrumbs={[{ label: 'About' }]}
+    photoLabel="[Photo: about page hero, ideally happy children]"
+    photo={photos.studentsCourtyard2026}
+  />
 
   <section aria-label="Vision and mission" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
     <div class="band-dark flex flex-col gap-3 rounded-card bg-purple p-8 text-white md:p-10">
@@ -78,8 +86,7 @@ const focus = [
         </article>
         <article class="flex flex-col gap-5 rounded-card bg-white p-6 md:p-8">
           <PhotoFrame
-            label="[Photo: the campus today]"
-            photo={photos.studentsCourtyard2026}
+            label="[Photo: assembly or big group]"
             border="cyan"
             tilt="rotate-1"
             sizes="(min-width: 1248px) 520px, (min-width: 768px) 45vw, calc(100vw - 80px)"
@@ -92,6 +99,24 @@ const focus = [
           </p>
         </article>
       </div>
+      <ul class="grid gap-8 md:grid-cols-2" aria-label="Our co-founders">
+        {
+          [1, 2].map((n, i) => (
+            <li>
+              <figure class="flex items-start gap-5 rounded-card bg-white p-6 md:p-8">
+                <Placeholder
+                  label={`[Photo: co-founder ${n}]`}
+                  class:list={['aspect-square w-24 shrink-0 rounded-full border-4 p-2 text-xs sm:w-32', i === 0 ? 'border-gold' : 'border-cyan']}
+                />
+                <div class="flex flex-col gap-3">
+                  <blockquote class="text-lg leading-snug font-semibold">“[Quote: co-founder {n}]”</blockquote>
+                  <figcaption class="text-sm text-muted">[First name], [Role]</figcaption>
+                </div>
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -129,16 +154,19 @@ const focus = [
   <section aria-labelledby="partners" class="band-dark bg-navy text-white">
     <div class="container-site flex flex-col gap-10 py-14 md:py-22">
       <SectionHeading id="partners" eyebrow="Partners" title="Partners and collaborations" tone="dark" />
-      <dl class="grid gap-x-10 gap-y-6 md:grid-cols-2">
+      <ul class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
         {
           partners.map((partner) => (
-            <div class="border-s-[3px] border-cyan ps-5">
-              <dt class="text-lg font-bold">{partner.name}</dt>
-              <dd class="text-on-navy">{partner.work}</dd>
-            </div>
+            <li class="flex flex-col gap-3 rounded-card bg-white/5 p-4">
+              <Placeholder label={`[Logo: ${partner.name}]`} class="aspect-[3/2] rounded-[16px] p-2 text-sm" />
+              <div>
+                <h3 class="font-bold">{partner.name}</h3>
+                <p class="text-sm text-on-navy">{partner.work}</p>
+              </div>
+            </li>
           ))
         }
-      </dl>
+      </ul>
     </div>
   </section>
 
