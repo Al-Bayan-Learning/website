@@ -156,3 +156,7 @@ vite.config.ts.timestamp-*
 # macOS / local browser-test output
 .DS_Store
 .playwright-mcp/
+
+# Playwright
+test-results/
+playwright-report/

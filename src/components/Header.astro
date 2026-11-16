@@ -5,7 +5,7 @@
  * with Esc.
  */
 import site from '../data/site.json';
-import { mainNav, getInvolved, isCurrent } from '../data/navigation';
+import { mainNav, headerCta, isCurrent } from '../data/navigation';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 
@@ -42,8 +42,8 @@ const path = Astro.url.pathname;
           );
         })
       }
-      <Button href={getInvolved.href} variant="dark" size="sm" aria-current={isCurrent(path, getInvolved.href) ? 'page' : undefined}>
-        {getInvolved.label}
+      <Button href={headerCta.href} variant="dark" size="sm" aria-current={isCurrent(path, headerCta.href) ? 'page' : undefined}>
+        {headerCta.label}
       </Button>
     </nav>
 
@@ -79,8 +79,8 @@ const path = Astro.url.pathname;
           );
         })
       }
-      <Button href={getInvolved.href} variant="gold" class="mt-4 self-start">
-        {getInvolved.label}
+      <Button href={headerCta.href} variant="gold" class="mt-4 self-start">
+        {headerCta.label}
       </Button>
     </nav>
   </div>
@@ -110,8 +110,13 @@ const path = Astro.url.pathname;
     document.addEventListener('click', (event) => {
       if (!panel.hidden && !header.contains(event.target as Node)) setOpen(false);
     });
+    // Only close when focus moves to something else (keyboard Tab). Safari
+    // doesn't focus a link when it's tapped, so a tap blurs to nothing
+    // (relatedTarget is null); closing then would hide the link before it
+    // could navigate. Taps outside are handled by the click listener above.
     header.addEventListener('focusout', (event) => {
-      if (!panel.hidden && !header.contains(event.relatedTarget as Node | null)) setOpen(false);
+      const next = event.relatedTarget as Node | null;
+      if (!panel.hidden && next && !header.contains(next)) setOpen(false);
     });
     matchMedia('(min-width: 56.25rem)').addEventListener('change', (event) => {
       if (event.matches) setOpen(false);

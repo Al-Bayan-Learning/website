@@ -8,9 +8,9 @@ export const mainNav = [
   { label: 'Contact', href: '/contact' },
 ];
 
-export const getInvolved = { label: 'Get involved', href: '/get-involved' };
+export const headerCta = { label: 'Get involved', href: '/get-involved' };
 
-export const footerNav = [...mainNav.slice(0, 5), getInvolved, mainNav[5]];
+export const footerNav = [...mainNav.slice(0, 5), headerCta, mainNav[5]];
 
 /** True when `href` is the current section (so /news/some-story marks News). */
 export function isCurrent(pathname: string, href: string): boolean {
