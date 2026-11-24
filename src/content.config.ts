@@ -81,7 +81,7 @@ const testimonials = defineCollection({
   schema: z.object({
     quote: z.string(),
     role: z.enum(['student', 'parent', 'alumni']),
-    name: z.string(),
+    name: z.string().optional(),
     photo: photo.optional(),
   }),
 });
