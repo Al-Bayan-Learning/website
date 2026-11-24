@@ -42,6 +42,8 @@ const cardPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
   'summer-camp': photos.summerCampMyFamily,
 };
 const roleLabel = { student: 'student', parent: 'parent', alumni: 'alumni' };
+// The name is optional; without it the caption is just the role.
+const roleOnly = { student: 'A student', parent: 'A parent', alumni: 'An alumnus' };
 const hero = photos.sportsDayCheer;
 ---
 
@@ -180,7 +182,7 @@ const hero = photos.sportsDayCheer;
                 {testimonial.data.quote}
               </blockquote>
               <figcaption class="font-semibold">
-                {testimonial.data.name}, {roleLabel[testimonial.data.role]}
+                {testimonial.data.name ? `${testimonial.data.name}, ${roleLabel[testimonial.data.role]}` : roleOnly[testimonial.data.role]}
               </figcaption>
             </figure>
           </div>

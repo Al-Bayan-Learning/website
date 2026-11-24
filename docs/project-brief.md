@@ -95,7 +95,7 @@ There are **no form backends yet**. Build the forms as accessible static markup 
 | activities | name, intro, items[], partners?[], colour, order. The five sections are in `content.md`. |
 | jobs | title, type (full-time, part-time, volunteer), requirements, howToApply, closingDate, open (bool); the full job description is the Markdown body |
 | news | title, date, category (events, school-news, student-stories, announcement), summary, cover?, featured?, draft? ; body in Markdown |
-| testimonials | quote, role (student, parent, alumni), name (first name or initials), photo? |
+| testimonials | quote, role (student, parent, alumni), name? (first name or initials; optional, leave out to show just the role), photo? |
 
 Use the real content from `content.md` where it exists (programs, activities). Seed the rest (news, testimonials, team) with 2–4 placeholder entries marked with [brackets]. Site-wide settings (contact, socials, registration number, announcement strip text and on/off, impact stats, launchMode, showNews, showDonate) live in `src/data/site.json`. The announcement strip is off for now; it can come back for a donation campaign.
 

@@ -18,6 +18,7 @@ import studentsCourtyard2026 from '../assets/photos/students-courtyard-2026.jpg'
 import summerCampMyFamily from '../assets/photos/summer-camp-my-family.jpg';
 import competitionStageTeam from '../assets/photos/competition-stage-team.jpg';
 import computerLabCoding from '../assets/photos/computer-lab-coding.jpg';
+import computerLabRow from '../assets/photos/computer-lab-row.jpg';
 import computerLabCreativityWall from '../assets/photos/computer-lab-creativity-wall.jpg';
 import earthDayPreschool from '../assets/photos/earth-day-preschool.jpg';
 import libraryReading from '../assets/photos/library-reading.jpg';
@@ -112,6 +113,11 @@ export const photos = {
     src: computerLabCoding,
     alt: 'A student writing code at a computer in the lab',
     position: 'center 30%',
+  },
+  computerLabRow: {
+    src: computerLabRow,
+    alt: 'Two students working at a row of computers in the lab, with bookshelves behind them',
+    position: 'center 20%',
   },
   libraryReading: {
     src: libraryReading,

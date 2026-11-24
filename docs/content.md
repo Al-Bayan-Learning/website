@@ -53,7 +53,7 @@ Suggested homepage stat tiles: "300+ students", "Since 2019", "50% fee reduction
 - **Programs band:** heading "From first letters to Matric", with four cards from `programs` (Preschool, Primary, Middle, Matric). The reference has three cards; make it four.
 - **Co-curricular band:** keep the heading "Debate. Create. Compete." Show three cards: Competitions (cyan), Saturday Scholars (gold) and Summer Camp (green), each with one line from the Co-curricular section below. Photos stay placeholders.
 - **News:** removed from the homepage (News is hidden for launch; see News below).
-- **Testimonial (26 Oct 2026):** a parent's quote, shown as "Muneer H., parent" (first name and initial only; the child isn't named). The full quote is in `src/content/testimonials/parent.md`. It will be replaced by a 1–2 line quote in Roman Urdu: [Parent quote in Roman Urdu, to come]; keep the current quote until it arrives. Next to the quote: [Photo: parent who agreed to be shown].
+- **Testimonial (26 Oct 2026):** a parent's quote, shown as "A parent" with no name (the team asked for no name; the child isn't named either). The full quote is in `src/content/testimonials/parent.md`. It will be replaced by a 1–2 line quote in Roman Urdu: [Parent quote in Roman Urdu, to come]; keep the current quote until it arrives. Next to the quote: [Photo: parent who agreed to be shown].
 - **CTA band (every page):** "Help us reach more children" · "Your donation, Zakat or time helps more children get a quality education." · buttons "Donate now" and "Volunteer with us".
 
 ## About
@@ -99,7 +99,7 @@ Al-Bayan is a not-for-profit school offering education from Playgroup to Matric.
 
 ## Academics
 
-Keep the text on this page much shorter than the full versions below, and give each section a photo: [Photo: computer lab], [Photo: reading and library], [Photo: capstone presentations], [Photo: preschool] (approved photo in use), [Photo: science lab].
+Keep the text on this page much shorter than the full versions below, and give each section a photo: [Photo: computer lab], [Photo: reading and library], [Photo: capstone presentations], [Photo: preschool] (approved photo in use). The Facilities section shows a computer lab photo instead of the science lab (team's decision, Nov 2026).
 
 **Intro**
 At Al-Bayan, we want children to understand what they learn, not just memorise it for exams. We follow the Punjab Curriculum and Textbook Board (PCTB) from Playgroup to Matric.
