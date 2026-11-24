@@ -1,33 +1,47 @@
 {
-  "_source": "docs/content.md (Partners and collaborations). Shown as a logo grid on /about; each logo is a [Logo: …] placeholder until the team sends the files (used with permission). The name and line underneath always show, so the text still works without logos.",
+  "_source": "docs/content.md (Partners and collaborations). Shown as a logo grid on /about. `logo` is a file in src/assets/partners (used with permission); `logoBg` is the tile colour, matching the logo's own background. Dental Camps and Free eye test are generated images, not real logos. A partner without `logo` shows a [Logo: …] placeholder. The name and line underneath always show.",
   "partners": [
     {
       "name": "Project Pakistan",
-      "work": "Debates, game-design classes, planting activities and summer camps"
+      "work": "Debates, game-design classes, planting activities and summer camps",
+      "logo": "project-pakistan.png",
+      "logoBg": "#FFFFFF"
     },
     {
       "name": "Afroz Pakistan",
-      "work": "Summer camps"
+      "work": "Summer camps",
+      "logo": "afroz-pakistan.png",
+      "logoBg": "#FFFFFF"
     },
     {
       "name": "Science Fuse",
-      "work": "Science teacher training and hands-on experiments with students"
+      "work": "Science teacher training and hands-on experiments with students",
+      "logo": "science-fuse.png",
+      "logoBg": "#FFFFFF"
     },
     {
       "name": "SPADES at LUMS",
-      "work": "Student participation in PsiFi"
+      "work": "Student participation in PsiFi",
+      "logo": "spades-lums.png",
+      "logoBg": "#01030F"
     },
     {
       "name": "LUMUN at LUMS",
-      "work": "A student play performed at LUMUN"
+      "work": "A student play performed at LUMUN",
+      "logo": "lumun-lums.png",
+      "logoBg": "#FFFFFF"
     },
     {
       "name": "Beej Education",
-      "work": "Spoken-English support for our teachers"
+      "work": "Spoken-English support for our teachers",
+      "logo": "beej-education.png",
+      "logoBg": "#FFFFFF"
     },
     {
       "name": "Kitabi Pulao",
-      "work": "Storytelling sessions with our preschool students"
+      "work": "Storytelling sessions with our preschool students",
+      "logo": "kitabi-pulao.png",
+      "logoBg": "#565656"
     },
     {
       "name": "Sada Haq",
@@ -35,11 +49,15 @@
     },
     {
       "name": "CMH and LMDC",
-      "work": "Dental camps for students"
+      "work": "Dental camps for students",
+      "logo": "dental-camps.png",
+      "logoBg": "#FFFFFF"
     },
     {
       "name": "Vision screening",
-      "work": "A school-wide eye test, after which we arranged glasses for children who needed them"
+      "work": "A school-wide eye test, after which we arranged glasses for children who needed them",
+      "logo": "free-eye-test.png",
+      "logoBg": "#FFFFFF"
     }
   ]
 }

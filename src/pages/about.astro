@@ -9,9 +9,17 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ValuePills from '../components/ValuePills.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
 import { getCollection } from 'astro:content';
-import { partners } from '../data/partners.json';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import partnerData from '../data/partners.json';
 import { photos } from '../data/photos';
 import site from '../data/site.json';
+
+const partners: { name: string; work: string; logo?: string; logoBg?: string }[] = partnerData.partners;
+
+// Partner logos (src/assets/partners), looked up by the file name in partners.json.
+const logoFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/partners/*.png', { eager: true });
+const logoFor = (file?: string) => (file ? logoFiles[`../assets/partners/${file}`]?.default : undefined);
 
 // Text: docs/content.md (About). Team names, roles and photos are placeholders until the team sends them.
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
@@ -159,7 +167,18 @@ const focus = [
         {
           partners.map((partner) => (
             <li class="flex flex-col gap-3 rounded-card bg-white/5 p-4">
-              <Placeholder label={`[Logo: ${partner.name}]`} class="aspect-[3/2] rounded-[16px] p-2 text-sm" />
+              {(() => {
+                const logo = logoFor(partner.logo);
+                // The whole logo fits inside the tile (object-contain keeps its shape);
+                // the tile takes the logo's own background colour.
+                return logo ? (
+                  <div class="aspect-[3/2] overflow-hidden rounded-[16px] p-3" style={{ backgroundColor: partner.logoBg }}>
+                    <Image src={logo} alt="" widths={[200, 400].filter((w) => w <= logo.width).concat(logo.width < 200 ? [logo.width] : [])} sizes="(min-width: 1024px) 200px, (min-width: 768px) 30vw, 45vw" class="size-full object-contain" />
+                  </div>
+                ) : (
+                  <Placeholder label={`[Logo: ${partner.name}]`} class="aspect-[3/2] rounded-[16px] p-2 text-sm" />
+                );
+              })()}
               <div>
                 <h3 class="font-bold">{partner.name}</h3>
                 <p class="text-sm text-on-navy">{partner.work}</p>

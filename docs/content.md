@@ -169,7 +169,7 @@ Change the `activities` collection to fit this: name, intro, items[] (list), par
 
 ## Partners and collaborations
 
-Show this on the About page as a logo grid: each partner's logo, name and the one line about the collaboration underneath. Until the logo files arrive (used with permission), each logo is a placeholder: [Logo: Project Pakistan] and so on. The name and line always show, so it still works as a text list.
+Show this on the About page as a logo grid: each partner's logo, name and the one line about the collaboration underneath. Logos live in `src/assets/partners/` (used with permission). CMH and LMDC show a generated "Dental Camps" image and Vision screening a generated "Free eye test" image, since neither has a logo. Sada Haq is still a placeholder: [Logo: Sada Haq]. The name and line always show, so it still works as a text list.
 
 - **Project Pakistan:** debates, game-design classes, planting activities and summer camps
 - **Afroz Pakistan:** summer camps
