@@ -4,6 +4,7 @@ import Button from '../components/Button.astro';
 import CTABand from '../components/CTABand.astro';
 import PageHero from '../components/PageHero.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
+import Photo from '../components/Photo.astro';
 import Placeholder from '../components/Placeholder.astro';
 import { photos } from '../data/photos';
 import { getCollection } from 'astro:content';
@@ -29,6 +30,14 @@ const sectionPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
   'saturday-scholars': photos.saturdayScholarsPresentation,
   'summer-camp': photos.summerCampMyFamily,
   'special-days': photos.cleanUpDrive,
+  highlights: photos.universityVisitSteps,
+};
+// Gallery photos (slots 2 and 3); a missing one shows its placeholder.
+const galleryPhotos: Record<string, ((typeof photos)[keyof typeof photos] | undefined)[]> = {
+  competitions: [photos.competitionStageTeam, photos.scienceFuseCertificates],
+  'saturday-scholars': [photos.plantingWithVolunteer, photos.potPainting],
+  'special-days': [photos.earthDayPreschool, photos.orangeDayPreschool],
+  highlights: [photos.lumsSbasseVisit],
 };
 ---
 
@@ -64,9 +73,14 @@ const sectionPhotos: Record<string, (typeof photos)[keyof typeof photos]> = {
                 class="aspect-[4/3] w-full"
               />
               <div class="grid grid-cols-2 gap-4">
-                {[2, 3].map((n) => (
-                  <Placeholder label={`[Photo: ${name} ${n}]`} class="aspect-[4/3] rounded-card text-sm" />
-                ))}
+                {[2, 3].map((n) => {
+                  const extra = galleryPhotos[activity.id]?.[n - 2];
+                  return extra ? (
+                    <Photo {...extra} sizes="(min-width: 1248px) 260px, (min-width: 768px) 20vw, calc(50vw - 32px)" maxWidth={540} class="aspect-[4/3] w-full rounded-card" />
+                  ) : (
+                    <Placeholder label={`[Photo: ${name} ${n}]`} class="aspect-[4/3] rounded-card text-sm" />
+                  );
+                })}
               </div>
             </div>
             <div class="flex flex-[1_1_440px] flex-col gap-5">
