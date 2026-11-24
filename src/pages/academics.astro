@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PhotoFrame from '../components/blocks/PhotoFrame.astro';
-import Placeholder from '../components/Placeholder.astro';
+import Photo from '../components/Photo.astro';
 import ProgramCard from '../components/cards/ProgramCard.astro';
 import { photos } from '../data/photos';
 import { getCollection } from 'astro:content';
@@ -23,6 +23,7 @@ const facilities = [
 
 const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100vw - 48px)';
 const cardPhoto = 'aspect-[16/9] w-full';
+const cardSizes = '(min-width: 1248px) 540px, (min-width: 768px) 45vw, calc(100vw - 96px)';
 ---
 
 <SiteLayout title="Academics" description="How Al-Bayan teaches from Playgroup to Matric: the PCTB curriculum, Learning Beyond the Book, capstone projects, computer education, teacher training and facilities.">
@@ -33,6 +34,7 @@ const cardPhoto = 'aspect-[16/9] w-full';
     breadcrumbs={[{ label: 'Academics' }]}
     waveFill="fill-green"
     photoLabel="[Photo: academics page hero, ideally happy children]"
+    photo={photos.computerLabCreativityWall}
   />
 
   <section aria-labelledby="grades" class="bg-green">
@@ -78,7 +80,7 @@ const cardPhoto = 'aspect-[16/9] w-full';
 
   <section aria-label="Computer education and reading" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
     <div class="flex flex-col gap-4 rounded-card bg-surface p-6 md:p-8">
-      <Placeholder label="[Photo: computer lab]" class:list={[cardPhoto, 'rounded-card']} />
+      <Photo {...photos.computerLabCoding} sizes={cardSizes} class:list={[cardPhoto, 'rounded-card']} />
       <p class="eyebrow text-purple">Computer education</p>
       <h2 class="text-[26px] leading-tight font-extrabold">Coding, tools and digital citizenship</h2>
       <p class="text-ink-2">
@@ -87,7 +89,7 @@ const cardPhoto = 'aspect-[16/9] w-full';
       </p>
     </div>
     <div class="flex flex-col gap-4 rounded-card bg-surface p-6 md:p-8">
-      <Placeholder label="[Photo: reading and library]" class:list={[cardPhoto, 'rounded-card']} />
+      <Photo {...photos.libraryReading} sizes={cardSizes} class:list={[cardPhoto, 'rounded-card']} />
       <p class="eyebrow text-purple">Reading and writing</p>
       <h2 class="text-[26px] leading-tight font-extrabold">Building a reading culture</h2>
       <p class="text-ink-2">

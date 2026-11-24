@@ -7,6 +7,7 @@ import InfoCard from '../components/blocks/InfoCard.astro';
 import MapCard from '../components/blocks/MapCard.astro';
 import Field from '../components/forms/Field.astro';
 import FormCard from '../components/forms/FormCard.astro';
+import { photos } from '../data/photos';
 import site from '../data/site.json';
 import { educationWhatsapp } from '../lib/contact';
 
@@ -21,6 +22,7 @@ const { contact, socials } = site;
     breadcrumbs={[{ label: 'Contact' }]}
     waveFill="fill-surface"
     photoLabel="[Photo: contact page hero, ideally happy children]"
+    photo={photos.specialDayPomPoms}
   />
 
   <section aria-label="Contact details and form" class="bg-surface">
