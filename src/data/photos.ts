@@ -16,6 +16,8 @@ import scienceFuseCertificates from '../assets/photos/science-fuse-certificates.
 import sportsDayCheer from '../assets/photos/sports-day-cheer.jpg';
 import studentsCourtyard2026 from '../assets/photos/students-courtyard-2026.jpg';
 import summerCampMyFamily from '../assets/photos/summer-camp-my-family.jpg';
+import summerCamp3dPrintingTalk from '../assets/photos/summer-camp-3d-printing-talk.jpg';
+import summerCampGroupWork from '../assets/photos/summer-camp-group-work.jpg';
 import competitionStageTeam from '../assets/photos/competition-stage-team.jpg';
 import computerLabCoding from '../assets/photos/computer-lab-coding.jpg';
 import computerLabRow from '../assets/photos/computer-lab-row.jpg';
@@ -154,6 +156,16 @@ export const photos = {
     src: orangeDayPreschool,
     alt: 'Preschool children dressed in orange behind a table of oranges and balloons on a colour day',
     position: 'center 40%',
+  },
+  summerCamp3dPrintingTalk: {
+    src: summerCamp3dPrintingTalk,
+    alt: 'A volunteer presenting a slide about 3D printers to a classroom of students at summer camp',
+    position: 'center 25%',
+  },
+  summerCampGroupWork: {
+    src: summerCampGroupWork,
+    alt: 'Students working together over magazines and coloured paper at a table, with a mentor leaning in to help',
+    position: 'center 45%',
   },
   parentAndDaughter: {
     src: parentAndDaughter,
