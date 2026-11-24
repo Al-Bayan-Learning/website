@@ -99,7 +99,7 @@ Al-Bayan is a not-for-profit school offering education from Playgroup to Matric.
 
 ## Academics
 
-Keep the text on this page much shorter than the full versions below, and give each section a photo: [Photo: computer lab], [Photo: reading and library], [Photo: capstone presentations], [Photo: preschool] (approved photo in use), [Photo: science lab].
+Keep the text on this page much shorter than the full versions below, and give each section a photo: [Photo: computer lab], [Photo: reading and library], [Photo: capstone presentations], [Photo: preschool] (approved photo in use). The Facilities section shows a computer lab photo instead of the science lab (team's decision, Nov 2026).
 
 **Intro**
 At Al-Bayan, we want children to understand what they learn, not just memorise it for exams. We follow the Punjab Curriculum and Textbook Board (PCTB) from Playgroup to Matric.
