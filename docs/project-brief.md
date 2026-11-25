@@ -70,12 +70,12 @@ Navigation: About · Academics · Co-curricular · Volunteer · Careers · Conta
 | --- | --- | --- |
 | `/` | Homepage | Layout from `design/home-reference.html`: hero (Donate now / Volunteer with us); stat tiles; who we are; programs; co-curricular; testimonial with a parent photo slot; CTA band. No news section. |
 | `/about` | Content | Hero photo; vision and mission; team (five main members; placeholders until names and photos arrive); Then / Now story with two co-founder quotes; how we work and our focus; core values; partners as a logo grid (placeholder logos); CTA band. |
-| `/academics` | Content | Short text with a photo slot per section: grades offered (from `programs`: Preschool, Primary, Middle, Matric); Learning Beyond the Book and concepts to board exams; capstones; computer education; reading and writing; preschool; teachers and assessment; facilities (no timings); CTA |
+| `/academics` | Content | Short text with a photo slot per section: grades offered (from `programs`: Preschool, Primary, Middle, Matric); Learning Beyond the Book and concepts to board exams; capstones (hidden for now); computer education; reading and writing; preschool; teachers and assessment; facilities (no timings); CTA |
 | `/co-curricular` | Content | Short hero with a photo, then Competitions, Saturday Scholars, Summer Camp, Special Days and Highlights (from `activities`), each with a photo and a small gallery |
 | `/volunteer` | Content + form | "Volunteer with us": three ways to volunteer (Saturday Scholar, education team, subject expert); one sign-up form with follow-up questions per option; "Questions?" email (education@); Collaborate with us (non-profits, universities, schools); CTA |
 | `/careers` | Content + jobs | "Work with us", light background: openings from `jobs` with full descriptions and a "no openings right now" empty state; why work at Al-Bayan; CTA |
-| `/donate` | Content | "Support Al-Bayan": impact stats; ways to give (Zakat, Sadqa, compliance certificate); sponsorship packages; current appeal; how to donate. All amounts, packages and bank details are placeholders. Shown only on previews until the team approves it (`showDonate`). |
-| `/contact` | Contact + form | Email, phones (WhatsApp icon + number), education team and collaborations (email, WhatsApp-only numbers), address, socials, map; contact form (name, email, phone optional, topic incl. Collaborating, message) |
+| `/donate` | Content | "Support Al-Bayan": impact stats; ways to give (Zakat, Sadqa; certificate available on request); sponsorship packages (`site.json` → `donate`); current appeal (placeholders); how to donate (bank transfer; account number and IBAN from build variables, never in the repo; a note for donors outside Pakistan). Shown only on previews until the team approves it (`showDonate`). |
+| `/contact` | Contact | General enquiries (email, phones with WhatsApp icon + number), education team and collaborations (email, WhatsApp-only numbers), address, socials, map. No contact form. |
 | `/privacy` | Simple article | Privacy policy: data use, photo consent, cookies (none) |
 | `/404` | Simple | Friendly message and links home |
 
@@ -93,7 +93,7 @@ There are **no form backends yet**. Build the forms as accessible static markup 
 | team | name, role, group (founder, board, admin, teacher), photo?, bio?, order. Rendered as the team section on /about. |
 | programs | name, grades, description, subjects?, icon, order |
 | activities | name, intro, items[], partners?[], colour, order. The five sections are in `content.md`. |
-| jobs | title, type (full-time, part-time, volunteer), requirements, howToApply, closingDate, open (bool); the full job description is the Markdown body |
+| jobs | title, positions (default 1), open (bool), order; optional: type (full-time, part-time, volunteer), requirements, howToApply, closingDate; the optional job description is the Markdown body |
 | news | title, date, category (events, school-news, student-stories, announcement), summary, cover?, featured?, draft? ; body in Markdown |
 | testimonials | quote, role (student, parent, alumni), name? (first name or initials; optional, leave out to show just the role), photo? |
 

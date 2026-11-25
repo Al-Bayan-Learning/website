@@ -1,6 +1,6 @@
 ---
 name: "Saturday Scholars"
-intro: "A Saturday programme for learning beyond the regular timetable: enrichment, guest speakers, practical activities and extra support where needed."
+intro: "A Saturday programme for learning beyond the regular timetable: enrichment, guest speakers, practical activities, and extra support where needed."
 items:
   - "Chess"
   - "Guitar"

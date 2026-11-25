@@ -1,6 +1,6 @@
 ---
 name: "Competitions"
-intro: "Students take part in debates, public speaking, art, creative writing, science fairs and reading competitions."
+intro: "Students take part in debates, public speaking, art, creative writing, science fairs, and reading competitions."
 items:
   - "Art"
   - "Mathematics"
