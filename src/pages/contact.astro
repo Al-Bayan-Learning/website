@@ -5,8 +5,6 @@ import PhoneLinks from '../components/PhoneLinks.astro';
 import BrandIcon, { type BrandName } from '../components/BrandIcon.astro';
 import InfoCard from '../components/blocks/InfoCard.astro';
 import MapCard from '../components/blocks/MapCard.astro';
-import Field from '../components/forms/Field.astro';
-import FormCard from '../components/forms/FormCard.astro';
 import { photos } from '../data/photos';
 import site from '../data/site.json';
 import { educationWhatsapp } from '../lib/contact';
@@ -14,29 +12,37 @@ import { educationWhatsapp } from '../lib/contact';
 const { contact, socials } = site;
 ---
 
-<SiteLayout title="Contact" description={`Email, phone and address for ${site.name} in Lahore, and a contact form.`}>
+<SiteLayout title="Contact" description={`Email, phone, WhatsApp, and address for ${site.name} in Lahore.`}>
   <PageHero
     eyebrow="Contact"
     title="Get in touch"
-    intro="Want to donate, volunteer or work with us? Email, call or WhatsApp us."
+    intro="Want to donate, volunteer, or work with us? Email, call, or WhatsApp us."
     breadcrumbs={[{ label: 'Contact' }]}
     waveFill="fill-surface"
     photoLabel="[Photo: contact page hero, ideally happy children]"
     photo={photos.specialDayPomPoms}
   />
 
-  <section aria-label="Contact details and form" class="bg-surface">
-    <div class="container-site grid items-start gap-10 pt-8 pb-14 lg:grid-cols-[1fr_1.4fr] md:pb-22">
-      <div class="flex flex-col gap-4">
-        <h2 class="sr-only">Contact details</h2>
-        <InfoCard icon="mail" colour="cyan" title="Email">
-          <a href={`mailto:${contact.email}`}>{contact.email}</a>
-        </InfoCard>
-        <InfoCard icon="phone" colour="gold" title="Phone and WhatsApp">
-          <PhoneLinks />
-        </InfoCard>
-        <section aria-labelledby="education-team" class="flex flex-col gap-4 rounded-card border-2 border-purple/20 bg-white p-5">
-          <h2 id="education-team" class="text-xl font-extrabold text-navy">Education team and collaborations</h2>
+  <section aria-label="Contact details" class="bg-surface">
+    <div class="container-site flex flex-col gap-6 pt-8 pb-14 md:pb-22">
+      <div class="grid gap-6 md:grid-cols-2">
+        <section aria-labelledby="general" class="flex flex-col gap-5 rounded-card bg-white p-6 sm:p-7">
+          <div class="flex flex-col gap-1">
+            <h2 id="general" class="text-xl font-extrabold text-navy">General enquiries</h2>
+            <p class="text-sm text-muted">Donations, careers, and anything else.</p>
+          </div>
+          <InfoCard icon="mail" colour="cyan" title="Email" flat>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          </InfoCard>
+          <InfoCard icon="phone" colour="gold" title="Phone and WhatsApp" flat>
+            <PhoneLinks />
+          </InfoCard>
+        </section>
+        <section aria-labelledby="education-team" class="flex flex-col gap-5 rounded-card bg-white p-6 sm:p-7">
+          <div class="flex flex-col gap-1">
+            <h2 id="education-team" class="text-xl font-extrabold text-navy">Education team and collaborations</h2>
+            <p class="text-sm text-muted">Volunteering, partnerships, and collaboration proposals.</p>
+          </div>
           <InfoCard icon="mail" colour="cyan" title="Email" flat>
             <a href={`mailto:${contact.educationEmail}`}>{contact.educationEmail}</a>
           </InfoCard>
@@ -45,33 +51,29 @@ const { contact, socials } = site;
             <PhoneLinks phones={educationWhatsapp} whatsappOnly />
           </InfoCard>
         </section>
-        <InfoCard icon="pin" colour="green" title="Campus">
-          {contact.address}
-        </InfoCard>
-        <InfoCard icon="share" colour="purple" title="Social media">
-          <ul class="flex flex-wrap gap-x-5">
-            {socials.map((social) => (
-              <li>
-                <a href={social.url} class="inline-flex min-h-11 items-center gap-2 font-semibold">
-                  <BrandIcon name={social.icon as BrandName} />
-                  {social.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </InfoCard>
-        <MapCard />
       </div>
 
-      <FormCard id="contact-form" title="Send us a message" submitLabel="Send message">
-        <Field form="contact-form" name="name" label="Name" required autocomplete="name" />
-        <div class="grid gap-5 sm:grid-cols-2">
-          <Field form="contact-form" name="email" label="Email" type="email" required autocomplete="email" error="Please enter an email address, like name@example.com." />
-          <Field form="contact-form" name="phone" label="Phone" type="tel" autocomplete="tel" />
+      <div class="grid items-start gap-6 lg:grid-cols-[1fr_1.4fr]">
+        <div class="flex flex-col gap-6">
+          <h2 class="sr-only">Campus and social media</h2>
+          <InfoCard icon="pin" colour="green" title="Campus">
+            {contact.address}
+          </InfoCard>
+          <InfoCard icon="share" colour="purple" title="Social media">
+            <ul class="flex flex-wrap gap-x-5">
+              {socials.map((social) => (
+                <li>
+                  <a href={social.url} class="inline-flex min-h-11 items-center gap-2 font-semibold">
+                    <BrandIcon name={social.icon as BrandName} />
+                    {social.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </InfoCard>
         </div>
-        <Field form="contact-form" name="topic" label="Topic" type="select" required options={['Supporting the school', 'Volunteering', 'Collaborating', 'Careers', 'Admissions', 'Something else']} error="Please choose a topic." />
-        <Field form="contact-form" name="message" label="Message" type="textarea" required error="Please write a message." />
-      </FormCard>
+        <MapCard />
+      </div>
     </div>
   </section>
 </SiteLayout>
