@@ -1,13 +1,15 @@
 ---
 /**
- * Job opening card: the full job description (the entry's Markdown body),
- * requirements and how to apply. Applications go by email to careersEmail in
- * site.json.
+ * Job opening card. Only the title is required: the job type, full job
+ * description (the entry's Markdown body), requirements, how to apply and
+ * closing date show when the entry has them. Applications go by email to
+ * careersEmail in site.json.
  */
 import { render, type CollectionEntry } from 'astro:content';
 import site from '../../data/site.json';
 import { formatDate, dateTime } from '../../lib/content';
 import Button from '../Button.astro';
+import Icon from '../Icon.astro';
 import Tag from '../Tag.astro';
 
 interface Props {
@@ -15,31 +17,52 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, type, requirements, howToApply, closingDate } = entry.data;
+const { title, positions, type, requirements, howToApply, closingDate } = entry.data;
 const types = {
   'full-time': { label: 'Full-time', colour: 'cyan' },
   'part-time': { label: 'Part-time', colour: 'gold' },
   volunteer: { label: 'Volunteer', colour: 'green' },
 } as const;
 const { Content } = await render(entry);
+const hasDescription = Boolean(entry.body?.trim());
 const mailto = `mailto:${site.contact.careersEmail}?subject=${encodeURIComponent(`Application: ${title}`)}`;
 ---
 
-<article class="flex flex-col gap-4 rounded-card bg-white p-7 text-navy">
-  <Tag colour={types[type].colour}>{types[type].label}</Tag>
-  <h3 class="text-[22px] leading-snug font-bold">{title}</h3>
-  <div class="prose-article text-ink-2"><Content /></div>
-  <div>
-    <h4 class="font-semibold">Requirements</h4>
-    <ul class="list-disc ps-5 text-ink-2">
-      {requirements.map((item) => <li>{item}</li>)}
-    </ul>
+<article class="flex flex-col gap-4 rounded-card border border-border bg-white p-7 text-navy">
+  <div class="flex items-start gap-4">
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-icon bg-cyan text-navy"><Icon name="cap" /></span>
+    <div class="flex flex-col gap-2">
+      <h3 class="text-xl leading-snug font-bold">{title}</h3>
+      {
+        (type || positions > 1) && (
+          <div class="flex flex-wrap gap-2">
+            {type && <Tag colour={types[type].colour}>{types[type].label}</Tag>}
+            {positions > 1 && <Tag colour="gold">{positions} positions</Tag>}
+          </div>
+        )
+      }
+    </div>
   </div>
-  <p class="text-ink-2">{howToApply}</p>
-  <p class="text-sm text-muted">
-    Closing date: <time datetime={dateTime(closingDate)}>{formatDate(closingDate)}</time>
-  </p>
-  <Button href={mailto} variant="primary" class="mt-auto self-start">
+  {hasDescription && <div class="prose-article text-ink-2"><Content /></div>}
+  {
+    requirements && requirements.length > 0 && (
+      <div>
+        <h4 class="font-semibold">Requirements</h4>
+        <ul class="list-disc ps-5 text-ink-2">
+          {requirements.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    )
+  }
+  {howToApply && <p class="text-ink-2">{howToApply}</p>}
+  {
+    closingDate && (
+      <p class="text-sm text-muted">
+        Closing date: <time datetime={dateTime(closingDate)}>{formatDate(closingDate)}</time>
+      </p>
+    )
+  }
+  <Button href={mailto} variant="primary" size="sm" class="mt-auto self-start">
     Apply by email<span class="sr-only">: {title}</span>
   </Button>
 </article>
