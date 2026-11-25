@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
+import { loadEnv } from 'vite';
 import site from './src/data/site.json' with { type: 'json' };
 
 // The build branch comes from Cloudflare Workers Builds' WORKERS_CI_BRANCH env
@@ -11,6 +12,12 @@ import site from './src/data/site.json' with { type: 'json' };
 // it into the bundle at build time via `vite.define` so the coming-soon gate in
 // src/lib/launch.ts can read it wherever the middleware runs.
 const workersCiBranch = process.env.WORKERS_CI_BRANCH ?? '';
+
+// Donation bank details for /donate. The repo is public, so the account number
+// and IBAN are never committed: they come from .env locally (see .env.example)
+// and from Workers Builds build variables on Cloudflare. Baked in the same way
+// as the branch. When unset, /donate shows a [bracketed] placeholder.
+const donateEnv = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), 'DONATE_');
 
 // Static-first build deployed to Cloudflare Workers with static assets.
 // Pages are prerendered to static HTML by default and served straight from the
@@ -41,6 +48,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
     define: {
       __WORKERS_CI_BRANCH__: JSON.stringify(workersCiBranch),
+      __DONATE_ACCOUNT_NUMBER__: JSON.stringify(donateEnv.DONATE_ACCOUNT_NUMBER ?? ''),
+      __DONATE_IBAN__: JSON.stringify(donateEnv.DONATE_IBAN ?? ''),
     },
   },
 });

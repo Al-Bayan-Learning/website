@@ -9,19 +9,28 @@ import StatTile from '../components/StatTile.astro';
 import { volunteerCta } from '../data/navigation';
 import { photos } from '../data/photos';
 import site from '../data/site.json';
+import { bankDetails } from '../lib/donate';
 import { showDonate } from '../lib/launch';
 
-// Text: docs/feedback-round-1.md (9c). Amounts, packages and bank details are
-// placeholders until the team confirms them; never add account numbers here.
+// Text: docs/feedback-round-1.md (9c). Packages and the bank's name are in
+// site.json → donate; the account number and IBAN come from build variables
+// (src/lib/donate.ts), never from this repo.
 // Until the team approves this page (site.json → showDonate), production
 // redirects it to the homepage; previews show it.
 if (!showDonate()) return Astro.redirect('/');
 
 const { contact } = site;
-const packages = [1, 2, 3];
+const { packages } = site.donate;
+const bankRows = [
+  { label: 'Account title', value: bankDetails.accountTitle },
+  { label: 'Bank', value: bankDetails.bank },
+  { label: 'Account number', value: bankDetails.accountNumber || '[Account number: set DONATE_ACCOUNT_NUMBER]', copy: Boolean(bankDetails.accountNumber) },
+  // Shown in groups of four, the usual way to print an IBAN; Copy copies it without spaces.
+  { label: 'IBAN', value: bankDetails.iban || '[IBAN: set DONATE_IBAN]', display: bankDetails.iban.replace(/(.{4})(?=.)/g, '$1 '), copy: Boolean(bankDetails.iban) },
+];
 ---
 
-<SiteLayout title="Donate" description="Support Al-Bayan Learning Initiative with Zakat, Sadqa or a sponsorship, and help more children get a quality education.">
+<SiteLayout title="Donate" description="Support Al-Bayan Learning Initiative with Zakat, Sadqa, or a sponsorship, and help more children get a quality education.">
   <PageHero
     eyebrow="Donate"
     title="Support Al-Bayan"
@@ -36,8 +45,14 @@ const packages = [1, 2, 3];
   </section>
 
   <section aria-labelledby="ways-to-give" class="container-site flex flex-col gap-9 pb-14 md:pb-22">
-    <SectionHeading id="ways-to-give" eyebrow="Ways to give" title="Zakat and Sadqa are both accepted" />
-    <div class="grid gap-6 lg:grid-cols-[1fr_1fr_1.1fr]">
+    <div class="flex flex-col gap-4">
+      <SectionHeading id="ways-to-give" eyebrow="Ways to give" title="Zakat and Sadqa are both accepted" />
+      <p class="flex items-start gap-2 text-ink-2">
+        <Icon name="check" size={22} class="mt-0.5 shrink-0 text-purple" />
+        <span>Our Shariah/Zakat compliance certificate is available on request. Email <a href={`mailto:${contact.email}`} class="font-semibold">{contact.email}</a>.</span>
+      </p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
       <article class="flex flex-col gap-3 rounded-card bg-surface p-7">
         <span class="flex size-14 items-center justify-center rounded-icon bg-gold text-navy"><Icon name="heart" size={28} /></span>
         <h3 class="text-xl font-bold">Zakat</h3>
@@ -48,10 +63,6 @@ const packages = [1, 2, 3];
         <h3 class="text-xl font-bold">Sadqa</h3>
         <p class="text-ink-2">Sadqa and general donations support the school, alongside Zakat and affordable student fees.</p>
       </article>
-      <figure class="flex flex-col gap-3 rounded-card border-2 border-border p-5">
-        <Placeholder label="[Show the Shariah/Zakat compliance certificate image]" class="aspect-[4/3] -rotate-1 rounded-card border-[5px] border-gold text-sm" />
-        <figcaption class="text-sm font-semibold text-ink-2">Shariah/Zakat compliance certificate</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -60,15 +71,19 @@ const packages = [1, 2, 3];
       <SectionHeading id="packages" eyebrow="Sponsorship" title="Sponsorship packages" tone="on-colour" />
       <ul class="grid gap-6 md:grid-cols-3">
         {
-          packages.map(() => (
+          packages.map((pkg) => (
             <li class="flex flex-col gap-3 rounded-card bg-white p-7">
-              <h3 class="text-xl font-bold">[Package name]</h3>
-              <p class="font-display text-[40px] leading-none text-purple">[Amount per month]</p>
-              <p class="text-ink-2">[Short description]</p>
+              <h3 class="text-xl font-bold">{pkg.name}</h3>
+              <p class="flex items-baseline gap-2">
+                <span class="font-display text-[44px] leading-none text-purple">{pkg.amount}</span>
+                <span class="font-semibold text-muted">a month</span>
+              </p>
+              <p class="text-ink-2">{pkg.text}</p>
             </li>
           ))
         }
       </ul>
+      <a href="#how-to-donate" class="inline-flex min-h-11 items-center self-start font-bold text-navy hover:text-navy">See how to give</a>
     </div>
   </section>
 
@@ -94,19 +109,43 @@ const packages = [1, 2, 3];
 
   <section aria-labelledby="how-to-donate" class="container-site flex flex-col gap-9 py-14 md:py-22">
     <SectionHeading id="how-to-donate" eyebrow="How to donate" title="How to give" />
-    <div class="grid gap-6 md:grid-cols-2">
-      <article class="flex flex-col gap-3 rounded-card bg-surface p-7">
-        <h3 class="text-xl font-bold">Bank transfer</h3>
-        <p class="text-ink-2">[Bank details, to be added after the account title is confirmed]</p>
+    <div class="grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
+      <article aria-labelledby="bank-transfer" class="flex flex-col gap-5 rounded-card bg-surface p-4 sm:p-8">
+        <div class="flex items-center gap-4 px-2 pt-2 sm:p-0">
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-icon bg-green text-navy"><Icon name="heart" /></span>
+          <h3 id="bank-transfer" class="text-xl font-bold">Donate by bank transfer</h3>
+        </div>
+        <dl class="flex flex-col divide-y divide-border rounded-input bg-white">
+          {
+            bankRows.map((row) => (
+              <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-3 sm:px-5">
+                <dt class="text-sm text-muted">{row.label}</dt>
+                <dd class="flex w-full min-w-0 items-center justify-between gap-1 text-[15px] font-semibold [overflow-wrap:anywhere] sm:w-auto sm:gap-2 sm:text-base">
+                  <span>{('display' in row && row.display) || row.value}</span>
+                  {row.copy && (
+                    <button
+                      type="button"
+                      class="hidden min-h-11 shrink-0 rounded-full px-2 text-sm font-bold text-purple hover:bg-surface"
+                      data-copy={row.value}
+                    >
+                      Copy<span class="sr-only"> {row.label.toLowerCase()}</span>
+                    </button>
+                  )}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
       </article>
-      <article class="flex flex-col gap-3 rounded-card bg-surface p-7">
-        <h3 class="text-xl font-bold">Online giving</h3>
-        <p class="text-ink-2">Online giving is coming soon.</p>
-      </article>
+      <aside aria-labelledby="outside-pakistan" class="flex flex-col gap-3 rounded-card border-2 border-border p-6 sm:p-8">
+        <span class="flex size-12 items-center justify-center rounded-icon bg-cyan text-navy"><Icon name="mail" /></span>
+        <h3 id="outside-pakistan" class="text-xl font-bold">Giving from outside Pakistan?</h3>
+        <p class="text-ink-2">
+          Email us at <a href={`mailto:${contact.email}`} class="font-semibold">{contact.email}</a> and we'll help you
+          find the best way to give.
+        </p>
+      </aside>
     </div>
-    <p class="text-ink-2">
-      Questions about giving? Email <a href={`mailto:${contact.email}`} class="font-semibold">{contact.email}</a>
-    </p>
   </section>
 
   <CTABand
@@ -116,3 +155,17 @@ const packages = [1, 2, 3];
     secondary={{ label: 'Contact us', href: '/contact' }}
   />
 </SiteLayout>
+
+<script>
+  // Copy buttons for the account number and IBAN; hidden without JavaScript.
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    if (!navigator.clipboard) continue;
+    button.classList.remove('hidden');
+    const label = button.innerHTML;
+    button.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      button.textContent = 'Copied';
+      setTimeout(() => (button.innerHTML = label), 2000);
+    });
+  }
+</script>
