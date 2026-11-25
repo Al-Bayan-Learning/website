@@ -55,11 +55,15 @@ const jobs = defineCollection({
   loader: loader('jobs'),
   schema: z.object({
     title: z.string(),
-    type: z.enum(['full-time', 'part-time', 'volunteer']),
-    requirements: z.array(z.string()),
-    howToApply: z.string(),
-    closingDate: dateOrPlaceholder,
+    // Number of teachers needed for this role; shown when more than one.
+    positions: z.number().int().positive().default(1),
+    type: z.enum(['full-time', 'part-time', 'volunteer']).optional(),
+    requirements: z.array(z.string()).optional(),
+    howToApply: z.string().optional(),
+    closingDate: dateOrPlaceholder.optional(),
     open: z.boolean(),
+    // Lower numbers come first on /careers.
+    order: z.number().default(0),
   }),
 });
 

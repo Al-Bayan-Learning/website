@@ -14,6 +14,16 @@
   "_featuresNote": "showNews: build /news and show it in the nav, footer and homepage. showDonate: show /donate and the Donate buttons on the production site too (they always show on previews).",
   "showNews": false,
   "showDonate": false,
+  "donate": {
+    "_note": "Account number and IBAN are not stored here (the repo is public): set DONATE_ACCOUNT_NUMBER and DONATE_IBAN in .env locally and as Cloudflare build variables.",
+    "accountTitle": "AL-BAYAN SCHOOL SYSTEM",
+    "bank": "Meezan Bank, DHA Branch, Lahore",
+    "packages": [
+      { "name": "Sponsor a student", "amount": "PKR 6,000", "text": "Keep one child learning with us for a month." },
+      { "name": "Sponsor a chair", "amount": "PKR 25,000", "text": "Support a teacher's salary for a month, keeping a trained teacher in the classroom." },
+      { "name": "Sponsor a classroom", "amount": "PKR 40,000", "text": "Keep a whole classroom running for a month." }
+    ]
+  },
   "foundedYear": "2019",
   "registrationNo": "",
   "contact": {

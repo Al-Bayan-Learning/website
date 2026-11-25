@@ -21,12 +21,16 @@ const facilities = [
   { icon: 'snow', colour: 'bg-white text-navy', name: 'Air-conditioning in selected areas' },
 ] as const;
 
+// Capstone projects are hidden for now; the team will update the text and add
+// a photo, then set this to true.
+const showCapstones = false;
+
 const photoSizes = '(min-width: 1248px) 560px, (min-width: 768px) 45vw, calc(100vw - 48px)';
 const cardPhoto = 'aspect-[16/9] w-full';
 const cardSizes = '(min-width: 1248px) 540px, (min-width: 768px) 45vw, calc(100vw - 96px)';
 ---
 
-<SiteLayout title="Academics" description="How Al-Bayan teaches from Playgroup to Matric: the PCTB curriculum, Learning Beyond the Book, capstone projects, computer education, teacher training and facilities.">
+<SiteLayout title="Academics" description="How Al-Bayan teaches from Playgroup to Matric: the PCTB curriculum, Learning Beyond the Book, computer education, teacher training, and facilities.">
   <PageHero
     eyebrow="Academics"
     title="From first letters to Matric"
@@ -50,41 +54,45 @@ const cardSizes = '(min-width: 1248px) 540px, (min-width: 768px) 45vw, calc(100v
     <div class="flex flex-[1_1_440px] flex-col gap-4">
       <SectionHeading id="beyond-the-book" eyebrow="How we teach" title="Learning Beyond the Book" />
       <p class="text-ink-2">
-        Teachers connect each concept to everyday life, real-world examples and activities, so students understand why it
+        Teachers connect each concept to everyday life, real-world examples, and activities, so students understand why it
         matters and how to use it.
       </p>
       <h3 class="pt-2 text-xl font-bold">From concepts to board exams</h3>
       <p class="text-ink-2">
-        Younger grades focus on understanding. Towards Matric, we gradually introduce board-style questions, past papers and
+        Younger grades focus on understanding. Towards Matric, we gradually introduce board-style questions, past papers, and
         exam formats, so there's no sudden jump.
       </p>
     </div>
     <PhotoFrame label="[Photo: a class project]" photo={photos.independenceDayDiorama} border="cyan" tilt="-rotate-2" sizes={photoSizes} class="aspect-[4/3] flex-[1_1_380px]" />
   </section>
 
-  <section aria-labelledby="capstones" class="band-dark bg-navy text-white">
-    <div class="container-site flex flex-wrap-reverse items-center gap-14 py-14 md:py-22">
-      <PhotoFrame label="[Photo: capstone presentations]" border="gold" tilt="rotate-2" class="aspect-[4/3] flex-[1_1_380px]" />
-      <div class="flex flex-[1_1_440px] flex-col gap-4">
-        <SectionHeading id="capstones" eyebrow="Once a year" title="Capstone projects" tone="dark" />
-        <p class="text-on-navy">
-          Students bring a subject together in one big group project, then present and defend their decisions.
-        </p>
-        <ul class="flex flex-col gap-2 text-on-navy">
-          <li><strong class="text-white">Islamiyat:</strong> design an ideal society based on Islamic principles.</li>
-          <li><strong class="text-white">Science:</strong> tackle problems like water use, energy, pollution and waste.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  {
+    showCapstones && (
+      <section aria-labelledby="capstones" class="band-dark bg-navy text-white">
+        <div class="container-site flex flex-wrap-reverse items-center gap-14 py-14 md:py-22">
+          <PhotoFrame label="[Photo: capstone presentations]" border="gold" tilt="rotate-2" class="aspect-[4/3] flex-[1_1_380px]" />
+          <div class="flex flex-[1_1_440px] flex-col gap-4">
+            <SectionHeading id="capstones" eyebrow="Once a year" title="Capstone projects" tone="dark" />
+            <p class="text-on-navy">
+              Students bring a subject together in one big group project, then present and defend their decisions.
+            </p>
+            <ul class="flex flex-col gap-2 text-on-navy">
+              <li><strong class="text-white">Islamiyat:</strong> design an ideal society based on Islamic principles.</li>
+              <li><strong class="text-white">Science:</strong> tackle problems like water use, energy, pollution, and waste.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section aria-label="Computer education and reading" class="container-site grid gap-6 py-14 md:grid-cols-2 md:py-22">
     <div class="flex flex-col gap-4 rounded-card bg-surface p-6 md:p-8">
       <Photo {...photos.computerLabCoding} sizes={cardSizes} class:list={[cardPhoto, 'rounded-card']} />
       <p class="eyebrow text-purple">Computer education</p>
-      <h2 class="text-[26px] leading-tight font-extrabold">Coding, tools and digital citizenship</h2>
+      <h2 class="text-[26px] leading-tight font-extrabold">Coding, tools, and digital citizenship</h2>
       <p class="text-ink-2">
-        Coding, Word, PowerPoint, Excel and online safety. In the Computer Capstone, students plan a business, then adapt it
+        Coding, Word, PowerPoint, Excel, and online safety. In the Computer Capstone, students plan a business, then adapt it
         when the budget shrinks or a customer complains.
       </p>
     </div>
@@ -127,8 +135,8 @@ const cardSizes = '(min-width: 1248px) 540px, (min-width: 768px) 45vw, calc(100v
         <article class="flex flex-col gap-3 rounded-card bg-white p-8">
           <h3 class="text-xl font-bold">Year-round training and expert-designed exams</h3>
           <p class="text-ink-2">
-            Teachers get training, classroom feedback and office hours all year. Our Education Team designs our exams
-            in-house to test understanding, application, problem-solving and critical thinking, not memorisation. This keeps
+            Teachers get training, classroom feedback, and office hours all year. Our Education Team designs our exams
+            in-house to test understanding, application, problem-solving, and critical thinking, not memorisation. This keeps
             our merit and educational quality consistent all year.
           </p>
         </article>

@@ -45,7 +45,7 @@ export const photos = {
   },
   independenceDayDiorama: {
     src: independenceDayDiorama,
-    alt: 'A student-made model of the migration of 1947, with a train, houses, the Pakistan flag and portraits of the nation’s founders',
+    alt: 'A student-made model of the migration of 1947, with a train, houses, the Pakistan flag, and portraits of the nation’s founders',
   },
   preschoolSunflowerCostume: {
     src: preschoolSunflowerCostume,

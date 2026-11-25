@@ -11,12 +11,12 @@ import { getCollection } from 'astro:content';
 
 // Text: docs/feedback-round-1.md (9b); "Why work here" comes from the Academics text.
 const { contact } = site;
-const jobs = await getCollection('jobs', ({ data }) => data.open);
+const jobs = (await getCollection('jobs', ({ data }) => data.open)).sort((a, b) => a.data.order - b.data.order);
 
 const reasons = [
   {
     title: 'Year-round training',
-    text: 'Training, classroom feedback and office hours throughout the year, not just one annual workshop.',
+    text: 'Training, classroom feedback, and office hours throughout the year, not just one annual workshop.',
   },
   {
     title: 'Subject meetings',
@@ -45,9 +45,15 @@ const reasons = [
       <SectionHeading id="openings-title" eyebrow="Openings" title="Current openings" />
       {
         jobs.length > 0 ? (
-          <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
-            {jobs.map((job) => <JobCard entry={job} />)}
-          </div>
+          <>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {jobs.map((job) => <JobCard entry={job} />)}
+            </div>
+            <p class="text-ink-2">
+              Don't see your subject? You're welcome to send your CV to{' '}
+              <a href={`mailto:${contact.careersEmail}`} class="font-semibold">{contact.careersEmail}</a>.
+            </p>
+          </>
         ) : (
           <p class="max-w-[640px] rounded-card border border-border bg-white p-8 text-lg text-ink-2">
             We don't have any openings right now. You're welcome to send your CV to{' '}
